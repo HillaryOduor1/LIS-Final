@@ -1,0 +1,224 @@
+import * as React from "react";
+import { useSettings } from "../../../stores/settings-store";
+import { TypeIcon, HeadingIcon, AlignLeftIcon, AlignCenterIcon } from "../../icons";
+
+export const TypographyTab: React.FC = () => {
+  const { settings, updateSetting } = useSettings();
+
+  const fontFamilies = [
+    { id: "system" as const, name: "System", value: "system-ui, -apple-system, sans-serif" },
+    { id: "serif" as const, name: "Serif", value: "serif" },
+    { id: "monospace" as const, name: "Monospace", value: "monospace" },
+  ];
+
+  const fontSizeOptions = [
+    { id: "small" as const, label: "Small" },
+    { id: "normal" as const, label: "Medium" },
+    { id: "large" as const, label: "Large" },
+    { id: "xlarge" as const, label: "Extra Large" },
+  ];
+
+  const lineHeightOptions = [
+    { id: 1.2, label: "Tight", value: "1.2" },
+    { id: 1.5, label: "Normal", value: "1.5" },
+    { id: 1.8, label: "Relaxed", value: "1.8" },
+  ];
+
+  const weightOptions = [
+    { id: "normal" as const, label: "Normal", value: "400" },
+    { id: "medium" as const, label: "Medium", value: "500" },
+    { id: "semibold" as const, label: "Semibold", value: "600" },
+    { id: "bold" as const, label: "Bold", value: "700" },
+  ];
+
+  const alignmentOptions = [
+    { id: "left" as const, label: "Left", icon: <AlignLeftIcon size={20} /> },
+    { id: "center" as const, label: "Center", icon: <AlignCenterIcon size={20} /> },
+    { id: "right" as const, label: "Right", icon: <AlignLeftIcon size={20} className="rotate-180" /> },
+    { id: "justify" as const, label: "Justify", icon: <TypeIcon size={20} /> },
+  ];
+
+  return (
+    <div className="space-y-10">
+      {/* Font Family */}
+      <section>
+        <div className="mb-6">
+          <h3 className="text-xl font-bold text-[var(--text)]">Typeface Selection</h3>
+          <p className="text-sm text-[var(--muted)]">Choose the primary font family for the application</p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {fontFamilies.map((font) => (
+            <button
+              key={font.id}
+              onClick={() => updateSetting("typography", {
+                ...settings.typography,
+                fontFamily: font.id
+              })}
+              className={`
+                flex flex-col items-center justify-center p-6 border rounded-2xl transition-all duration-300
+                ${settings.typography.fontFamily === font.id
+                  ? "border-[var(--accent)] bg-[var(--accent)]/5 text-[var(--accent)] ring-1 ring-[var(--accent)]/20 shadow-md"
+                  : "border-border hover:border-[var(--muted)] hover:bg-[var(--surface)] text-[var(--muted)]"
+                }
+              `}
+              style={{ fontFamily: font.value }}
+            >
+              <TypeIcon size={28} className="mb-3" />
+              <span className="font-bold text-sm tracking-wide">{font.name}</span>
+              <div className="mt-2 text-xs opacity-60">
+                The quick brown fox
+              </div>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* Font Size & Weights */}
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div className="space-y-6">
+          <div>
+            <h4 className="font-bold text-[var(--text)] mb-1">Base Font Size</h4>
+            <p className="text-xs text-[var(--muted)]">Update global text responsiveness</p>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            {fontSizeOptions.map((option) => (
+              <button
+                key={option.id}
+                onClick={() => updateSetting("typography", {
+                  ...settings.typography,
+                  fontSize: option.id
+                })}
+                className={`
+                  p-4 border rounded-xl transition-all font-bold text-xs
+                  ${settings.typography.fontSize === option.id
+                    ? "border-[var(--accent)] bg-[var(--accent)]/5 text-[var(--accent)]"
+                    : "border-border hover:bg-[var(--surface)] text-[var(--muted)]"
+                  }
+                `}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="space-y-6">
+          <div>
+            <h4 className="font-bold text-[var(--text)] mb-1">Line Height</h4>
+            <p className="text-xs text-[var(--muted)]">Optimize vertical readability</p>
+          </div>
+          <div className="grid grid-cols-1 gap-2">
+            {lineHeightOptions.map((option) => (
+              <button
+                key={option.id}
+                onClick={() => updateSetting("typography", {
+                  ...settings.typography,
+                  lineHeight: option.id
+                })}
+                className={`
+                  flex items-center justify-between px-5 py-3 border rounded-xl transition-all
+                  ${settings.typography.lineHeight === option.id
+                    ? "border-[var(--accent)] bg-[var(--accent)]/5 text-[var(--accent)]"
+                    : "border-border hover:bg-[var(--surface)] text-[var(--muted)]"
+                  }
+                `}
+              >
+                <span className="text-sm font-bold">{option.label}</span>
+                <span className="text-xs font-mono opacity-50">{option.id}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Font Weights */}
+      <section className="p-6 border border-border rounded-3xl bg-[var(--surface)]/20">
+        <div className="mb-6">
+          <h3 className="text-lg font-bold text-[var(--text)]">Emphasis & Hierarchy</h3>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-4">
+            <label className="text-[10px] font-bold text-[var(--text)] uppercase tracking-widest opacity-50">Body Weight</label>
+            <div className="grid grid-cols-2 gap-2">
+              {weightOptions.map((weight) => (
+                <button
+                  key={weight.id}
+                  onClick={() => updateSetting("typography", {
+                    ...settings.typography,
+                    bodyWeight: weight.id
+                  })}
+                  className={`
+                    p-3 border rounded-xl text-center transition-all text-xs
+                    ${settings.typography.bodyWeight === weight.id
+                      ? "border-[var(--accent)] bg-[var(--accent)]/5 text-[var(--accent)] shadow-sm"
+                      : "border-border hover:bg-[var(--surface)] text-[var(--muted)]"
+                    }
+                  `}
+                  style={{ fontWeight: weight.value }}
+                >
+                  {weight.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <label className="text-[10px] font-bold text-[var(--text)] uppercase tracking-widest opacity-50">Heading Weight</label>
+            <div className="grid grid-cols-2 gap-2">
+              {weightOptions.slice(2).map((weight) => (
+                <button
+                  key={weight.id}
+                  onClick={() => updateSetting("typography", {
+                    ...settings.typography,
+                    headingWeight: weight.id
+                  })}
+                  className={`
+                    p-3 border rounded-xl text-center transition-all text-xs
+                    ${settings.typography.headingWeight === weight.id
+                      ? "border-[var(--accent)] bg-[var(--accent)]/5 text-[var(--accent)] shadow-sm"
+                      : "border-border hover:bg-[var(--surface)] text-[var(--muted)]"
+                    }
+                  `}
+                  style={{ fontWeight: weight.value }}
+                >
+                  {weight.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Alignment */}
+      <section>
+        <div className="mb-6">
+          <h3 className="text-xl font-bold text-[var(--text)]">Global Alignment</h3>
+        </div>
+
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+          {alignmentOptions.map((align) => (
+            <button
+              key={align.id}
+              onClick={() => updateSetting("typography", {
+                ...settings.typography,
+                textAlign: align.id
+              })}
+              className={`
+                flex flex-col items-center justify-center p-5 border rounded-2xl transition-all
+                ${settings.typography.textAlign === align.id
+                  ? "border-[var(--accent)] bg-[var(--accent)]/5 text-[var(--accent)]"
+                  : "border-border hover:bg-[var(--surface)] text-[var(--muted)]"
+                }
+              `}
+            >
+              <div className="mb-2 p-2 rounded-lg bg-[var(--bg)]">{align.icon}</div>
+              <span className="font-bold text-xs">{align.label}</span>
+            </button>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+};

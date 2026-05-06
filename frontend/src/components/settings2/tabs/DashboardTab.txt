@@ -1,0 +1,99 @@
+import * as React from "react";
+
+interface BackendStats {
+    themeMode: string;
+    primaryColor: string;
+    sectionCount: number;
+    lastUpdated: string;
+}
+
+export const DashboardTab: React.FC = () => {
+    const [backendStats, setBackendStats] = React.useState<BackendStats | null>(null);
+
+    React.useEffect(() => {
+        fetch("http://localhost:5000/api/stats")
+            .then(res => res.json())
+            .then(data => setBackendStats(data))
+            .catch(err => console.error("Failed to fetch dashboard stats:", err));
+    }, []);
+
+    const stats = [
+        { label: "Theme Mode", value: backendStats?.themeMode || "Loading...", change: "Live", trending: "up" },
+        { label: "Content Sections", value: backendStats?.sectionCount?.toString() || "0", change: "CMS", trending: "up" },
+        { label: "Primary Color", value: backendStats?.primaryColor || "N/A", change: "Active", trending: "up" },
+        { label: "Last Sync", value: backendStats ? new Date(backendStats.lastUpdated).toLocaleTimeString() : "Pending", change: "Sync", trending: "up" },
+    ];
+
+    const recentActivity = [
+        { user: "Admin", action: "Updated CMS content", time: "Just now" },
+        { user: "System", action: "Settings synchronized with backend", time: "1 min ago" },
+        { user: "Admin", action: "Theme configuration updated", time: "2 mins ago" },
+        { user: "System", action: "Backend health check passed", time: "5 mins ago" },
+    ];
+
+    return (
+        <div className="space-y-8">
+            {/* Stats Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {stats.map((stat, i) => (
+                    <div key={i} className="p-4 border border-[var(--border)] rounded-xl bg-[var(--surface)]">
+                        <div className="text-sm text-[var(--muted)] font-medium mb-1">{stat.label}</div>
+                        <div className="flex items-end justify-between">
+                            <div className="text-xl font-bold text-[var(--text)] truncate max-w-[120px]">{stat.value}</div>
+                            <div className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-[var(--accent)]/10 text-[var(--accent)]">
+                                {stat.change}
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Recent Activity */}
+                <div className="space-y-4">
+                    <h3 className="text-lg font-bold text-[var(--text)]">CMS History</h3>
+                    <div className="space-y-3">
+                        {recentActivity.map((activity, i) => (
+                            <div key={i} className="flex items-center justify-between p-3 border border-[var(--border)] rounded-lg hover:bg-[var(--accent)]/5 transition-colors">
+                                <div className="flex items-center gap-3">
+                                    <div className="size-8 bg-[var(--accent)]/10 text-[var(--accent)] rounded-lg flex items-center justify-center font-bold text-xs">
+                                        {activity.user[0]}
+                                    </div>
+                                    <div>
+                                        <div className="text-sm font-bold text-[var(--text)]">{activity.action}</div>
+                                        <div className="text-xs text-[var(--muted)]">{activity.user}</div>
+                                    </div>
+                                </div>
+                                <div className="text-xs text-[var(--muted)]">{activity.time}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* System Health */}
+                <div className="space-y-4">
+                    <h3 className="text-lg font-bold text-[var(--text)]">CMS Status</h3>
+                    <div className="p-6 border border-[var(--border)] rounded-xl bg-[var(--surface)] space-y-6">
+                        <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium text-[var(--text)]">API Connection</span>
+                            <span className="flex items-center gap-2 text-xs text-green-500">
+                                <div className="size-2 bg-green-500 rounded-full animate-pulse" />
+                                Operational
+                            </span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                            <span className="text-sm font-medium text-[var(--text)]">Storage Sync</span>
+                            <span className="text-xs text-[var(--muted)]">Automatic</span>
+                        </div>
+                        <div className="pt-4 border-t border-[var(--border)]">
+                            <p className="text-xs text-[var(--muted)] leading-relaxed">
+                                The CMS is now fully integrated with the backend. Changes made in the Content tab are persisted instantly to the server.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+

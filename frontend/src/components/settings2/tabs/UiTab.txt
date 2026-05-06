@@ -1,0 +1,103 @@
+import * as React from "react";
+import { useSettings } from "../../../stores/settings-store";
+import { Monitor, MousePointer, ZoomIn } from "../../icons";
+
+export const UITab: React.FC = () => {
+  const { settings, updateSetting } = useSettings();
+
+  const densities = [
+    { id: "compact", label: "Compact", icon: <ZoomIn size={16} /> },
+    { id: "comfortable", label: "Comfortable", icon: <Monitor size={16} /> },
+    { id: "spacious", label: "Spacious", icon: <MousePointer size={16} /> },
+  ];
+
+  const animationLevels = [
+    { id: "full", label: "Full" },
+    { id: "reduced", label: "Reduced" },
+    { id: "none", label: "None" },
+  ];
+
+  const buttonStyles = [
+    { id: "rounded", label: "Rounded" },
+    { id: "pill", label: "Pill" },
+    { id: "square", label: "Square" },
+  ];
+
+  return (
+    <div className="space-y-8">
+      {/* Interface Density */}
+      <section>
+        <div className="flex items-center gap-2 mb-4">
+          <Monitor size={18} className="text-[var(--accent)]" />
+          <h4 className="font-semibold text-[var(--text)]">Interface Density</h4>
+        </div>
+        <div className="grid grid-cols-3 gap-3">
+          {densities.map((d) => (
+            <button
+              key={d.id}
+              onClick={() => updateSetting("ui", { ...settings.ui, density: d.id as any })}
+              className={`
+                flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all
+                ${settings.ui.density === d.id
+                  ? "border-[var(--accent)] bg-[var(--accent)]/5 text-[var(--accent)] shadow-sm shadow-[var(--accent)]/10"
+                  : "border-border hover:border-[var(--muted)] text-[var(--muted)]"
+                }
+              `}
+            >
+              {d.icon}
+              <span className="text-xs font-medium">{d.label}</span>
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* Animations */}
+      <section>
+        <div className="flex items-center gap-2 mb-4">
+          <div className="size-4 rounded-full border-2 border-[var(--accent)] border-t-transparent animate-spin" />
+          <h4 className="font-semibold text-[var(--text)]">Animations</h4>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {animationLevels.map((level) => (
+            <button
+              key={level.id}
+              onClick={() => updateSetting("ui", { ...settings.ui, animations: level.id as any })}
+              className={`
+                px-4 py-2 rounded-lg text-sm font-medium transition-all
+                ${settings.ui.animations === level.id
+                  ? "bg-[var(--accent)] text-white shadow-lg shadow-[var(--accent)]/20"
+                  : "bg-[var(--surface)] text-[var(--muted)] hover:bg-[var(--accent)]/10 hover:text-[var(--accent)]"
+                }
+              `}
+            >
+              {level.label}
+            </button>
+          ))}
+        </div>
+      </section>
+
+      {/* Button Style */}
+      <section>
+        <h4 className="font-semibold text-[var(--text)] mb-4">Button Style</h4>
+        <div className="flex flex-wrap gap-3">
+          {buttonStyles.map((style) => (
+            <button
+              key={style.id}
+              onClick={() => updateSetting("ui", { ...settings.ui, buttonStyle: style.id as any })}
+              className={`
+                px-6 py-2 border-2 transition-all text-sm font-medium
+                ${settings.ui.buttonStyle === style.id
+                  ? "border-[var(--accent)] text-[var(--accent)]"
+                  : "border-border text-[var(--muted)] hover:border-[var(--muted)]"
+                }
+                ${style.id === "rounded" ? "rounded-lg" : style.id === "pill" ? "rounded-full" : "rounded-none"}
+              `}
+            >
+              {style.label}
+            </button>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+};

@@ -1,0 +1,138 @@
+/*import * as React from "react";
+
+interface SettingsButtonProps {
+  onClick: () => void;
+}
+
+export const SettingsButton: React.FC<SettingsButtonProps> = ({ onClick }) => {
+  return React.createElement(
+    "button",
+    {
+      className: "settings-button",
+      onClick: onClick,
+      style: {
+        position: "fixed",
+        bottom: "2rem",
+        right: "2rem",
+        width: "3.5rem",
+        height: "3.5rem",
+        borderRadius: "50%",
+        background: "#db2777",
+        color: "white",
+        border: "none",
+        cursor: "pointer",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: "1.5rem",
+        boxShadow: "0 4px 12px rgba(219, 39, 119, 0.3)",
+        zIndex: 999,
+        transition: "all 0.2s ease"
+      },
+      onMouseEnter: function (e: React.MouseEvent<HTMLButtonElement>) {
+        e.currentTarget.style.transform = "scale(1.1)";
+        e.currentTarget.style.boxShadow = "0 6px 16px rgba(219, 39, 119, 0.4)";
+      },
+      onMouseLeave: function (e: React.MouseEvent<HTMLButtonElement>) {
+        e.currentTarget.style.transform = "scale(1)";
+        e.currentTarget.style.boxShadow = "0 4px 12px rgba(219, 39, 119, 0.3)";
+      }
+    },
+    "⚙️"
+  );
+};*/
+/*
+import * as React from "react";
+import { SettingsIcon } from "../icons";
+
+export default function SettingsButton(props: {
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      className="settings-button"
+      aria-label="Open settings"
+      onClick={props.onClick}
+    >
+      <SettingsIcon size={20} />
+    </button>
+  );
+}*/
+
+/*
+import * as React from "react";
+import { SettingsIcon } from "../icons";
+
+interface SettingsButtonProps {
+  onClick?: () => void;
+}
+
+export default function SettingsButton({ onClick }: SettingsButtonProps) {
+  const handleClick = React.useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    console.log('SettingsButton: onClick type is', typeof onClick);
+    
+    if (onClick && typeof onClick === 'function') {
+      console.log('Calling onClick handler');
+      try {
+        onClick();
+      } catch (error) {
+        console.error('Error calling onClick:', error);
+        alert('Error opening settings. Please try again.');
+      }
+    } else {
+      console.error('SettingsButton ERROR: onClick is not a function or is undefined');
+    }
+  }, [onClick]);
+
+  return (
+    <button
+      type="button"
+      className="settings-button"
+      aria-label="Open settings"
+      onClick={handleClick}
+      style={{
+        background: 'none',
+        border: 'none',
+        cursor: 'pointer',
+        padding: '8px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: '6px',
+        transition: 'background-color 0.2s',
+        color: 'inherit'
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.backgroundColor = 'transparent';
+      }}
+      title="Open settings"
+    >
+      <SettingsIcon size={20} />
+    </button>
+  );
+}*/
+
+import * as React from "react";
+import { Link } from "react-router-dom";
+import { SettingsIcon } from "../icons";
+
+export default function SettingsButton() {
+  return (
+    <Link
+      to="/admin"
+      className="group flex items-center justify-center p-2 rounded-lg transition-all duration-300 hover:bg-[var(--accent)]/10 text-[var(--muted)] hover:text-[var(--accent)]"
+      title="Open settings"
+      aria-label="Open settings"
+    >
+      <SettingsIcon
+        size={22}
+        className="transition-transform duration-700 group-hover:rotate-180"
+      />
+    </Link>
+  );
+}

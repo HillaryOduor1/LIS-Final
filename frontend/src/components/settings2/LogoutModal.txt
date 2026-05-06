@@ -1,0 +1,57 @@
+import * as React from "react";
+import { LogOutIcon, AlertTriangle } from "../icons";
+
+interface LogoutModalProps {
+    isOpen: boolean;
+    onClose: () => void;
+    onConfirm: () => void;
+}
+
+const LogoutModal: React.FC<LogoutModalProps> = ({ isOpen, onClose, onConfirm }) => {
+    if (!isOpen) return null;
+
+    return (
+        <div
+            className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-in fade-in duration-200"
+            onClick={onClose}
+        >
+            <div
+                className="w-full max-w-sm bg-[var(--surface)] border border-[var(--border)] rounded-2xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200"
+                onClick={(e) => e.stopPropagation()}
+            >
+                <div className="p-6 text-center">
+                    <div className="size-16 bg-red-500/10 text-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <LogOutIcon size={32} />
+                    </div>
+
+                    <h3 className="text-xl font-bold text-[var(--text)] mb-2">Confirm Logout</h3>
+                    <p className="text-[var(--muted)] text-sm mb-6">
+                        Are you sure you want to end your current session? You will need to log in again to access the admin features.
+                    </p>
+
+                    <div className="grid grid-cols-2 gap-3">
+                        <button
+                            onClick={onClose}
+                            className="px-4 py-2.5 bg-[var(--bg)] border border-[var(--border)] text-[var(--text)] font-semibold rounded-xl hover:bg-[var(--surface)] transition-all active:scale-[0.98]"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            onClick={onConfirm}
+                            className="px-4 py-2.5 bg-red-500 text-white font-semibold rounded-xl hover:filter hover:brightness-110 shadow-lg shadow-red-500/20 transition-all active:scale-[0.98]"
+                        >
+                            Logout
+                        </button>
+                    </div>
+                </div>
+
+                <div className="px-6 py-3 bg-[var(--bg)] border-t border-[var(--border)] flex items-center justify-center gap-2">
+                    <AlertTriangle size={14} className="text-yellow-500" />
+                    <span className="text-[10px] text-[var(--muted)] uppercase tracking-widest font-medium">Secure Logout Procedure</span>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default LogoutModal;

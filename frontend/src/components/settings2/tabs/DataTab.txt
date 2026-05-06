@@ -1,0 +1,383 @@
+import * as React from "react";
+import { useState } from "react";
+import { useContent } from "../../../content/useContext";
+
+// Basic Tab Component for internal navigation
+const TabButton = ({ active, onClick, children }: any) => (
+  <button
+    onClick={onClick}
+    className={`px-4 py-2 text-sm font-medium rounded-md whitespace-nowrap transition-colors ${active
+      ? "bg-[var(--accent)]/10 text-[var(--accent)]"
+      : "text-[var(--muted)] hover:bg-[var(--surface)] hover:text-[var(--text)]"
+      }`}
+  >
+    {children}
+  </button>
+);
+
+const InputGroup = ({ label, value, onChange, type = "text", rows = 1 }: any) => (
+  <div className="space-y-1">
+    <label className="block text-xs font-bold text-[var(--muted)] uppercase tracking-widest opacity-70">
+      {label}
+    </label>
+    {rows > 1 ? (
+      <textarea
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        rows={rows}
+        className="
+            w-full px-3 py-2 
+            bg-[var(--bg)] 
+            border border-[var(--border)] 
+            rounded-lg text-sm 
+            focus:outline-none focus:border-[var(--accent)]
+            transition-colors
+          "
+      />
+    ) : (
+      <input
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="
+          w-full px-3 py-2 
+          bg-[var(--bg)] 
+          border border-[var(--border)] 
+          rounded-lg text-sm 
+          focus:outline-none focus:border-[var(--accent)]
+          transition-colors
+        "
+      />
+    )}
+  </div>
+);
+
+export const DataTab: React.FC = () => {
+  const { content, setContent, resetContent } = useContent();
+  const [activeSubTab, setActiveSubTab] = useState("hero");
+
+  /* ---------------- HERO UPDATERS ---------------- */
+  const updateHero = (field: string, value: any) => {
+    setContent({
+      ...content,
+      hero: { ...content.hero, [field]: value },
+    });
+  };
+
+  const updateHeroFeature = (index: number, value: string) => {
+    const newFeatures = [...content.hero.features];
+    newFeatures[index] = value;
+    updateHero("features", newFeatures);
+  };
+
+  /* ---------------- FEATURES UPDATERS ---------------- */
+  const updateFeature = (index: number, field: string, value: string) => {
+    const newFeatures = [...content.features];
+    newFeatures[index] = { ...newFeatures[index], [field]: value };
+    setContent({ ...content, features: newFeatures });
+  };
+
+  /* ---------------- PRICING UPDATERS ---------------- */
+  const updatePricing = (index: number, field: string, value: any) => {
+    const newPricing = [...content.pricing];
+    newPricing[index] = { ...newPricing[index], [field]: value };
+    setContent({ ...content, pricing: newPricing });
+  };
+
+  /* ---------------- TESTIMONIALS UPDATERS ---------------- */
+  const updateTestimonial = (index: number, field: string, value: string) => {
+    const newTestimonials = [...content.testimonials];
+    newTestimonials[index] = { ...newTestimonials[index], [field]: value };
+    setContent({ ...content, testimonials: newTestimonials });
+  };
+
+  /* ---------------- CONTACT UPDATERS ---------------- */
+  const updateContactTitle = (field: string, value: string) => {
+    setContent({
+      ...content,
+      contact: {
+        ...content.contact,
+        sectionTitle: { ...content.contact.sectionTitle, [field]: value },
+      },
+    });
+  };
+
+  const updateContactForm = (field: string, value: string) => {
+    setContent({
+      ...content,
+      contact: {
+        ...content.contact,
+        form: { ...content.contact.form, [field]: value },
+      },
+    });
+  };
+
+  /* ---------------- NAVBAR UPDATERS ---------------- */
+  const updateNavLink = (index: number, field: string, value: string) => {
+    const newLinks = [...content.navigation];
+    newLinks[index] = { ...newLinks[index], [field]: value };
+    setContent({ ...content, navigation: newLinks });
+  };
+
+  /* ---------------- FOOTER UPDATERS ---------------- */
+  const updateFooterLink = (sectionIndex: number, linkIndex: number, field: string, value: string) => {
+    const newFooter = [...content.footer];
+    newFooter[sectionIndex].links[linkIndex] = {
+      ...newFooter[sectionIndex].links[linkIndex],
+      [field]: value
+    };
+    setContent({ ...content, footer: newFooter });
+  };
+
+  const updateCTA = (field: string, value: string) => {
+    setContent({
+      ...content,
+      cta: { ...content.cta, [field]: value },
+    });
+  };
+
+  /* ---------------- NAVBAR UPDATERS ---------------- */
+
+
+  /* ---------------- RENDER HELPERS ---------------- */
+  const renderHeroEditor = () => (
+    <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <InputGroup
+          label="Badge Text"
+          value={content.hero.announcementBadge}
+          onChange={(v: string) => updateHero("announcementBadge", v)}
+        />
+        <InputGroup
+          label="Badge Description"
+          value={content.hero.announcementText}
+          onChange={(v: string) => updateHero("announcementText", v)}
+        />
+      </div>
+
+      <InputGroup
+        label="Headline"
+        value={content.hero.headline}
+        onChange={(v: string) => updateHero("headline", v)}
+      />
+
+      <InputGroup
+        label="Highlighted Text"
+        value={content.hero.highlightedText}
+        onChange={(v: string) => updateHero("highlightedText", v)}
+      />
+
+      <InputGroup
+        label="Subtext"
+        value={content.hero.subtext}
+        onChange={(v: string) => updateHero("subtext", v)}
+        rows={3}
+      />
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <InputGroup
+          label="Primary Button"
+          value={content.hero.primaryButtonText}
+          onChange={(v: string) => updateHero("primaryButtonText", v)}
+        />
+        <InputGroup
+          label="Secondary Button"
+          value={content.hero.secondaryButtonText}
+          onChange={(v: string) => updateHero("secondaryButtonText", v)}
+        />
+      </div>
+
+      <div className="space-y-3 pt-2">
+        <label className="block text-xs font-bold text-[var(--muted)] uppercase tracking-widest opacity-70">
+          Hero Features
+        </label>
+        {content.hero.features.map((feature, idx) => (
+          <input
+            key={idx}
+            value={feature}
+            onChange={(e) => updateHeroFeature(idx, e.target.value)}
+            className="w-full px-3 py-2 bg-[var(--bg)] border border-[var(--border)] rounded-lg text-sm"
+          />
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderFeaturesEditor = () => (
+    <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-300">
+      {content.features.map((feature, idx) => (
+        <div key={idx} className="p-4 rounded-xl bg-[var(--surface)] border border-[var(--border)] space-y-4">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="flex items-center justify-center w-6 h-6 rounded-full bg-[var(--accent)]/10 text-[var(--accent)] text-xs font-bold">
+              {idx + 1}
+            </span>
+            <span className="text-sm font-bold text-[var(--text)]">
+              Feature {idx + 1}
+            </span>
+          </div>
+
+          <InputGroup
+            label="Title"
+            value={feature.title}
+            onChange={(v: string) => updateFeature(idx, "title", v)}
+          />
+          <InputGroup
+            label="Description"
+            value={feature.description}
+            onChange={(v: string) => updateFeature(idx, "description", v)}
+            rows={2}
+          />
+        </div>
+      ))}
+    </div>
+  );
+
+  return (
+    <div className="flex flex-col h-full">
+      <div className="flex items-center justify-between mb-6">
+        <h3 className="text-xl font-bold text-[var(--text)]">
+          Content Editor
+        </h3>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => {
+              // In a real app, you might trigger a save to backend here.
+              // For now, we'll just show a visual confirmation since context updates are immediate.
+              const btn = document.getElementById('save-data-btn');
+              if (btn) {
+                const originalText = btn.innerText;
+                btn.innerText = 'Saved!';
+                btn.classList.add('bg-green-600', 'text-white');
+                setTimeout(() => {
+                  btn.innerText = originalText;
+                  btn.classList.remove('bg-green-600', 'text-white');
+                }, 2000);
+              }
+            }}
+            id="save-data-btn"
+            className="px-3 py-1.5 text-xs font-medium bg-[var(--accent)] text-white rounded-md hover:filter hover:brightness-110 transition-colors"
+          >
+            Save Changes
+          </button>
+          <button
+            onClick={resetContent}
+            className="text-xs text-red-500 hover:text-red-600 underline"
+          >
+            Reset to Defaults
+          </button>
+        </div>
+      </div>
+
+      {/* Internal Navigation */}
+      <div className="flex overflow-x-auto pb-2 mb-6 gap-2 no-scrollbar">
+        <TabButton active={activeSubTab === "hero"} onClick={() => setActiveSubTab("hero")}>Hero</TabButton>
+        <TabButton active={activeSubTab === "features"} onClick={() => setActiveSubTab("features")}>Features</TabButton>
+        <TabButton active={activeSubTab === "pricing"} onClick={() => setActiveSubTab("pricing")}>Pricing</TabButton>
+        <TabButton active={activeSubTab === "testimonials"} onClick={() => setActiveSubTab("testimonials")}>Testimonials</TabButton>
+        <TabButton active={activeSubTab === "contact"} onClick={() => setActiveSubTab("contact")}>Contact</TabButton>
+        <TabButton active={activeSubTab === "cta"} onClick={() => setActiveSubTab("cta")}>CTA</TabButton>
+        <TabButton active={activeSubTab === "navbar"} onClick={() => setActiveSubTab("navbar")}>Navbar</TabButton>
+        <TabButton active={activeSubTab === "footer"} onClick={() => setActiveSubTab("footer")}>Footer</TabButton>
+
+
+      </div>
+
+      {/* Content Area */}
+      <div className="flex-1 overflow-y-auto pr-2 pb-20 custom-scrollbar">
+        {activeSubTab === "hero" && renderHeroEditor()}
+        {activeSubTab === "features" && renderFeaturesEditor()}
+
+        {activeSubTab === "pricing" && (
+          <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-300">
+            {content.pricing.map((plan, idx) => (
+              <div key={idx} className="p-4 rounded-xl bg-[var(--surface)] border border-[var(--border)] space-y-4">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-bold text-[var(--text)]">
+                    {plan.name} Plan
+                  </span>
+                  {plan.mostPopular && <span className="text-xs bg-[var(--accent)] text-white px-2 py-0.5 rounded-full font-bold shadow-sm shadow-[var(--accent)]/20">Popular</span>}
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <InputGroup label="Name" value={plan.name} onChange={(v: string) => updatePricing(idx, "name", v)} />
+                  <InputGroup label="Price" value={plan.price} type="number" onChange={(v: string) => updatePricing(idx, "price", v === "" ? 0 : parseFloat(v))} />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {activeSubTab === "testimonials" && (
+          <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-300">
+            {content.testimonials.map((t, idx) => (
+              <div key={idx} className="p-4 rounded-xl bg-[var(--surface)] border border-[var(--border)] space-y-4">
+                <InputGroup label="Name" value={t.name} onChange={(v: string) => updateTestimonial(idx, "name", v)} />
+                <InputGroup label="Handle" value={t.handle} onChange={(v: string) => updateTestimonial(idx, "handle", v)} />
+                <InputGroup label="Quote" value={t.quote} onChange={(v: string) => updateTestimonial(idx, "quote", v)} rows={2} />
+              </div>
+            ))}
+          </div>
+        )}
+
+        {activeSubTab === "contact" && (
+          <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-300">
+            <div className="space-y-4">
+              <h4 className="text-xs font-bold text-[var(--muted)] uppercase tracking-widest opacity-70 border-b border-[var(--border)] pb-2">Section Title</h4>
+              <div className="grid grid-cols-3 gap-2">
+                <InputGroup label="Word 1" value={content.contact.sectionTitle.text1} onChange={(v: string) => updateContactTitle("text1", v)} />
+                <InputGroup label="Word 2" value={content.contact.sectionTitle.text2} onChange={(v: string) => updateContactTitle("text2", v)} />
+                <InputGroup label="Word 3" value={content.contact.sectionTitle.text3} onChange={(v: string) => updateContactTitle("text3", v)} />
+              </div>
+            </div>
+
+            <div className="space-y-4 pt-4">
+              <h4 className="text-xs font-bold text-[var(--muted)] uppercase tracking-widest opacity-70 border-b border-[var(--border)] pb-2">Form Labels</h4>
+              <InputGroup label="Name Label" value={content.contact.form.nameLabel} onChange={(v: string) => updateContactForm("nameLabel", v)} />
+              <InputGroup label="Email Label" value={content.contact.form.emailLabel} onChange={(v: string) => updateContactForm("emailLabel", v)} />
+              <InputGroup label="Message Label" value={content.contact.form.messageLabel} onChange={(v: string) => updateContactForm("messageLabel", v)} />
+            </div>
+          </div>
+        )}
+
+        {activeSubTab === "cta" && (
+          <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+            <InputGroup label="Title" value={content.cta.title} onChange={(v: string) => updateCTA("title", v)} />
+            <InputGroup label="Description" value={content.cta.description} onChange={(v: string) => updateCTA("description", v)} rows={2} />
+            <InputGroup label="Button Text" value={content.cta.buttonText} onChange={(v: string) => updateCTA("buttonText", v)} />
+          </div>
+        )}
+
+        {activeSubTab === "navbar" && (
+          <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-300">
+            {content.navigation.map((link, idx) => (
+              <div key={idx} className="p-4 rounded-xl bg-[var(--surface)] border border-[var(--border)] space-y-4">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-sm font-bold text-[var(--text)]">Link {idx + 1}</span>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <InputGroup label="Name" value={link.name} onChange={(v: string) => updateNavLink(idx, "name", v)} />
+                  <InputGroup label="Href" value={link.href} onChange={(v: string) => updateNavLink(idx, "href", v)} />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {activeSubTab === "footer" && (
+          <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-300">
+            {content.footer.map((section, sIdx) => (
+              <div key={sIdx} className="space-y-4">
+                <h4 className="text-sm font-bold text-[var(--text)]">{section.title} Links</h4>
+                {section.links.map((link, lIdx) => (
+                  <div key={lIdx} className="p-4 rounded-xl bg-[var(--surface)] border border-[var(--border)] grid grid-cols-2 gap-4">
+                    <InputGroup label="Name" value={link.name} onChange={(v: string) => updateFooterLink(sIdx, lIdx, "name", v)} />
+                    <InputGroup label="Href" value={link.href} onChange={(v: string) => updateFooterLink(sIdx, lIdx, "href", v)} />
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};

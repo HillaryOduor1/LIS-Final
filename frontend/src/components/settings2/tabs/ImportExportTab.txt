@@ -1,0 +1,10 @@
+import * as React from "react";
+
+export const ImportExportTab: React.FC = () => {
+  return React.createElement(
+    "div",
+    null,
+    React.createElement("h3", null, "Import/Export Settings"),
+    React.createElement("p", null, "Import/Export settings coming soon...")
+  );
+};

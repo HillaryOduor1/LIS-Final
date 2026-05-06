@@ -1,0 +1,107 @@
+import * as React from "react";
+import { useContent } from "../../../content/useContext";
+
+export const CmsContentTab: React.FC = () => {
+    const { content, updateContent, isSaving } = useContent();
+    const [localContent, setLocalContent] = React.useState(content);
+
+    React.useEffect(() => {
+        setLocalContent(content);
+    }, [content]);
+
+    const handleSave = async () => {
+        await updateContent(localContent);
+    };
+
+    const updateNestedField = (section: string, field: string, value: string) => {
+        setLocalContent({
+            ...localContent,
+            [section]: {
+                ...(localContent as any)[section],
+                [field]: value
+            }
+        });
+    };
+
+    return (
+        <div className="space-y-8">
+            <div className="flex items-center justify-between">
+                <div>
+                    <h4 className="text-lg font-bold text-[var(--text)]">Site Content</h4>
+                    <p className="text-sm text-[var(--muted)]">Edit the text and information displayed on your site.</p>
+                </div>
+                <button
+                    onClick={handleSave}
+                    disabled={isSaving}
+                    className={`px-4 py-2 rounded-lg font-medium transition-all ${isSaving
+                            ? "bg-[var(--muted)] cursor-not-allowed"
+                            : "bg-[var(--accent)] text-white hover:shadow-lg shadow-[var(--accent)]/20"
+                        }`}
+                >
+                    {isSaving ? "Saving..." : "Save Changes"}
+                </button>
+            </div>
+
+            <div className="space-y-6">
+                {/* Hero Section */}
+                <div className="p-6 border border-[var(--border)] rounded-xl bg-[var(--surface)] space-y-4">
+                    <h5 className="font-bold text-[var(--text)] border-b border-[var(--border)] pb-2">Hero Section</h5>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                            <label className="text-xs font-medium text-[var(--muted)] uppercase tracking-wider">Headline</label>
+                            <input
+                                type="text"
+                                value={localContent.hero.headline}
+                                onChange={(e) => updateNestedField('hero', 'headline', e.target.value)}
+                                className="w-full px-3 py-2 bg-[var(--bg)] border border-[var(--border)] rounded-lg text-sm text-[var(--text)] focus:border-[var(--accent)] outline-none"
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-xs font-medium text-[var(--muted)] uppercase tracking-wider">Highlighted Text</label>
+                            <input
+                                type="text"
+                                value={localContent.hero.highlightedText}
+                                onChange={(e) => updateNestedField('hero', 'highlightedText', e.target.value)}
+                                className="size-full px-3 py-2 bg-[var(--bg)] border border-[var(--border)] rounded-lg text-sm text-[var(--text)] focus:border-[var(--accent)] outline-none"
+                            />
+                        </div>
+                        <div className="md:col-span-2 space-y-2">
+                            <label className="text-xs font-medium text-[var(--muted)] uppercase tracking-wider">Subtext</label>
+                            <textarea
+                                rows={3}
+                                value={localContent.hero.subtext}
+                                onChange={(e) => updateNestedField('hero', 'subtext', e.target.value)}
+                                className="w-full px-3 py-2 bg-[var(--bg)] border border-[var(--border)] rounded-lg text-sm text-[var(--text)] focus:border-[var(--accent)] outline-none resize-none"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                {/* CTA Section */}
+                <div className="p-6 border border-[var(--border)] rounded-xl bg-[var(--surface)] space-y-4">
+                    <h5 className="font-bold text-[var(--text)] border-b border-[var(--border)] pb-2">Call to Action</h5>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                            <label className="text-xs font-medium text-[var(--muted)] uppercase tracking-wider">Title</label>
+                            <input
+                                type="text"
+                                value={localContent.cta.title}
+                                onChange={(e) => updateNestedField('cta', 'title', e.target.value)}
+                                className="w-full px-3 py-2 bg-[var(--bg)] border border-[var(--border)] rounded-lg text-sm text-[var(--text)] focus:border-[var(--accent)] outline-none"
+                            />
+                        </div>
+                        <div className="space-y-2">
+                            <label className="text-xs font-medium text-[var(--muted)] uppercase tracking-wider">Button Text</label>
+                            <input
+                                type="text"
+                                value={localContent.cta.buttonText}
+                                onChange={(e) => updateNestedField('cta', 'buttonText', e.target.value)}
+                                className="w-full px-3 py-2 bg-[var(--bg)] border border-[var(--border)] rounded-lg text-sm text-[var(--text)] focus:border-[var(--accent)] outline-none"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
