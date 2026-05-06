@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "build-admin": "cd admin && npm install && npm run build",
+    "build": "npm install && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run build-admin && node server.js",
     "dev": "nodemon server.js",
