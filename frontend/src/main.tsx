@@ -1,4 +1,5 @@
-import './telemetry';
+
+//import './telemetry';
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import "core-js/stable";
@@ -6,6 +7,7 @@ import "regenerator-runtime/runtime";
 
 import App from "./App";
 import "./index.css";
+import { ErrorBoundary } from './ErrorBoundary';
 
 
 
@@ -72,6 +74,8 @@ if (!rootElement) {
 
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
-    <App />
+    <ErrorBoundary>
+      <App />
+    </ErrorBoundary>
   </React.StrictMode>
 );

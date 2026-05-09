@@ -22,24 +22,3 @@ export const ContentContext = React.createContext<ContentContextType>({
   isLoading: false,
   refresh: async () => {},
 });
-/*import * as React from "react";
-//import { defaultContent, SiteContent } from "./defaultContent";
-import { defaultContent } from "./defaultContent";
-import type { SiteContent } from "./defaultContent";
-
-interface ContentContextType {
-  content: SiteContent;
-  setContent: React.Dispatch<React.SetStateAction<SiteContent>>;
-  resetContent: () => void;
-  updateContent: (updates: Partial<SiteContent>) => Promise<boolean>;
-  isSaving: boolean;
-}
-
-export const ContentContext = React.createContext<ContentContextType>({
-  content: defaultContent,
-  setContent: () => { },
-  resetContent: () => { },
-  updateContent: async () => false,
-  isSaving: false,
-});
-*/
