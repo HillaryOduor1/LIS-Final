@@ -4,7 +4,7 @@
   "type": "commonjs",
   "main": "server.js",
   "scripts": {
-    "build-admin": "cd admin && npm install && npm run build",
+    "build-admin": "cd admin && npm install --include=dev && npm run build",
     "build": "npm install && npm run build-admin",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run build-admin && node server.js",
