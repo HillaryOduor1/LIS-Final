@@ -87,7 +87,7 @@ export interface SiteContent {
 class ContentService {
   private async fetchContent(): Promise<SiteContent | null> {
     try {
-      const response = await fetch(`${API_BASE}/content/page/home`);
+      const response = await fetch(`${API_BASE}/api/content/page/home`);
       if (!response.ok) throw new Error('Failed to fetch content');
       return await response.json();
     } catch (error) {

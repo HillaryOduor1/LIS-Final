@@ -140,7 +140,8 @@ const DEFAULT_SETTINGS: AppSettings = {
 };
 
 // ================= STORAGE MANAGER =================
-const API_URL = 'http://localhost:5000/api/settings';
+//const API_URL = 'http://localhost:5000/api/settings';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 class StorageManager {
   private memoryCache: AppSettings | null = null;

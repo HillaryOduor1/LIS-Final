@@ -17,7 +17,8 @@ function getSessionId() {
 }
 
 // Use the correct public endpoint
-const API_BASE = '/api/public/analytics';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_BASE = `${API_URL}/api/public/analytics`;
 
 export async function trackPage(page: string, tenantId?: string) {
   try {
@@ -79,7 +80,8 @@ export async function trackFunnelStep(stepName: string, metadata?: any, tenantId
 }
 
 let heatmapQueue: any[] = [];
-let heatmapTimer: NodeJS.Timeout | null = null;
+//let heatmapTimer: NodeJS.Timeout | null = null;
+let heatmapTimer: ReturnType<typeof setTimeout> | null = null;
 export function trackHeatmapClick(page: string, x: number, y: number, element?: string, tenantId?: string) {
   heatmapQueue.push({ page, x, y, element, tenantId, sessionId: getSessionId() });
   if (!heatmapTimer) {
