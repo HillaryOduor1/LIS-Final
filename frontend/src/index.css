@@ -1,195 +1,3 @@
-/*@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* =========================================================
-   THEME TOKENS & DYNAMIC VARIABLES
-========================================================= /
-:root {
-  /* Brand /
-  --pink-50: #fdf2f8;
-  --pink-100: #fce7f3;
-  --pink-500: #ec4899;
-  --pink-600: #db2777;
-  --pink-700: #be185d;
-
-  /* Theme: Light (Default) /
-  --bg: #FFFFFF;
-  --surface: #f8fafc;
-  --border: #e2e8f0;
-  --text: #000000;
-  --muted: #475569;
-  --accent: var(--pink-600);
-  --accent-rgb: 219, 39, 119;
-  --primary: var(--accent);
-  --primary-foreground: #ffffff;
-
-  --radius: 0.75rem;
-  --shadow-intensity: 1;
-  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
-
-  /* New Dynamic Variables /
-  --font-family: 'Poppins', sans-serif;
-  --weight-body: 400;
-  --weight-heading: 700;
-  --text-align: left;
-  --spacing-unit: 0.5rem;
-  --text-scale: 1.0;
-}
-
-.dark {
-  /* Theme: Dark /
-  --bg: #020617;
-  --surface: #0f172a;
-  --border: #1e293b;
-  --text: #FFFFFF;
-  --muted: #94a3b8;
-  --accent: var(--pink-500);
-}
-
-/* =========================================================
-   BASE STYLES
-========================================================= /
-@layer base {
-  * {
-    border-color: var(--border);
-  }
-
-  html {
-    scroll-behavior: smooth;
-    scroll-margin-top: 5rem;
-  }
-
-  body {
-    background-color: var(--bg);
-    color: var(--text);
-    font-family: var(--font-family);
-    font-weight: var(--weight-body);
-    text-align: var(--text-align);
-    font-size: calc(0.875rem * var(--text-scale));
-    -webkit-font-smoothing: antialiased;
-    transition: background-color 0.3s ease, color 0.3s ease, font-size 0.2s ease;
-    overflow-x: hidden;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-weight: var(--weight-heading);
-  }
-
-  .dyslexia-friendly {
-    --font-family: "OpenDyslexic", "Comic Sans MS", cursive !important;
-  }
-
-  ::selection {
-    background-color: var(--accent);
-    color: white;
-  }
-}
-
-/* =========================================================
-   COMPONENTS
-========================================================= /
-@layer components {
-
-  /* Surface / Cards /
-  .surface {
-    background-color: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    transition: all 0.2s var(--ease-out-soft);
-    box-shadow: 0 calc(4px * var(--shadow-intensity)) calc(10px * var(--shadow-intensity)) rgba(0, 0, 0, 0.05);
-  }
-
-  .surface-hover:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 calc(10px * var(--shadow-intensity)) calc(30px * var(--shadow-intensity)) rgba(0, 0, 0, 0.1);
-    border-color: var(--accent);
-  }
-
-  /* Buttons /
-  .btn-primary {
-    @apply inline-flex items-center justify-center font-medium transition-all;
-    background-color: var(--accent);
-    color: white;
-    padding: 0.625rem 1.75rem;
-    border-radius: 9999px;
-    box-shadow: 0 4px 14px 0 rgba(219, 39, 119, 0.3);
-    /* fallback for color-mix /
-  }
-
-  .btn-primary:hover {
-    filter: brightness(1.1);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 20px 0 rgba(219, 39, 119, 0.4);
-  }
-
-  .btn-primary:active {
-    transform: scale(0.96);
-  }
-
-  /* Navigation /
-  .navbar-backdrop {
-    @apply fixed inset-x-0 top-0 z-50 transition-all duration-300;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    background-color: rgba(255, 255, 255, 0.8);
-    /* base light fallback /
-    border-bottom: 1px solid var(--border);
-  }
-
-  .dark .navbar-backdrop {
-    background-color: rgba(2, 6, 23, 0.8);
-  }
-
-  .nav-link {
-    @apply text-sm font-medium transition-colors;
-    color: var(--muted);
-  }
-
-  .nav-link:hover {
-    color: var(--accent);
-  }
-
-  /* Section Titles /
-  .section-title-p {
-    @apply text-center font-bold tracking-wider uppercase text-[10px] py-1.5 px-4 rounded-full w-max mx-auto;
-    color: var(--accent);
-    background-color: rgba(219, 39, 119, 0.1);
-    border: 1px solid rgba(219, 39, 119, 0.2);
-    margin-top: 6rem;
-  }
-
-  .section-title-h3 {
-    @apply text-3xl md:text-5xl font-extrabold text-center mt-4 tracking-tighter;
-    color: var(--text);
-  }
-
-  .section-title-sub {
-    @apply text-center mt-4 max-w-2xl mx-auto text-base opacity-70 leading-relaxed;
-    color: var(--text);
-  }
-
-  /* Form Inputs /
-  .form-input {
-    @apply w-full py-3.5 px-4 bg-[var(--surface)] border border-[var(--border)] rounded-xl outline-none transition-all;
-  }
-
-  .form-input:focus {
-    @apply border-[var(--accent)] ring-1 ring-[var(--accent)]/20;
-  }
-}
-
-/* Scroll Adjustment /
-section {
-  scroll-margin-top: 5rem;
-}*/
-
 /* index.css */
 @tailwind base;
 @tailwind components;
@@ -403,4 +211,34 @@ section {
 /* Scroll Adjustment */
 section {
   scroll-margin-top: 5rem;
+}
+/* Neurodivergent mode – low motion, increased spacing, simplified palette */
+.neurodivergent-mode {
+  --shadow-intensity: 0;
+  --spacing-unit: 0.75rem;
+  --text-scale: 1.1;
+  scroll-behavior: auto !important;
+}
+.neurodivergent-mode * {
+  animation-duration: 0.001s !important;
+  transition-duration: 0.001s !important;
+}
+.neurodivergent-mode .surface-hover:hover {
+  transform: none;
+}
+
+/* Glassmorphism fallback for ES5 browsers */
+.no-backdrop {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+}
+.dark .no-backdrop {
+  background-color: rgba(16, 34, 25, 0.95) !important;
+}
+.navbar-es5-fallback {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background-color: #ffffffcc;
+}
+.dark .navbar-es5-fallback {
+  background-color: #102219cc;
 }

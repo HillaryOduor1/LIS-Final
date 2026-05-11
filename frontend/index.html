@@ -3,6 +3,65 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Landscapes Integrity Solutions</title>
+    <!-- Preconnect for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" crossorigin="anonymous" />
+    
+    <!-- Theme script to prevent flash of incorrect theme -->
+    <script>
+      (function() {
+        try {
+          var storedTheme = localStorage.getItem('theme');
+          var theme = storedTheme;
+          if (theme !== 'light' && theme !== 'dark') {
+            theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+          document.documentElement.classList.add(theme);
+          if (theme === 'dark') {
+            document.documentElement.style.backgroundColor = '#102219';
+            document.documentElement.style.color = '#ffffff';
+          } else {
+            document.documentElement.style.backgroundColor = '#f6f8f7';
+            document.documentElement.style.color = '#0d1b14';
+          }
+        } catch(e) {}
+      })();
+    </script>
+    
+    <!-- Accessibility: skip link -->
+    <style>
+      .skip-to-content {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: #11d473;
+        color: #0d1b14;
+        padding: 8px;
+        z-index: 9999;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .skip-to-content:focus {
+        top: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-to-content">Skip to main content</a>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+<!--
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Landscapes Integrity Solutions</title>
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" crossorigin="anonymous">
@@ -14,3 +73,4 @@
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
+-->

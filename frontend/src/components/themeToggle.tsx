@@ -2,6 +2,65 @@ import * as React from "react";
 import { Moon, Sun } from "./icons";
 import { useTheme } from "./theme-provider";
 
+type Theme = "light" | "dark";
+
+interface IconProps {
+  className?: string;
+  color?: string;
+  width?: number;
+  height?: number;
+}
+
+export function ThemeToggle() {
+  var themeContext = useTheme();
+  var theme = themeContext.theme as Theme;
+  var setTheme = themeContext.setTheme as (theme: Theme) => void;
+  var isDark = theme === "dark";
+
+  function handleThemeToggle() {
+    var newTheme: Theme = isDark ? "light" : "dark";
+    setTheme(newTheme);
+    // Haptic feedback on mobile
+    if (window.navigator && window.navigator.vibrate) {
+      window.navigator.vibrate(50);
+    }
+  }
+
+  var buttonStyle: React.CSSProperties = {
+    width: "2.5rem",
+    height: "2.5rem",
+    borderRadius: "9999px",
+    border: "none",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    transition: "all 0.2s ease",
+    backgroundColor: isDark ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.06)",
+    color: isDark ? "#e5e7eb" : "#0f172a"
+  };
+
+  return React.createElement(
+    "button",
+    {
+      onClick: handleThemeToggle,
+      className: "theme-toggle-button",
+      style: buttonStyle,
+      title: "Switch to " + (isDark ? "light" : "dark") + " mode",
+      "aria-label": "Switch to " + (isDark ? "light" : "dark") + " mode",
+      "aria-pressed": isDark,
+      onMouseEnter: function(e) { e.currentTarget.style.backgroundColor = isDark ? "rgba(236,72,153,0.18)" : "rgba(236,72,153,0.12)"; },
+      onMouseLeave: function(e) { e.currentTarget.style.backgroundColor = isDark ? "rgba(255,255,255,0.08)" : "rgba(15,23,42,0.06)"; },
+      onMouseDown: function(e) { e.currentTarget.style.transform = "scale(0.95)"; },
+      onMouseUp: function(e) { e.currentTarget.style.transform = "scale(1)"; }
+    },
+    isDark ? React.createElement(Sun, { className: "h-5 w-5" }) : React.createElement(Moon, { className: "h-5 w-5" })
+  );
+}
+/*import * as React from "react";
+import { Moon, Sun } from "./icons";
+import { useTheme } from "./theme-provider";
+
 // Define theme type if not already defined
 type Theme = "light" | "dark";
 
@@ -104,4 +163,4 @@ export function ThemeToggle() {
       ? React.createElement(Sun, iconProps)
       : React.createElement(Moon, iconProps)
   );
-}
+}*/

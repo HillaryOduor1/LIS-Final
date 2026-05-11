@@ -1,4 +1,68 @@
 "use client";
+import * as React from "react";
+
+type Theme = "light" | "dark" | "system";
+
+interface ThemeProviderProps {
+  children: React.ReactNode;
+  defaultTheme?: Theme;
+}
+
+interface ThemeContextValue {
+  theme: Theme;
+  setTheme: (theme: Theme) => void;
+}
+
+var ThemeContext = React.createContext<ThemeContextValue | undefined>(undefined);
+
+function applyTheme(theme: Theme) {
+  if (typeof window === "undefined") return;
+  var root = document.documentElement;
+  var applied: "light" | "dark";
+  if (theme === "system") {
+    applied = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  } else {
+    applied = theme;
+  }
+  root.classList.remove("light", "dark");
+  root.classList.add(applied);
+  root.style.backgroundColor = applied === "dark" ? "#102219" : "#f6f8f7";
+  root.style.color = applied === "dark" ? "#e5e7eb" : "#0f172a";
+  localStorage.setItem("theme", theme);
+}
+
+export var ThemeProvider = function(props: ThemeProviderProps) {
+  var children = props.children;
+  var defaultTheme = props.defaultTheme || "system";
+  var _a = React.useState<Theme>(function() {
+    if (typeof window !== "undefined") {
+      try {
+        var saved = localStorage.getItem("theme") as Theme;
+        if (saved === "light" || saved === "dark" || saved === "system") return saved;
+      } catch(e) {}
+    }
+    return defaultTheme;
+  }), theme = _a[0], setTheme = _a[1];
+
+  React.useEffect(function() {
+    applyTheme(theme);
+    var mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    var handler = function() { if (theme === "system") applyTheme("system"); };
+    mediaQuery.addEventListener("change", handler);
+    return function() { mediaQuery.removeEventListener("change", handler); };
+  }, [theme]);
+
+  var value: ThemeContextValue = { theme: theme, setTheme: setTheme };
+  return React.createElement(ThemeContext.Provider, { value: value }, children);
+};
+
+export function useTheme() {
+  var context = React.useContext(ThemeContext);
+  if (!context) throw new Error("useTheme must be used within ThemeProvider");
+  return context;
+}
+/*
+"use client";
 
 import * as React from "react";
 
@@ -96,5 +160,6 @@ function useTheme() {
   return context;
 }
 
-export { ThemeProvider, useTheme };
+export { ThemeProvider, useTheme };*/
+
 
