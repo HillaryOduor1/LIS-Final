@@ -7,7 +7,11 @@ import { ContentProvider } from "./content/ContentProvider";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { trackPage } from './analytics';
-import { restoreScrollPosition, saveScrollPosition }from './utils/scrollPersistence' 
+//import { restoreScrollPosition, saveScrollPosition }from './utils/' 
+import { restoreScrollPosition, saveScrollPosition } from './utils/scrollPersistence'; 
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfUse from "./pages/TermsOfUSe";
+import Accessibility from "./pages/Accessibility";
 
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const ResearchPage = React.lazy(() => import("./pages/ResearchPage"));
@@ -78,6 +82,10 @@ function AppContent() {
               <Route path="/research" element={<ResearchPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/login" element={<LoginPage />} />
+              
+              <Route path="/privacy" element={<PrivacyPolicy />} />
+              <Route path="/terms" element={<TermsOfUse />} />
+              <Route path="/accessibility" element={<Accessibility />} />
             </Route>
             <Route path="/admin" element={
               <ProtectedRoute>

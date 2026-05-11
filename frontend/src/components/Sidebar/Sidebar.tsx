@@ -64,9 +64,12 @@ export default function Sidebar(props: SidebarProps) {
         role="dialog"
         aria-modal="true"
         aria-label="Mobile navigation menu"
-        className={`fixed top-0 h-full w-[280px] z-[101] flex flex-col p-6 transition-transform duration-300 ease-in-out border-r border-border bg-white dark:bg-background-dark shadow-xl md:hidden ${
+        className={`fixed top-0 h-full w-[280px] z-[101] flex flex-col p-6 transition-transform duration-300 ease-in-out border-r border-border bg-white dark:bg-background-dark shadow-xl md:hidden sidebar-solid-fallback ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
+        //className={`fixed top-0 h-full w-[280px] z-[101] flex flex-col p-6 transition-transform duration-300 ease-in-out border-r border-border bg-white dark:bg-background-dark shadow-xl md:hidden ${
+          //isOpen ? "translate-x-0" : "-translate-x-full"
+        //}`}
       >
         <div className="flex items-center justify-between mb-8 pb-4 border-b border-primary/10">
           <Link to="/" className="flex items-center gap-2 focus:outline-none focus:ring-2 focus:ring-primary rounded" onClick={toggleSidebar}>

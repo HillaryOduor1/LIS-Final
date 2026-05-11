@@ -312,6 +312,7 @@ const testimonialSchema = new mongoose.Schema({
   quote: String
 }, { _id: true });
 
+
 // Footer
 const footerLinkSchema = new mongoose.Schema({
   name: String,
@@ -373,6 +374,38 @@ const siteContentSchema = new mongoose.Schema({
     primaryButtonText: String,
     secondaryButtonText: String
   },
+  // Add after 'cta' or before 'footer'
+privacyPolicy: {
+  title: String,
+  lastUpdated: String,
+  sections: [{
+    heading: String,
+    content: String
+  }],
+  contactEmail: String,
+  contactPhone: String,
+  contactAddress: String
+},
+termsOfUse: {
+  title: String,
+  effectiveDate: String,
+  sections: [{
+    heading: String,
+    content: String
+  }],
+  contactEmail: String
+},
+accessibility: {
+  title: String,
+  lastUpdated: String,
+  sections: [{
+    heading: String,
+    content: String
+  }],
+  contactEmail: String,
+  contactPhone: String,
+  contactAddress: String
+},
   footer: footerSchema,
   metadata: {
     title: String,

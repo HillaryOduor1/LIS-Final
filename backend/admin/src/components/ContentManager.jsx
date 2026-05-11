@@ -648,7 +648,58 @@ const DEFAULT_CONTENT = {
       { name: "Terms of Use", href: "/terms" },
       { name: "Accessibility", href: "/accessibility" }
     ]
+  },
+   privacyPolicy: {
+    title: "Privacy Policy",
+    lastUpdated: "May 2026",
+    sections: [
+      { heading: "1. Information We Collect", content: "We may collect personal information that you voluntarily provide..." },
+      { heading: "2. How We Use Your Information", content: "We use the information we collect to provide, operate, and maintain our services..." },
+      { heading: "3. Cookies and Tracking Technologies", content: "We use cookies and similar tracking technologies to monitor activity..." },
+      { heading: "4. Data Security", content: "We implement appropriate technical and organisational measures..." },
+      { heading: "5. Third-Party Links", content: "Our website may contain links to third‑party websites..." },
+      { heading: "6. Your Rights (GDPR & CCPA)", content: "Depending on your location, you may have the following rights: access, rectification, erasure..." },
+      { heading: "7. Children’s Privacy", content: "Our services are not directed to individuals under the age of 16..." },
+      { heading: "8. Changes to This Privacy Policy", content: "We may update this Privacy Policy from time to time..." },
+      { heading: "9. Contact Us", content: "" }
+    ],
+    contactEmail: "privacy@lis.org",
+    contactPhone: "+254 700 000 000",
+    contactAddress: "Nairobi, Kenya"
+  },
+  termsOfUse: {
+    title: "Terms of Use",
+    effectiveDate: "May 2026",
+    sections: [
+      { heading: "1. Use of Content", content: "All content on this website is the property of LIS and is protected by copyright..." },
+      { heading: "2. User Conduct", content: "You agree not to use the website for any unlawful purpose..." },
+      { heading: "3. Research and Advisory Disclaimers", content: "The research reports and advisory content are for informational purposes only..." },
+      { heading: "4. Third-Party Links", content: "Our website may contain links to external websites..." },
+      { heading: "5. Limitation of Liability", content: "LIS shall not be liable for any indirect or consequential damages..." },
+      { heading: "6. Indemnification", content: "You agree to indemnify LIS from any claims arising from your use..." },
+      { heading: "7. Changes to Terms", content: "We reserve the right to modify these Terms at any time..." },
+      { heading: "8. Governing Law", content: "These Terms shall be governed by the laws of Kenya." },
+      { heading: "9. Contact Us", content: "If you have questions, contact us at legal@lis.org." }
+    ],
+    contactEmail: "legal@lis.org"
+  },
+  accessibility: {
+    title: "Accessibility Statement",
+    lastUpdated: "May 2026",
+    sections: [
+      { heading: "Our Commitment", content: "We are committed to ensuring digital accessibility for all users..." },
+      { heading: "Conformance Status", content: "This website is partially conformant with WCAG 2.2 Level AA..." },
+      { heading: "Accessibility Features You Can Use", content: "Theme toggle, neurodivergent mode, zoom up to 200%, responsive layout." },
+      { heading: "Feedback and Contact", content: "" },
+      { heading: "Third‑Party Content", content: "Some external content may not be fully accessible; we provide alternatives upon request." },
+      { heading: "Assessment Methods", content: "We use automated tools, manual keyboard testing, and screen reader testing." },
+      { heading: "Known Limitations", content: "Some older PDF reports may lack proper tagging; we are remediating them." }
+    ],
+    contactEmail: "accessibility@lis.org",
+    contactPhone: "+254 700 000 000",
+    contactAddress: "Nairobi, Kenya"
   }
+
 };
 
 // ========== EDITOR COMPONENTS ==========
@@ -734,7 +785,49 @@ function AreasEditor({ areas, onChange }) {
     </div>
   );
 }
+function LegalEditor({ data, onChange, title }) {
+  const safeData = data || {};
+  const sections = safeData.sections || [];
 
+  const updateSection = (idx, field, value) => {
+    const newSections = [...sections];
+    newSections[idx] = { ...newSections[idx], [field]: value };
+    onChange({ ...safeData, sections: newSections });
+  };
+
+  const addSection = () => {
+    onChange({ ...safeData, sections: [...sections, { heading: '', content: '' }] });
+  };
+
+  const removeSection = (idx) => {
+    onChange({ ...safeData, sections: sections.filter((_, i) => i !== idx) });
+  };
+
+  return (
+    <div className="space-y-4">
+      <Field label="Title" value={safeData.title} onChange={(v) => onChange({ ...safeData, title: v })} />
+      <Field label="Last Updated / Effective Date" value={safeData.lastUpdated || safeData.effectiveDate} onChange={(v) => onChange({ ...safeData, lastUpdated: v, effectiveDate: v })} />
+      <div className="border-t border-border my-4"></div>
+      <h3 className="font-semibold text-lg">Sections</h3>
+      {sections.map((sec, idx) => (
+        <div key={idx} className="border border-border rounded-lg p-4 relative">
+          <button onClick={() => removeSection(idx)} className="absolute top-2 right-2 text-red-400 hover:text-red-600">
+            <Trash2 size={16} />
+          </button>
+          <Field label="Heading" value={sec.heading} onChange={(v) => updateSection(idx, 'heading', v)} />
+          <Field label="Content" value={sec.content} onChange={(v) => updateSection(idx, 'content', v)} multiline />
+        </div>
+      ))}
+      <button onClick={addSection} className="w-full py-2 rounded-lg border-2 border-dashed border-border text-sm text-muted hover:border-accent hover:text-accent">
+        <Plus size={16} className="inline mr-1" /> Add Section
+      </button>
+      <div className="border-t border-border my-4"></div>
+      <Field label="Contact Email" value={safeData.contactEmail} onChange={(v) => onChange({ ...safeData, contactEmail: v })} />
+      <Field label="Contact Phone" value={safeData.contactPhone} onChange={(v) => onChange({ ...safeData, contactPhone: v })} />
+      <Field label="Contact Address" value={safeData.contactAddress} onChange={(v) => onChange({ ...safeData, contactAddress: v })} />
+    </div>
+  );
+}
 // Main Component
 export default function ContentManager() {
   const [content, setContent] = useState(null);
@@ -837,7 +930,7 @@ export default function ContentManager() {
 
       <div className="grid lg:grid-cols-12 gap-6">
         <div className="lg:col-span-3 space-y-1">
-          {['hero', 'about', 'areas', 'partners', 'research', 'cta', 'footer'].map(section => (
+          {/*{['hero', 'about', 'areas', 'partners', 'research', 'cta', 'footer','privacyPolicy', 'termsOfUse', 'accessibility'].map(section => (
             <button
               key={section}
               onClick={() => setActiveSection(section)}
@@ -847,17 +940,62 @@ export default function ContentManager() {
             >
               {section.charAt(0).toUpperCase() + section.slice(1)}
             </button>
-          ))}
+          ))}*/}
+          {[
+            'hero', 'about', 'areas', 'partners', 'research', 'cta', 'footer',
+            'privacyPolicy', 'termsOfUse', 'accessibility'
+          ].map(sectionKey => {
+            let displayName = sectionKey;
+            if (sectionKey === 'privacyPolicy') displayName = 'Privacy Policy';
+            if (sectionKey === 'termsOfUse') displayName = 'Terms of Use';
+            if (sectionKey === 'accessibility') displayName = 'Accessibility';
+            else displayName = sectionKey.charAt(0).toUpperCase() + sectionKey.slice(1);
+            return (
+              <button
+                key={sectionKey}
+                onClick={() => setActiveSection(sectionKey)}
+                className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition ${
+                  activeSection === sectionKey ? 'bg-accent/10 text-accent' : 'hover:bg-surface'
+                }`}
+              >
+                {displayName}
+              </button>
+            );
+          })}
         </div>
         <div className="lg:col-span-9">
-          {activeSection === 'hero' && <HeroEditor hero={content.hero} onChange={(v) => updateSection('hero', v)} />}
+          {/*{activeSection === 'hero' && <HeroEditor hero={content.hero} onChange={(v) => updateSection('hero', v)} />}
           {activeSection === 'about' && <AboutEditor about={content.about} onChange={(v) => updateSection('about', v)} />}
           {activeSection === 'areas' && <AreasEditor areas={content.areas} onChange={(v) => updateSection('areas', v)} />}
-          {/* Add other section editors similarly if needed */}
+          {/* Add other section editors similarly if needed /}
           {activeSection !== 'hero' && activeSection !== 'about' && activeSection !== 'areas' && (
             <div className="text-muted text-center py-12">
               Editor for {activeSection} coming soon – data is saved but not yet editable in this UI.
             </div>
+          )}*/}
+          {activeSection === 'hero' && <HeroEditor hero={content.hero} onChange={(v) => updateSection('hero', v)} />}
+          {activeSection === 'about' && <AboutEditor about={content.about} onChange={(v) => updateSection('about', v)} />}
+          {activeSection === 'areas' && <AreasEditor areas={content.areas} onChange={(v) => updateSection('areas', v)} />}
+          {activeSection === 'partners' && (
+            <div className="text-muted text-center py-12">Partner editor coming soon</div>
+          )}
+          {activeSection === 'research' && (
+            <div className="text-muted text-center py-12">Research editor coming soon</div>
+          )}
+          {activeSection === 'cta' && (
+            <div className="text-muted text-center py-12">CTA editor coming soon</div>
+          )}
+          {activeSection === 'footer' && (
+            <div className="text-muted text-center py-12">Footer editor coming soon</div>
+          )}
+          {activeSection === 'privacyPolicy' && (
+            <LegalEditor data={content.privacyPolicy} onChange={(v) => updateSection('privacyPolicy', v)} />
+          )}
+          {activeSection === 'termsOfUse' && (
+            <LegalEditor data={content.termsOfUse} onChange={(v) => updateSection('termsOfUse', v)} />
+          )}
+          {activeSection === 'accessibility' && (
+            <LegalEditor data={content.accessibility} onChange={(v) => updateSection('accessibility', v)} />
           )}
         </div>
       </div>

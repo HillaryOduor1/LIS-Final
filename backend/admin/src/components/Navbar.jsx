@@ -10,6 +10,7 @@ const menuItems = [
     { id: 'users', label: 'Users', icon: Users },
     { id: 'activity', label: 'Activity', icon: Activity },
     { id: 'messages', label: 'Messages', icon: MessageSquare },
+    
 ];
 
 export default function Navbar({ activeTab, setActiveTab, onLogout, showBackToMaster, onBackToMaster }) {

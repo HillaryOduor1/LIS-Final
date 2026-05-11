@@ -16,37 +16,37 @@ export const defaultContent = {
         "icon": "public",
         "name": "UNDP",
         "logo": "",
-        "_id": "69d572e43844454ec434decc"
+        "_id": "69f3377c76d8c2ba27ee4e86"
       },
       {
         "icon": "eco",
         "name": "WWF",
         "logo": "",
-        "_id": "69d572e43844454ec434decd"
+        "_id": "69f3377c76d8c2ba27ee4e87"
       },
       {
         "icon": "forest",
         "name": "Rainforest Alliance",
         "logo": "",
-        "_id": "69d572e43844454ec434dece"
+        "_id": "69f3377c76d8c2ba27ee4e88"
       },
       {
         "icon": "science",
         "name": "CIFOR",
         "logo": "",
-        "_id": "69d572e43844454ec434decf"
+        "_id": "69f3377c76d8c2ba27ee4e89"
       },
       {
         "icon": "corporate",
         "name": "Unilever",
         "logo": "",
-        "_id": "69d572e43844454ec434ded0"
+        "_id": "69f3377c76d8c2ba27ee4e8a"
       },
       {
         "icon": "agriculture",
         "name": "IFAD",
         "logo": "",
-        "_id": "69d572e43844454ec434ded1"
+        "_id": "69f3377c76d8c2ba27ee4e8b"
       }
     ]
   },
@@ -55,6 +55,15 @@ export const defaultContent = {
     "description": "Join dozens of organizations leveraging LIS intelligence to achieve measurable landscape impact.",
     "primaryButtonText": "Request an Advisory",
     "secondaryButtonText": "Contact Our Team"
+  },
+  "privacyPolicy": {
+    "sections": []
+  },
+  "termsOfUse": {
+    "sections": []
+  },
+  "accessibility": {
+    "sections": []
   },
   "metadata": {
     "keywords": []
@@ -86,7 +95,7 @@ export const defaultContent = {
   "hero": {
     "announcementBadge": "New Report",
     "announcementText": "Read our latest insights on carbon markets",
-    "headline": "Advancing Policy for20",
+    "headline": "Advancing Policy for",
     "highlightedText": "Sustainable Landscapes",
     "subtext": "We bridge the gap between global environmental policy and local conservation practice through rigorous research, strategic advisory, and actionable intelligence.",
     "primaryButtonText": "Explore Our Work",
@@ -147,28 +156,28 @@ export const defaultContent = {
       "title": "Forest Governance",
       "description": "Strengthening policies and institutions for sustainable forest management and deforestation-free supply chains.",
       "link": "/research",
-      "_id": "69d572e43844454ec434dec8"
+      "_id": "69f3377c76d8c2ba27ee4e82"
     },
     {
       "icon": "water",
       "title": "Water Security",
       "description": "Integrated water resource management, watershed restoration, and climate-resilient water governance.",
       "link": "/research",
-      "_id": "69d572e43844454ec434dec9"
+      "_id": "69f3377c76d8c2ba27ee4e83"
     },
     {
       "icon": "agriculture",
       "title": "Sustainable Agriculture",
       "description": "Promoting regenerative practices, agroecology, and market-based incentives for smallholders.",
       "link": "/research",
-      "_id": "69d572e43844454ec434deca"
+      "_id": "69f3377c76d8c2ba27ee4e84"
     },
     {
       "icon": "carbon",
       "title": "Carbon & Climate",
       "description": "Advising on carbon markets, NDC implementation, and nature-based climate solutions.",
       "link": "/research",
-      "_id": "69d572e43844454ec434decb"
+      "_id": "69f3377c76d8c2ba27ee4e85"
     }
   ],
   "research": [
@@ -180,7 +189,7 @@ export const defaultContent = {
       "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=2070&auto=format",
       "isFeatured": true,
       "link": "/research/carbon-market-integrity",
-      "_id": "69d572e43844454ec434ded2"
+      "_id": "69f3377c76d8c2ba27ee4e8c"
     },
     {
       "category": "Working Paper",
@@ -190,7 +199,7 @@ export const defaultContent = {
       "image": "https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=2069&auto=format",
       "isFeatured": false,
       "link": "/research/gender-land-governance",
-      "_id": "69d572e43844454ec434ded3"
+      "_id": "69f3377c76d8c2ba27ee4e8d"
     },
     {
       "category": "Case Study",
@@ -200,7 +209,7 @@ export const defaultContent = {
       "image": "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2074&auto=format",
       "isFeatured": false,
       "link": "/research/peatland-restoration",
-      "_id": "69d572e43844454ec434ded4"
+      "_id": "69f3377c76d8c2ba27ee4e8e"
     }
   ],
   "advisory": [
@@ -208,25 +217,25 @@ export const defaultContent = {
       "icon": "analytics",
       "title": "Strategic Intelligence",
       "description": "Tailored analysis of policy landscapes, market trends, and regulatory shifts.",
-      "_id": "69d572e43844454ec434ded5"
+      "_id": "69f3377c76d8c2ba27ee4e8f"
     },
     {
       "icon": "handshake",
       "title": "Multi-Stakeholder Engagement",
       "description": "Facilitation of dialogues and partnerships across government, business, and civil society.",
-      "_id": "69d572e43844454ec434ded6"
+      "_id": "69f3377c76d8c2ba27ee4e90"
     },
     {
       "icon": "assessment",
       "title": "Impact Evaluation",
       "description": "Rigorous assessment of programs and policies using quantitative and qualitative methods.",
-      "_id": "69d572e43844454ec434ded7"
+      "_id": "69f3377c76d8c2ba27ee4e91"
     },
     {
       "icon": "school",
       "title": "Capacity Building",
       "description": "Customized training and technical assistance for institutions and practitioners.",
-      "_id": "69d572e43844454ec434ded8"
+      "_id": "69f3377c76d8c2ba27ee4e92"
     }
   ],
   "testimonials": [
@@ -236,7 +245,7 @@ export const defaultContent = {
       "handle": "Director, Ministry of Environment, Kenya",
       "date": "March 2025",
       "quote": "LIS provided critical insights that shaped our national climate action plan. Their team's expertise and dedication are unparalleled.",
-      "_id": "69d572e43844454ec434ded9"
+      "_id": "69f3377c76d8c2ba27ee4e93"
     },
     {
       "image": "https://randomuser.me/api/portraits/men/32.jpg",
@@ -244,7 +253,7 @@ export const defaultContent = {
       "handle": "Sustainability Lead, Global Forestry Corp",
       "date": "December 2024",
       "quote": "The advisory services from LIS helped us navigate complex regulatory environments and achieve our deforestation-free commitments.",
-      "_id": "69d572e43844454ec434deda"
+      "_id": "69f3377c76d8c2ba27ee4e94"
     },
     {
       "image": "https://randomuser.me/api/portraits/women/45.jpg",
@@ -252,7 +261,7 @@ export const defaultContent = {
       "handle": "Research Fellow, World Resources Institute",
       "date": "October 2024",
       "quote": "LIS's research on jurisdictional approaches is a game-changer. Their rigorous methodology and policy relevance are exceptional.",
-      "_id": "69d572e43844454ec434dedb"
+      "_id": "69f3377c76d8c2ba27ee4e95"
     }
   ],
   "contact": {
@@ -280,23 +289,23 @@ export const defaultContent = {
     "description": "Landscapes Integrity Solutions (LIS) is an independent think tank advancing policy for sustainable landscapes. We translate complex environmental data into actionable governance frameworks.",
     "quickLinks": [
       {
-        "_id": "69d572e43844454ec434dedc",
+        "_id": "69f3377c76d8c2ba27ee4e96",
         "links": []
       },
       {
-        "_id": "69d572e53844454ec434dedd",
+        "_id": "69f3377c76d8c2ba27ee4e97",
         "links": []
       },
       {
-        "_id": "69d572e53844454ec434dede",
+        "_id": "69f3377c76d8c2ba27ee4e98",
         "links": []
       },
       {
-        "_id": "69d572e53844454ec434dedf",
+        "_id": "69f3377c76d8c2ba27ee4e99",
         "links": []
       },
       {
-        "_id": "69d572e53844454ec434dee0",
+        "_id": "69f3377c76d8c2ba27ee4e9a",
         "links": []
       }
     ],
@@ -336,6 +345,6 @@ export const defaultContent = {
   "features": [],
   "pricing": [],
   "createdAt": "2026-04-07T20:45:15.134Z",
-  "updatedAt": "2026-04-07T21:11:00.907Z",
+  "updatedAt": "2026-04-30T11:05:32.546Z",
   "__v": 0
 };

@@ -231,6 +231,9 @@ section {
 .no-backdrop {
   background-color: rgba(255, 255, 255, 0.95) !important;
 }
+.bg-solid-fallback {
+  background-color: #11d473; /* solid fallback for older browsers */
+}
 .dark .no-backdrop {
   background-color: rgba(16, 34, 25, 0.95) !important;
 }
@@ -241,4 +244,24 @@ section {
 }
 .dark .navbar-es5-fallback {
   background-color: #102219cc;
+}
+.navbar-fallback {
+  background-color: #ffffffcc;
+}
+.dark .navbar-fallback {
+  background-color: #102219cc;
+}
+@media (max-width: 768px) {
+  .navbar-fallback {
+    background-color: #ffffff;
+  }
+  .dark .navbar-fallback {
+    background-color: #0a1510;
+  }
+}
+.sidebar-solid-fallback {
+  background-color: #ffffff;
+}
+.dark .sidebar-solid-fallback {
+  background-color: #102219;
 }

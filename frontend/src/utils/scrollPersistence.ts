@@ -1,13 +1,14 @@
-export function saveScrollPosition(y) {
+export function saveScrollPosition(y: number): void {
   try {
     sessionStorage.setItem('scrollY', y.toString());
   } catch(error) {
     console.error('Failed to save scroll position', error);
   }
 }
-export function restoreScrollPosition() {
+
+export function restoreScrollPosition(): void {
   try {
-    var y = sessionStorage.getItem('scrollY');
+    const y = sessionStorage.getItem('scrollY');
     if (y !== null) window.scrollTo(0, parseInt(y, 10));
     sessionStorage.removeItem('scrollY');
   } catch(error) {

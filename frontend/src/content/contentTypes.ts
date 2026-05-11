@@ -7,6 +7,15 @@ export interface SiteContent {
   cta?: {
     [k: string]: unknown;
   };
+  privacyPolicy?: {
+    [k: string]: unknown;
+  };
+  termsOfUse?: {
+    [k: string]: unknown;
+  };
+  accessibility?: {
+    [k: string]: unknown;
+  };
   metadata?: {
     [k: string]: unknown;
   };
