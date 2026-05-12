@@ -44,6 +44,7 @@ const PartnersSection = () => {
 };
 
 export default PartnersSection;
+
 /*import { useContent } from '../content/useContext';
 
 const PartnersSection = () => {

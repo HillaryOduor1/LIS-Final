@@ -1,4 +1,4 @@
-"use client";
+/*"use client";
 import * as React from "react";
 
 type Theme = "light" | "dark" | "system";
@@ -60,8 +60,8 @@ export function useTheme() {
   var context = React.useContext(ThemeContext);
   if (!context) throw new Error("useTheme must be used within ThemeProvider");
   return context;
-}
-/*
+}*/
+
 "use client";
 
 import * as React from "react";
@@ -160,6 +160,6 @@ function useTheme() {
   return context;
 }
 
-export { ThemeProvider, useTheme };*/
+export { ThemeProvider, useTheme };
 
 

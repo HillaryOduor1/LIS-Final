@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { useContent } from '../content/useContext';
 import { trackEvent } from '../analytics';
+import { LinkedInIcon, MailIcon, TwitterIcon } from './icons';
 
 interface ContactInfo {
   address?: string;
@@ -44,7 +45,7 @@ const Footer = () => {
   ];
   const copyrightText = typeof footer?.copyright === 'string' ? footer.copyright : `© ${new Date().getFullYear()} Landscapes Integrity Solutions (LIS). All Rights Reserved.`;
 
-  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+  /*const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newsletterEmail) return;
     setLoading(true);
@@ -67,9 +68,39 @@ const Footer = () => {
     } finally {
       setLoading(false);
     }
-  };
+  };*/
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  const emailSanitized = newsletterEmail.trim().toLowerCase();
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(emailSanitized)) {
+    setNewsletterStatus({ type: 'error', message: 'Please enter a valid email address.' });
+    if (window.navigator && window.navigator.vibrate) window.navigator.vibrate(200);
+    return;
+  }
+  setLoading(true);
+  setNewsletterStatus({ type: '', message: '' });
+  try {
+    const res = await fetch('/api/newsletter/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: emailSanitized })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || 'Subscription failed');
+    setNewsletterStatus({ type: 'success', message: 'Thank you for subscribing!' });
+    trackEvent('newsletter_subscribe', { email: emailSanitized });
+    setNewsletterEmail('');
+    if (window.navigator && window.navigator.vibrate) window.navigator.vibrate(50);
+  } catch (err: any) {
+    setNewsletterStatus({ type: 'error', message: err.message });
+    if (window.navigator && window.navigator.vibrate) window.navigator.vibrate(200);
+  } finally {
+    setLoading(false);
+  }
+};
 
-  const getSocialIcon = (iconName: string) => {
+  /*const getSocialIcon = (iconName: string) => {
     switch (iconName) {
       case 'twitter': return '🕊️';
       case 'linkedin': return '🔗';
@@ -77,7 +108,7 @@ const Footer = () => {
       case 'instagram': return '📷';
       default: return iconName;
     }
-  };
+  };*/
 
   return (
     <footer className="bg-[#0d1b14] text-white py-16 px-4 md:px-10 lg:px-40">
@@ -93,13 +124,44 @@ const Footer = () => {
             <span className="text-xl font-black tracking-tight">LIS</span>
           </div>
           <p className="text-slate-400 text-sm leading-relaxed mb-6">{description}</p>
+          
           <div className="flex gap-4 flex-wrap sm:gap-2">
+            {socialLinks.map((link, idx) => {
+              let IconComponent;
+              switch (link.icon) {
+                case 'twitter':
+                  IconComponent = TwitterIcon;
+                  break;
+                case 'linkedin':
+                  IconComponent = LinkedInIcon;
+                  break;
+                case 'mail':
+                  IconComponent = MailIcon;
+                  break;
+                default:
+                  IconComponent = () => <span className="text-lg">{link.icon}</span>;
+              }
+              return (
+                <a
+                  key={idx}
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="size-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary hover:text-[#0d1b14] transition-all focus:outline-none focus:ring-2 focus:ring-primary"
+                  aria-label={`Follow on ${link.icon}`}
+                >
+                  <IconComponent className="w-5 h-5 text-current" />
+                </a>
+              );
+            })}
+          </div>
+          {/*<div className="flex gap-4 flex-wrap sm:gap-2">
             {socialLinks.map((link, idx) => (
               <a key={idx} href={link.href} target="_blank" rel="noopener noreferrer" className="size-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary hover:text-[#0d1b14] transition-all focus:outline-none focus:ring-2 focus:ring-primary" aria-label={`Follow on ${link.icon}`}>
                 <span className="text-lg">{getSocialIcon(link.icon)}</span>
               </a>
             ))}
-          </div>
+          </div>*/}
         </div>
         
         {/* Quick Links */}
@@ -168,7 +230,7 @@ const Footer = () => {
       <div className="max-w-[1280px] mx-auto border-t border-white/10 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-xs">
         <p>{copyrightText}</p>
         {/*<div className="flex gap-6 flex-wrap justify-center">*/}
-        <div className="flex flex-col md:flex-row gap-3 md:gap-6 flex-wrap justify-center">
+        <div className="flex flex-col md:flex-row gap-3 md:gap-6 flex-wrap justify-center sm:gap-2">
           {legalLinks.map((link, idx) => (
             <Link key={idx} to={link.href} className="hover:text-white focus:outline-none focus:ring-2 focus:ring-primary rounded">
               {link.name}

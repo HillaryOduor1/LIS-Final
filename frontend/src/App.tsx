@@ -15,6 +15,7 @@ import Accessibility from "./pages/Accessibility";
 import ResearchDetail from "./pages/ResearchDetails";
 import BackToTop from "./components/BackToTop";
 import AreaDetail from "./pages/AreaDetail";
+import ThemeManager from "./components/ThemeManager";
 
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const ResearchPage = React.lazy(() => import("./pages/ResearchPage"));
@@ -193,7 +194,9 @@ export default function App() {
         <AuthProvider>
           <SettingsProvider>
             <ContentProvider>
-              <AppContent />
+              <ThemeManager>
+                <AppContent />
+              </ThemeManager>
             </ContentProvider>
           </SettingsProvider>
         </AuthProvider>

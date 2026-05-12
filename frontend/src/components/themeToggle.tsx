@@ -1,4 +1,4 @@
-
+/*
 import { Sun, Moon, Monitor } from "./icons";
 import { useTheme } from "./theme-provider";
 
@@ -31,7 +31,8 @@ export function ThemeToggle() {
       <Icon size={20} />
     </button>
   );
-}
+}*/
+
 /*import * as React from "react";
 import { Moon, Sun } from "./icons";
 import { useTheme } from "./theme-provider";
@@ -93,7 +94,7 @@ export function ThemeToggle() {
 }*/
 
 
-/*import * as React from "react";
+import * as React from "react";
 import { Moon, Sun } from "./icons";
 import { useTheme } from "./theme-provider";
 
@@ -199,4 +200,4 @@ export function ThemeToggle() {
       ? React.createElement(Sun, iconProps)
       : React.createElement(Moon, iconProps)
   );
-}*/
+}

@@ -41,14 +41,35 @@ export default function Sidebar(props: SidebarProps) {
   }, [isOpen, toggleSidebar]);
 
   // Prevent body scroll
-  React.useEffect(() => {
+  // Inside Sidebar component, replace the scroll lock useEffect:
+React.useEffect(() => {
+  if (isOpen) {
+    const scrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.width = '100%';
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    document.body.dataset.scrollY = scrollY.toString();
+  } else {
+    const scrollY = parseInt(document.body.dataset.scrollY || '0');
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    document.body.style.overflow = '';
+    document.documentElement.style.overflow = '';
+    window.scrollTo(0, scrollY);
+    delete document.body.dataset.scrollY;
+  }
+}, [isOpen]);
+  /*React.useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
     return () => { document.body.style.overflow = ''; };
-  }, [isOpen]);
+  }, [isOpen]);*/
 
   // Swipe left to close (on touch devices)
   React.useEffect(() => {
@@ -119,7 +140,18 @@ export default function Sidebar(props: SidebarProps) {
           </button>
         </div>
         <nav className="flex-grow flex flex-col gap-1" aria-label="Mobile navigation">
-          {mobileNavlinks.map(function(link, idx) {
+           {mobileNavlinks.map(function(link, idx) {
+              return (
+                <SidebarItem
+                  key={idx}
+                  icon={<span className="material-symbols-outlined text-xl">{link.icon}</span>}
+                  label={link.name}
+                  href={link.href}
+                  onClick={function() { handleToggle(); }}
+                />
+              );
+            })}
+          {/*{mobileNavlinks.map(function(link, idx) {
             return (
               <SidebarItem
                 key={idx}
@@ -129,7 +161,7 @@ export default function Sidebar(props: SidebarProps) {
                 onClick={function() { handleToggle(); }}
               />
             );
-          })}
+          })}*/}
           <div className="mt-4 pt-4 border-t border-primary/10">
             <button className="w-full bg-primary hover:bg-primary/90 text-[#0d1b14] font-bold py-3 rounded-lg transition-all focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
               Contact Us
