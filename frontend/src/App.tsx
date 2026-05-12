@@ -13,7 +13,7 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfUse from "./pages/TermsOfUSe";
 import Accessibility from "./pages/Accessibility";
 import ResearchDetail from "./pages/ResearchDetails";
-import BackToTop from "./components/BacktoTop";
+import BackToTop from "./components/BackToTop";
 import AreaDetail from "./pages/AreaDetail";
 
 const HomePage = React.lazy(() => import("./pages/HomePage"));
