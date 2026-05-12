@@ -1,4 +1,4 @@
-import * as React from 'react';
+
 import { useEffect, useState } from 'react';
 import ResearchHero from '../sections/ResearchSection';
 import ResearchFilters from '../sections/ResearchFilters';

@@ -15,7 +15,7 @@ const ResearchFilters = ({ activeFilter, setActiveFilter }: ResearchFiltersProps
   };
 
   return (
-    <section id="research-filters" className="py-8 bg-white dark:bg-background-dark/50 border-b border-[#e7f3ed] dark:border-white/5 sticky top-16 z-40 backdrop-blur-sm">
+    <section id="research-filters" className="py-8 bg-white dark:bg-background-dark/50 border-b border-[#e7f3ed] dark:border-white/5 sticky top-16 z-40 backdrop-blur-sm research-filters-fallback">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-4 overflow-x-auto pb-2 scrollbar-hide">
           <span className="text-sm font-bold whitespace-nowrap mr-2">Filter by Topic:</span>

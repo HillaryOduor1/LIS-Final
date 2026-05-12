@@ -1,4 +1,38 @@
-import * as React from "react";
+
+import { Sun, Moon, Monitor } from "./icons";
+import { useTheme } from "./theme-provider";
+
+export function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
+
+  const cycleTheme = () => {
+    if (theme === "light") setTheme("dark");
+    else if (theme === "dark") setTheme("system");
+    else setTheme("light");
+  };
+
+  let Icon = Sun;
+  let label = "Switch to dark mode";
+  if (theme === "dark") {
+    Icon = Moon;
+    label = "Switch to system mode";
+  } else if (theme === "system") {
+    Icon = Monitor;
+    label = "Switch to light mode";
+  }
+
+  return (
+    <button
+      onClick={cycleTheme}
+      className="theme-toggle-button p-2 rounded-lg hover:bg-black/10 dark:hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+      title={label}
+      aria-label={label}
+    >
+      <Icon size={20} />
+    </button>
+  );
+}
+/*import * as React from "react";
 import { Moon, Sun } from "./icons";
 import { useTheme } from "./theme-provider";
 
@@ -56,7 +90,9 @@ export function ThemeToggle() {
     },
     isDark ? React.createElement(Sun, { className: "h-5 w-5" }) : React.createElement(Moon, { className: "h-5 w-5" })
   );
-}
+}*/
+
+
 /*import * as React from "react";
 import { Moon, Sun } from "./icons";
 import { useTheme } from "./theme-provider";

@@ -19,7 +19,7 @@ const AdvisorySection = () => {
             We provide tailored intelligence and implementation support for governments, NGOs, and the private sector to achieve verifiable sustainability outcomes.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-6">
           {services.map(function(service, index) {
             return (
               <div key={index} className="bg-white dark:bg-background-dark p-8 rounded-xl border border-primary/10 hover:border-primary transition-colors group focus-within:ring-2 focus-within:ring-primary">

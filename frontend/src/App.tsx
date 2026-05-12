@@ -12,6 +12,9 @@ import { restoreScrollPosition, saveScrollPosition } from './utils/scrollPersist
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfUse from "./pages/TermsOfUSe";
 import Accessibility from "./pages/Accessibility";
+import ResearchDetail from "./pages/ResearchDetails";
+import BackToTop from "./components/BacktoTop";
+import AreaDetail from "./pages/AreaDetail";
 
 const HomePage = React.lazy(() => import("./pages/HomePage"));
 const ResearchPage = React.lazy(() => import("./pages/ResearchPage"));
@@ -26,6 +29,34 @@ function AppContent() {
   const { content } = useContent();
   const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
   const location = useLocation();
+  //const [isOnline, setIsOnline] = React.useState(navigator.onLine);
+  const [showOfflineModal, setShowOfflineModal] = React.useState(!navigator.onLine);
+
+
+  // Scroll to top on route change
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  // Network status listener
+  React.useEffect(() => {
+    
+    const handleOnline = () => { ()=> setShowOfflineModal(false); };
+    const handleOffline = () => { ()=> setShowOfflineModal(true); };
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
+  }, []);
+
+  // Update document title dynamically
+  React.useEffect(() => {
+    const pageName = location.pathname === '/' ? 'Home' : 
+                     location.pathname.slice(1).charAt(0).toUpperCase() + location.pathname.slice(2);
+    document.title = `${pageName} | Landscapes Integrity Solutions`;
+  }, [location]);
 
   React.useEffect(() => {
     restoreScrollPosition();
@@ -58,7 +89,7 @@ function AppContent() {
     };
   }, []);
 
-  if (!content) {
+  /*if (!content) {
     return (
       <div className="flex items-center justify-center min-h-screen bg-background-light dark:bg-background-dark text-[#0d1b14] dark:text-white">
         <div className="animate-pulse flex flex-col items-center gap-4">
@@ -67,10 +98,50 @@ function AppContent() {
         </div>
       </div>
     );
+  }*/
+    // Improved loading fallback (5 dots)
+  if (!content) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-background-light dark:bg-background-dark text-[#0d1b14] dark:text-white">
+        <div className="flex flex-col items-center gap-4">
+          <div className="flex gap-2">
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="w-3 h-3 bg-primary rounded-full animate-bounce" style={{ animationDelay: `${i * 0.15}s` }} />
+            ))}
+          </div>
+          <p className="text-sm font-medium opacity-50 tracking-widest uppercase">Loading application...</p>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <React.Suspense fallback={<div className="p-4 text-center">Loading...</div>}>
+    <>
+      {showOfflineModal && (
+        <div className="fixed inset-0 bg-black/70 z-[200] flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-gray-900 rounded-2xl max-w-sm w-full p-6 text-center shadow-2xl">
+            <span className="text-4xl mb-4 block">📡</span>
+            <h3 className="text-xl font-bold mb-2">No Internet Connection</h3>
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              To use this app, please turn on mobile data or connect to Wi‑Fi.
+            </p>
+            <button
+              onClick={() => window.location.reload()}
+              className="bg-primary text-[#0d1b14] font-bold px-6 py-2 rounded-lg"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
+   {/* <React.Suspense fallback={<div className="p-4 text-center">Loading...</div>}>*/}
+        <React.Suspense
+          fallback={
+            <div className="flex items-center justify-center min-h-screen bg-background-light dark:bg-background-dark">
+              <span className="loader" style={{ color: 'var(--accent)' }}></span>
+            </div>
+          }
+        >
       <div className="relative min-h-screen">
         <Navbar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
@@ -78,8 +149,10 @@ function AppContent() {
           <Routes>
             <Route element={<PublicLayout />}>
               <Route path="/" element={<HomePage />} />
+              <Route path="/areas/:slug" element={<AreaDetail />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/research" element={<ResearchPage />} />
+              <Route path="/research/:slug" element={<ResearchDetail />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/login" element={<LoginPage />} />
               
@@ -105,10 +178,13 @@ function AppContent() {
             } />
           </Routes>
         </main>
+        <BackToTop/>
       </div>
     </React.Suspense>
+  </>
   );
 }
+
 
 export default function App() {
   return (

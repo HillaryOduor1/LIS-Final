@@ -48,7 +48,7 @@ export default function Navbar({ isSidebarOpen, setIsSidebarOpen }: NavbarProps)
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
             aria-label={isSidebarOpen ? "Close menu" : "Open menu"}
             aria-expanded={isSidebarOpen}
-            className="flex h-10 w-10 items-center justify-center rounded-md transition hover:bg-black/10 dark:hover:bg-white/10 md:hidden focus:outline-none focus:ring-2 focus:ring-primary"
+            className="flex h-10 w-10 items-center justify-center rounded-md transition bg-transparent hover:bg-black/10 dark:hover:bg-white/10 md:hidden focus:outline-none focus:ring-2 focus:ring-primary"
           >
             <MenuIcon width={22} height={22} />
           </button>

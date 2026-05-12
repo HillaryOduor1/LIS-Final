@@ -1,5 +1,4 @@
 // pages/HomePage.tsx
-import * as React from 'react';
 import { useEffect } from 'react';
 import HeroSection from '../sections/HeroSection';
 import AboutSection from '../sections/AboutSection';

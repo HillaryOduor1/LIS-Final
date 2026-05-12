@@ -93,7 +93,7 @@ const Footer = () => {
             <span className="text-xl font-black tracking-tight">LIS</span>
           </div>
           <p className="text-slate-400 text-sm leading-relaxed mb-6">{description}</p>
-          <div className="flex gap-4">
+          <div className="flex gap-4 flex-wrap sm:gap-2">
             {socialLinks.map((link, idx) => (
               <a key={idx} href={link.href} target="_blank" rel="noopener noreferrer" className="size-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-primary hover:text-[#0d1b14] transition-all focus:outline-none focus:ring-2 focus:ring-primary" aria-label={`Follow on ${link.icon}`}>
                 <span className="text-lg">{getSocialIcon(link.icon)}</span>
@@ -167,7 +167,8 @@ const Footer = () => {
       
       <div className="max-w-[1280px] mx-auto border-t border-white/10 mt-16 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-xs">
         <p>{copyrightText}</p>
-        <div className="flex gap-6 flex-wrap justify-center">
+        {/*<div className="flex gap-6 flex-wrap justify-center">*/}
+        <div className="flex flex-col md:flex-row gap-3 md:gap-6 flex-wrap justify-center">
           {legalLinks.map((link, idx) => (
             <Link key={idx} to={link.href} className="hover:text-white focus:outline-none focus:ring-2 focus:ring-primary rounded">
               {link.name}
