@@ -6,3 +6,19 @@ self.addEventListener('install', function(event) {
 self.addEventListener('fetch', function(event) {
   // Network-only for now
 });
+
+// sw.js - Cache content for offline use
+self.addEventListener('fetch', (event) => {
+  if (event.request.url.includes('/api/content')) {
+    event.respondWith(
+      caches.open('content-cache').then(cache => {
+        return fetch(event.request).then(response => {
+          cache.put(event.request, response.clone());
+          return response;
+        }).catch(() => {
+          return cache.match(event.request);
+        });
+      })
+    );
+  }
+});

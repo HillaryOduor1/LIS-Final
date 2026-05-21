@@ -7,10 +7,10 @@ export default function MasterDashboard() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const fetchTenants = async () => {
+  /*const fetchTenants = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/master/tenants', { credentials: 'include' });
+      const res = await fetch('/api/v1/master/tenants', { credentials: 'include' });
       if (!res.ok) throw new Error();
       const data = await res.json();
       setTenants(data);
@@ -19,7 +19,21 @@ export default function MasterDashboard() {
     } finally {
       setLoading(false);
     }
-  };
+  };*/
+  const fetchTenants = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/v1/master/tenants', { credentials: 'include' });
+      if (!res.ok) throw new Error();
+      const data = await res.json();
+      // Extract tenants from data.data (the response is wrapped)
+      setTenants(data.data || data);
+    } catch (err) {
+      console.error('Failed to fetch tenants', err);
+    } finally {
+      setLoading(false);
+    }
+};
 
   useEffect(() => {
     fetchTenants();
@@ -27,7 +41,7 @@ export default function MasterDashboard() {
 
   const switchTenant = async (dbName) => {
     try {
-      const res = await fetch(`/api/master/switch-tenant/${dbName}`, {
+      const res = await fetch(`/api/v1/master/switch-tenant/${dbName}`, {
         method: 'POST',
         credentials: 'include',
       });
@@ -43,7 +57,7 @@ export default function MasterDashboard() {
   };
 
   const handleLogout = async () => {
-    await fetch('/api/auth/logout', { method: 'POST', credentials: 'include' });
+    await fetch('/api/v1/auth/logout', { method: 'POST', credentials: 'include' });
     window.location.href = '/login';
   };
 

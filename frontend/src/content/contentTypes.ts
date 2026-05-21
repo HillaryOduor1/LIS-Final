@@ -1,50 +1,132 @@
-/*Auto generated for tenant:landscapes_integrity_solutions-DO NOT EDIT MANUALLY */
+// Auto-generated from backend API for tenant: landscapes_integrity_solutions
+// Generated at: 2026-05-21T18:42:11.512Z
+// DO NOT EDIT MANUALLY – regenerate with `npm run generate:content`
 
 export interface SiteContent {
-  partners?: {
-    [k: string]: unknown;
+  navigation: Array<{
+    name: string;
+    href: string;
+    icon: string;
+  }>;
+  hero: {
+    announcementBadge: string;
+    headline: string;
+    subtext: string;
+    backgroundImage: string;
   };
-  cta?: {
-    [k: string]: unknown;
+  about: {
+    badge: string;
+    title: string;
+    description1: string;
+    description2: string;
+    stats: Array<{
+      number: string;
+      label: string;
+    }>;
+    features: Array<{
+      icon: string;
+      title: string;
+      description: string;
+    }>;
+    image: string;
   };
-  privacyPolicy?: {
-    [k: string]: unknown;
+  areas: Array<{
+    icon: string;
+    title: string;
+    description: string;
+    link: string;
+  }>;
+  partners: {
+    badge: string;
+    title: string;
+    description: string;
+    categories: Array<string>;
+    logos: Array<{
+      icon: string;
+      name: string;
+      logo: string;
+    }>;
   };
-  termsOfUse?: {
-    [k: string]: unknown;
+  research: Array<{
+    category: string;
+    date: string;
+    title: string;
+    description: string;
+    image: string;
+    isFeatured: boolean;
+    link: string;
+  }>;
+  advisory: Array<{
+    icon: string;
+    title: string;
+    description: string;
+  }>;
+  pricing: any[];
+  testimonials: Array<{
+    image: string;
+    name: string;
+    handle: string;
+    date: string;
+    quote: string;
+  }>;
+  contact: {
+    sectionTitle: {
+      text1: string;
+      text2: string;
+      text3: string;
+    };
+    form: {
+      nameLabel: string;
+      namePlaceholder: string;
+      emailLabel: string;
+      emailPlaceholder: string;
+      messageLabel: string;
+      messagePlaceholder: string;
+      submitText: string;
+    };
   };
-  accessibility?: {
-    [k: string]: unknown;
+  cta: {
+    title: string;
+    description: string;
+    primaryButtonText: string;
+    secondaryButtonText: string;
   };
-  metadata?: {
-    [k: string]: unknown;
+  footer: {
+    description: string;
+    copyright: string;
   };
-  _id?: string;
-  page?: string;
-  navigation?: unknown[];
-  hero?: {
-    [k: string]: unknown;
+  privacyPolicy: {
+    title: string;
+    lastUpdated: string;
+    sections: Array<{
+      heading: string;
+      content: string;
+    }>;
+    contactEmail: string;
+    contactPhone: string;
+    contactAddress: string;
   };
-  about?: {
-    [k: string]: unknown;
+  termsOfUse: {
+    title: string;
+    effectiveDate: string;
+    sections: Array<{
+      heading: string;
+      content: string;
+    }>;
+    contactEmail: string;
   };
-  areas?: unknown[];
-  research?: unknown[];
-  advisory?: unknown[];
-  testimonials?: unknown[];
-  contact?: {
-    [k: string]: unknown;
+  accessibility: {
+    title: string;
+    lastUpdated: string;
+    sections: Array<{
+      heading: string;
+      content: string;
+    }>;
+    contactEmail: string;
+    contactPhone: string;
+    contactAddress: string;
   };
-  footer?: {
-    [k: string]: unknown;
+  metadata: {
+    keywords: any[];
   };
-  published?: boolean;
-  version?: number;
-  updatedBy?: string;
-  features?: unknown[];
-  pricing?: unknown[];
-  createdAt?: string;
-  updatedAt?: string;
-  __v?: number;
-  [k: string]: unknown;
 }

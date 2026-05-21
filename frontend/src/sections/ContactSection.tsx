@@ -16,9 +16,9 @@ const defaultContact = {
   sectionTitle: { text1: "Get in", text2: "touch", text3: "" },
   form: {
     nameLabel: "Your Name",
-    namePlaceholder: "John Doe",
+    namePlaceholder: "Enter Your Name",
     emailLabel: "Email Address",
-    emailPlaceholder: "hello@example.com",
+    emailPlaceholder: "name@example.com",
     messageLabel: "Message",
     messagePlaceholder: "How can we help?",
     submitText: "Send Message"
@@ -60,7 +60,7 @@ export default function ContactSection() {
     setStatus({ type: "", message: "" });
     setLoading(true);
     try {
-      const res = await fetch("/api/public/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(formState) });
+      const res = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(formState) });
       const data = await res.json();
       if (!res.ok) throw new Error(data.errors?.[0]?.msg || data.error || "Submission failed");
       setStatus({ type: "success", message: "Message sent successfully!" });

@@ -5,7 +5,7 @@ import {
     Eye, EyeOff, ChevronDown, X, AlertCircle, Code, Smartphone, Tablet
 } from 'lucide-react';
 
-const API_BASE = '/api/admin';
+const API_BASE = '/api/v1';
 
 const DEFAULT_SETTINGS = {
     version: 1,
@@ -1222,7 +1222,7 @@ export default function Settings() {
     const [error, setError] = useState(null);
 
     // Load settings from MongoDB
-    useEffect(() => {
+    /*useEffect(() => {
         const loadSettings = async () => {
             try {
                 setLoading(true);
@@ -1251,12 +1251,42 @@ export default function Settings() {
             }
         };
         loadSettings();
+    }, []);*/
+        useEffect(() => {
+        const loadSettings = async () => {
+            try {
+                setLoading(true);
+                const response = await fetch(`${API_BASE}/settings`, { credentials: 'include' });
+                if (response.ok) {
+                    //const data = await response.json();
+                    //setSettings(data);
+                     const data = await response.json();
+                // ✅ Fix: Extract the actual settings from data.data
+                if (data && data.data) {
+                    setSettings(data.data);
+                } else {
+                    setSettings(DEFAULT_SETTINGS);
+                    setError('Using default settings');
+                }
+                } else {
+                    setSettings(DEFAULT_SETTINGS);
+                    setError('Using default settings');
+                }
+            } catch (error) {
+                setSettings(DEFAULT_SETTINGS);
+                setError('Using default settings - connection error');
+            } finally {
+                setLoading(false);
+            }
+        };
+        loadSettings();
     }, []);
 
     const handleChange = (key, value) => {
         setSettings(prev => ({ ...prev, [key]: value }));
     };
 
+    /*
     const handleSave = async () => {
         setSaving(true);
         setError(null);
@@ -1296,6 +1326,29 @@ export default function Settings() {
             localStorage.setItem('cms-settings-backup', JSON.stringify(settings));
             setSaved(true);
             setTimeout(() => setSaved(false), 2500);
+        } finally {
+            setSaving(false);
+        }
+    };*/
+     const handleSave = async () => {
+        setSaving(true);
+        try {
+            const toSave = { ...settings, lastUpdated: new Date().toISOString() };
+            const response = await fetch(`${API_BASE}/settings`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify(toSave)
+            });
+            if (response.ok) {
+                setSaved(true);
+                window.dispatchEvent(new CustomEvent('settings-updated'));
+                setTimeout(() => setSaved(false), 2500);
+            } else {
+                setError('Failed to save');
+            }
+        } catch (error) {
+            setError('Network error');
         } finally {
             setSaving(false);
         }
@@ -1455,6 +1508,7 @@ export default function Settings() {
         </div>
     );
 }
+
 /*import React, { useState, useEffect } from 'react';
 import {
     Save, RefreshCw, Palette, Layout, Globe, Shield, Type,

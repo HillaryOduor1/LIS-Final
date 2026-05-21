@@ -4,7 +4,7 @@ import {
     Activity, Settings2, FileText, LogIn, RefreshCw, Zap, TrendingUp
 } from 'lucide-react';
 
-const API_BASE = '/api/admin';
+const API_BASE = '/api/v1';
 
 const ACTION_ICONS = {
     settings_save: Settings2,
@@ -281,6 +281,7 @@ export default function Overview({ navigate }) {
         </div>
     );
 }
+
 /*import React, { useState, useEffect } from 'react';
 import {
     BarChart2, Globe, Users, Server, ArrowUpRight, ArrowDownRight,

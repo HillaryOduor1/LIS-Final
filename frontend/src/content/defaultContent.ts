@@ -1,216 +1,8 @@
 // Auto-generated from backend API for tenant: landscapes_integrity_solutions
+// Generated at: 2026-05-21T18:42:11.138Z
 // DO NOT EDIT MANUALLY – regenerate with `npm run generate:content`
+
 export const defaultContent = {
-  "partners": {
-    "badge": "Our Network",
-    "title": "Trusted by Leading Organizations",
-    "description": "We collaborate with a diverse range of partners to scale impact and drive systemic change.",
-    "categories": [
-      "International NGOs",
-      "Government Agencies",
-      "Private Sector",
-      "Research Institutions"
-    ],
-    "logos": [
-      {
-        "icon": "public",
-        "name": "UNDP",
-        "logo": "",
-        "_id": "6a028bf664626529fb645416"
-      },
-      {
-        "icon": "eco",
-        "name": "WWF",
-        "logo": "",
-        "_id": "6a028bf664626529fb645417"
-      },
-      {
-        "icon": "forest",
-        "name": "Rainforest Alliance",
-        "logo": "",
-        "_id": "6a028bf664626529fb645418"
-      },
-      {
-        "icon": "science",
-        "name": "CIFOR",
-        "logo": "",
-        "_id": "6a028bf664626529fb645419"
-      },
-      {
-        "icon": "corporate",
-        "name": "Unilever",
-        "logo": "",
-        "_id": "6a028bf664626529fb64541a"
-      },
-      {
-        "icon": "agriculture",
-        "name": "IFAD",
-        "logo": "",
-        "_id": "6a028bf664626529fb64541b"
-      }
-    ]
-  },
-  "cta": {
-    "title": "Ready to drive sustainable change?",
-    "description": "Join dozens of organizations leveraging LIS intelligence to achieve measurable landscape impact.",
-    "primaryButtonText": "Request an Advisory",
-    "secondaryButtonText": "Contact Our Team"
-  },
-  "privacyPolicy": {
-    "title": "Privacy Policy ",
-    "lastUpdated": "May 2026",
-    "sections": [
-      {
-        "heading": "1. Information We Collect",
-        "content": "We may collect personal information that you voluntarily provide...",
-        "_id": "6a028bf664626529fb64542b"
-      },
-      {
-        "heading": "2. How We Use Your Information",
-        "content": "We use the information we collect to provide, operate, and maintain our services...",
-        "_id": "6a028bf664626529fb64542c"
-      },
-      {
-        "heading": "3. Cookies and Tracking Technologies",
-        "content": "We use cookies and similar tracking technologies to monitor activity...",
-        "_id": "6a028bf664626529fb64542d"
-      },
-      {
-        "heading": "4. Data Security",
-        "content": "We implement appropriate technical and organisational measures...",
-        "_id": "6a028bf664626529fb64542e"
-      },
-      {
-        "heading": "5. Third-Party Links",
-        "content": "Our website may contain links to third‑party websites...",
-        "_id": "6a028bf664626529fb64542f"
-      },
-      {
-        "heading": "6. Your Rights (GDPR & CCPA)",
-        "content": "Depending on your location, you may have the following rights: access, rectification, erasure...",
-        "_id": "6a028bf664626529fb645430"
-      },
-      {
-        "heading": "7. Children’s Privacy",
-        "content": "Our services are not directed to individuals under the age of 16...",
-        "_id": "6a028bf664626529fb645431"
-      },
-      {
-        "heading": "8. Changes to This Privacy Policy",
-        "content": "We may update this Privacy Policy from time to time...",
-        "_id": "6a028bf664626529fb645432"
-      },
-      {
-        "heading": "9. Contact Us",
-        "content": "",
-        "_id": "6a028bf664626529fb645433"
-      }
-    ],
-    "contactEmail": "privacy@lis.org",
-    "contactPhone": "+254 700 000 000",
-    "contactAddress": "Nairobi, Kenya"
-  },
-  "termsOfUse": {
-    "title": "Terms of Use",
-    "effectiveDate": "May 2026",
-    "sections": [
-      {
-        "heading": "1. Use of Content",
-        "content": "All content on this website is the property of LIS and is protected by copyright...",
-        "_id": "6a028bf664626529fb645434"
-      },
-      {
-        "heading": "2. User Conduct",
-        "content": "You agree not to use the website for any unlawful purpose...",
-        "_id": "6a028bf664626529fb645435"
-      },
-      {
-        "heading": "3. Research and Advisory Disclaimers",
-        "content": "The research reports and advisory content are for informational purposes only...",
-        "_id": "6a028bf664626529fb645436"
-      },
-      {
-        "heading": "4. Third-Party Links",
-        "content": "Our website may contain links to external websites...",
-        "_id": "6a028bf664626529fb645437"
-      },
-      {
-        "heading": "5. Limitation of Liability",
-        "content": "LIS shall not be liable for any indirect or consequential damages...",
-        "_id": "6a028bf664626529fb645438"
-      },
-      {
-        "heading": "6. Indemnification",
-        "content": "You agree to indemnify LIS from any claims arising from your use...",
-        "_id": "6a028bf664626529fb645439"
-      },
-      {
-        "heading": "7. Changes to Terms",
-        "content": "We reserve the right to modify these Terms at any time...",
-        "_id": "6a028bf664626529fb64543a"
-      },
-      {
-        "heading": "8. Governing Law",
-        "content": "These Terms shall be governed by the laws of Kenya.",
-        "_id": "6a028bf664626529fb64543b"
-      },
-      {
-        "heading": "9. Contact Us",
-        "content": "If you have questions, contact us at legal@lis.org.",
-        "_id": "6a028bf664626529fb64543c"
-      }
-    ],
-    "contactEmail": "legal@lis.org"
-  },
-  "accessibility": {
-    "title": "Accessibility Statement",
-    "lastUpdated": "May 2026",
-    "sections": [
-      {
-        "heading": "Our Commitment",
-        "content": "We are committed to ensuring digital accessibility for all users...",
-        "_id": "6a028bf664626529fb64543d"
-      },
-      {
-        "heading": "Conformance Status",
-        "content": "This website is partially conformant with WCAG 2.2 Level AA...",
-        "_id": "6a028bf664626529fb64543e"
-      },
-      {
-        "heading": "Accessibility Features You Can Use",
-        "content": "Theme toggle, neurodivergent mode, zoom up to 200%, responsive layout.",
-        "_id": "6a028bf664626529fb64543f"
-      },
-      {
-        "heading": "Feedback and Contact",
-        "content": "",
-        "_id": "6a028bf664626529fb645440"
-      },
-      {
-        "heading": "Third‑Party Content",
-        "content": "Some external content may not be fully accessible; we provide alternatives upon request.",
-        "_id": "6a028bf664626529fb645441"
-      },
-      {
-        "heading": "Assessment Methods",
-        "content": "We use automated tools, manual keyboard testing, and screen reader testing.",
-        "_id": "6a028bf664626529fb645442"
-      },
-      {
-        "heading": "Known Limitations",
-        "content": "Some older PDF reports may lack proper tagging; we are remediating them.",
-        "_id": "6a028bf664626529fb645443"
-      }
-    ],
-    "contactEmail": "accessibility@lis.org",
-    "contactPhone": "+254 700 000 000",
-    "contactAddress": "Nairobi, Kenya"
-  },
-  "metadata": {
-    "keywords": []
-  },
-  "_id": "69d56cdb5568ad6d2a0e505c",
-  "page": "home",
   "navigation": [
     {
       "name": "Home",
@@ -235,17 +27,8 @@ export const defaultContent = {
   ],
   "hero": {
     "announcementBadge": "New Report",
-    "announcementText": "Read our latest insights on carbon markets",
-    "headline": "Advancing Policy for",
-    "highlightedText": "Sustainable Landscapes",
+    "headline": "Advancing Policy for12",
     "subtext": "We bridge the gap between global environmental policy and local conservation practice through rigorous research, strategic advisory, and actionable intelligence.",
-    "primaryButtonText": "Explore Our Work",
-    "secondaryButtonText": "Contact Us",
-    "features": [
-      "Research",
-      "Advisory",
-      "Implementation"
-    ],
     "backgroundImage": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2070&auto=format"
   },
   "about": {
@@ -297,30 +80,79 @@ export const defaultContent = {
       "title": "Forest Governance",
       "description": "Strengthening policies and institutions for sustainable forest management and deforestation-free supply chains.",
       "link": "/research",
-      "_id": "6a028bf664626529fb645412"
+      "_id": "6a039a6fb88033657b33c588"
     },
     {
       "icon": "water",
       "title": "Water Security",
       "description": "Integrated water resource management, watershed restoration, and climate-resilient water governance.",
       "link": "/research",
-      "_id": "6a028bf664626529fb645413"
+      "_id": "6a039a6fb88033657b33c589"
     },
     {
       "icon": "agriculture",
       "title": "Sustainable Agriculture",
       "description": "Promoting regenerative practices, agroecology, and market-based incentives for smallholders.",
       "link": "/research",
-      "_id": "6a028bf664626529fb645414"
+      "_id": "6a039a6fb88033657b33c58a"
     },
     {
       "icon": "carbon",
       "title": "Carbon & Climate",
       "description": "Advising on carbon markets, NDC implementation, and nature-based climate solutions.",
       "link": "/research",
-      "_id": "6a028bf664626529fb645415"
+      "_id": "6a039a6fb88033657b33c58b"
     }
   ],
+  "partners": {
+    "badge": "Our Network",
+    "title": "Trusted by Leading Organizations",
+    "description": "We collaborate with a diverse range of partners to scale impact and drive systemic change.",
+    "categories": [
+      "International NGOs",
+      "Government Agencies",
+      "Private Sector",
+      "Research Institutions"
+    ],
+    "logos": [
+      {
+        "icon": "public",
+        "name": "UNDP",
+        "logo": "",
+        "_id": "6a039a70b88033657b33c58c"
+      },
+      {
+        "icon": "eco",
+        "name": "WWF",
+        "logo": "",
+        "_id": "6a039a70b88033657b33c58d"
+      },
+      {
+        "icon": "forest",
+        "name": "Rainforest Alliance",
+        "logo": "",
+        "_id": "6a039a70b88033657b33c58e"
+      },
+      {
+        "icon": "science",
+        "name": "CIFOR",
+        "logo": "",
+        "_id": "6a039a70b88033657b33c58f"
+      },
+      {
+        "icon": "corporate",
+        "name": "Unilever",
+        "logo": "",
+        "_id": "6a039a70b88033657b33c590"
+      },
+      {
+        "icon": "agriculture",
+        "name": "IFAD",
+        "logo": "",
+        "_id": "6a039a70b88033657b33c591"
+      }
+    ]
+  },
   "research": [
     {
       "category": "Policy Brief",
@@ -330,7 +162,7 @@ export const defaultContent = {
       "image": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?q=80&w=2070&auto=format",
       "isFeatured": true,
       "link": "/research/carbon-market-integrity",
-      "_id": "6a028bf664626529fb64541c"
+      "_id": "6a039a70b88033657b33c592"
     },
     {
       "category": "Working Paper",
@@ -340,7 +172,7 @@ export const defaultContent = {
       "image": "https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=2069&auto=format",
       "isFeatured": false,
       "link": "/research/gender-land-governance",
-      "_id": "6a028bf664626529fb64541d"
+      "_id": "6a039a70b88033657b33c593"
     },
     {
       "category": "Case Study",
@@ -350,7 +182,7 @@ export const defaultContent = {
       "image": "https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?q=80&w=2074&auto=format",
       "isFeatured": false,
       "link": "/research/peatland-restoration",
-      "_id": "6a028bf664626529fb64541e"
+      "_id": "6a039a70b88033657b33c594"
     }
   ],
   "advisory": [
@@ -358,27 +190,28 @@ export const defaultContent = {
       "icon": "analytics",
       "title": "Strategic Intelligence",
       "description": "Tailored analysis of policy landscapes, market trends, and regulatory shifts.",
-      "_id": "6a028bf664626529fb64541f"
+      "_id": "6a039a70b88033657b33c595"
     },
     {
       "icon": "handshake",
       "title": "Multi-Stakeholder Engagement",
       "description": "Facilitation of dialogues and partnerships across government, business, and civil society.",
-      "_id": "6a028bf664626529fb645420"
+      "_id": "6a039a70b88033657b33c596"
     },
     {
       "icon": "assessment",
       "title": "Impact Evaluation",
       "description": "Rigorous assessment of programs and policies using quantitative and qualitative methods.",
-      "_id": "6a028bf664626529fb645421"
+      "_id": "6a039a70b88033657b33c597"
     },
     {
       "icon": "school",
       "title": "Capacity Building",
       "description": "Customized training and technical assistance for institutions and practitioners.",
-      "_id": "6a028bf664626529fb645422"
+      "_id": "6a039a70b88033657b33c598"
     }
   ],
+  "pricing": [],
   "testimonials": [
     {
       "image": "https://randomuser.me/api/portraits/women/68.jpg",
@@ -386,7 +219,7 @@ export const defaultContent = {
       "handle": "Director, Ministry of Environment, Kenya",
       "date": "March 2025",
       "quote": "LIS provided critical insights that shaped our national climate action plan. Their team's expertise and dedication are unparalleled.",
-      "_id": "6a028bf664626529fb645423"
+      "_id": "6a039a70b88033657b33c599"
     },
     {
       "image": "https://randomuser.me/api/portraits/men/32.jpg",
@@ -394,7 +227,7 @@ export const defaultContent = {
       "handle": "Sustainability Lead, Global Forestry Corp",
       "date": "December 2024",
       "quote": "The advisory services from LIS helped us navigate complex regulatory environments and achieve our deforestation-free commitments.",
-      "_id": "6a028bf664626529fb645424"
+      "_id": "6a039a70b88033657b33c59a"
     },
     {
       "image": "https://randomuser.me/api/portraits/women/45.jpg",
@@ -402,7 +235,7 @@ export const defaultContent = {
       "handle": "Research Fellow, World Resources Institute",
       "date": "October 2024",
       "quote": "LIS's research on jurisdictional approaches is a game-changer. Their rigorous methodology and policy relevance are exceptional.",
-      "_id": "6a028bf664626529fb645425"
+      "_id": "6a039a70b88033657b33c59b"
     }
   ],
   "contact": {
@@ -421,71 +254,167 @@ export const defaultContent = {
       "submitText": "Send Message"
     }
   },
-  "footer": {
-    "contact": {
-      "address": "123 Earth Avenue, Nairobi, Kenya",
-      "email": "info@lis.org",
-      "phone": "+254 20 123 4567"
-    },
-    "description": "Landscapes Integrity Solutions (LIS) is an independent think tank advancing policy for sustainable landscapes. We translate complex environmental data into actionable governance frameworks.",
-    "quickLinks": [
-      {
-        "_id": "6a028bf664626529fb645426",
-        "links": []
-      },
-      {
-        "_id": "6a028bf664626529fb645427",
-        "links": []
-      },
-      {
-        "_id": "6a028bf664626529fb645428",
-        "links": []
-      },
-      {
-        "_id": "6a028bf664626529fb645429",
-        "links": []
-      },
-      {
-        "_id": "6a028bf664626529fb64542a",
-        "links": []
-      }
-    ],
-    "socialLinks": [
-      {
-        "icon": "linkedin",
-        "href": "https://linkedin.com/company/lis"
-      },
-      {
-        "icon": "twitter",
-        "href": "https://twitter.com/lis_thinktank"
-      },
-      {
-        "icon": "mail",
-        "href": "mailto:info@lis.org"
-      }
-    ],
-    "copyright": "© 2026 Landscapes Integrity Solutions (LIS). All Rights Reserved.",
-    "legalLinks": [
-      {
-        "name": "Privacy Policy",
-        "href": "/privacy"
-      },
-      {
-        "name": "Terms of Use",
-        "href": "/terms"
-      },
-      {
-        "name": "Accessibility",
-        "href": "/accessibility"
-      }
-    ]
+  "cta": {
+    "title": "Ready to drive sustainable change?",
+    "description": "Join dozens of organizations leveraging LIS intelligence to achieve measurable landscape impact.",
+    "primaryButtonText": "Request an Advisory",
+    "secondaryButtonText": "Contact Our Team"
   },
-  "published": true,
-  "version": 1,
-  "updatedBy": "system",
-  "features": [],
-  "pricing": [],
-  "createdAt": "2026-04-07T20:45:15.134Z",
-  "updatedAt": "2026-05-12T02:09:57.533Z",
-  "__v": 0
+  "footer": {
+    "description": "Landscapes Integrity Solutions (LIS) is an independent think tank advancing policy for sustainable landscapes. We translate complex environmental data into actionable governance frameworks.",
+    "copyright": "© 2026 Landscapes Integrity Solutions (LIS). All Rights Reserved."
+  },
+  "privacyPolicy": {
+    "title": "Privacy Policy",
+    "lastUpdated": "May 2026",
+    "sections": [
+      {
+        "heading": "1. Information We Collect",
+        "content": "We may collect personal information that you voluntarily provide...",
+        "_id": "6a039a70b88033657b33c5a1"
+      },
+      {
+        "heading": "2. How We Use Your Information",
+        "content": "We use the information we collect to provide, operate, and maintain our services...",
+        "_id": "6a039a70b88033657b33c5a2"
+      },
+      {
+        "heading": "3. Cookies and Tracking Technologies",
+        "content": "We use cookies and similar tracking technologies to monitor activity...",
+        "_id": "6a039a70b88033657b33c5a3"
+      },
+      {
+        "heading": "4. Data Security",
+        "content": "We implement appropriate technical and organisational measures...",
+        "_id": "6a039a70b88033657b33c5a4"
+      },
+      {
+        "heading": "5. Third-Party Links",
+        "content": "Our website may contain links to third‑party websites...",
+        "_id": "6a039a70b88033657b33c5a5"
+      },
+      {
+        "heading": "6. Your Rights (GDPR & CCPA)",
+        "content": "Depending on your location, you may have the following rights: access, rectification, erasure...",
+        "_id": "6a039a70b88033657b33c5a6"
+      },
+      {
+        "heading": "7. Children’s Privacy",
+        "content": "Our services are not directed to individuals under the age of 16...",
+        "_id": "6a039a70b88033657b33c5a7"
+      },
+      {
+        "heading": "8. Changes to This Privacy Policy",
+        "content": "We may update this Privacy Policy from time to time...",
+        "_id": "6a039a70b88033657b33c5a8"
+      },
+      {
+        "heading": "9. Contact Us",
+        "content": "",
+        "_id": "6a039a70b88033657b33c5a9"
+      }
+    ],
+    "contactEmail": "privacy@lis.org",
+    "contactPhone": "+254 700 000 000",
+    "contactAddress": "Nairobi, Kenya"
+  },
+  "termsOfUse": {
+    "title": "Terms of Use",
+    "effectiveDate": "May 2026",
+    "sections": [
+      {
+        "heading": "1. Use of Content",
+        "content": "All content on this website is the property of LIS and is protected by copyright...",
+        "_id": "6a039a70b88033657b33c5aa"
+      },
+      {
+        "heading": "2. User Conduct",
+        "content": "You agree not to use the website for any unlawful purpose...",
+        "_id": "6a039a70b88033657b33c5ab"
+      },
+      {
+        "heading": "3. Research and Advisory Disclaimers",
+        "content": "The research reports and advisory content are for informational purposes only...",
+        "_id": "6a039a70b88033657b33c5ac"
+      },
+      {
+        "heading": "4. Third-Party Links",
+        "content": "Our website may contain links to external websites...",
+        "_id": "6a039a70b88033657b33c5ad"
+      },
+      {
+        "heading": "5. Limitation of Liability",
+        "content": "LIS shall not be liable for any indirect or consequential damages...",
+        "_id": "6a039a70b88033657b33c5ae"
+      },
+      {
+        "heading": "6. Indemnification",
+        "content": "You agree to indemnify LIS from any claims arising from your use...",
+        "_id": "6a039a70b88033657b33c5af"
+      },
+      {
+        "heading": "7. Changes to Terms",
+        "content": "We reserve the right to modify these Terms at any time...",
+        "_id": "6a039a70b88033657b33c5b0"
+      },
+      {
+        "heading": "8. Governing Law",
+        "content": "These Terms shall be governed by the laws of Kenya.",
+        "_id": "6a039a70b88033657b33c5b1"
+      },
+      {
+        "heading": "9. Contact Us",
+        "content": "If you have questions, contact us at legal@lis.org.",
+        "_id": "6a039a70b88033657b33c5b2"
+      }
+    ],
+    "contactEmail": "legal@lis.org"
+  },
+  "accessibility": {
+    "title": "Accessibility Statement",
+    "lastUpdated": "May 2026",
+    "sections": [
+      {
+        "heading": "Our Commitment",
+        "content": "We are committed to ensuring digital accessibility for all users...",
+        "_id": "6a039a70b88033657b33c5b3"
+      },
+      {
+        "heading": "Conformance Status",
+        "content": "This website is partially conformant with WCAG 2.2 Level AA...",
+        "_id": "6a039a70b88033657b33c5b4"
+      },
+      {
+        "heading": "Accessibility Features You Can Use",
+        "content": "Theme toggle, neurodivergent mode, zoom up to 200%, responsive layout.",
+        "_id": "6a039a70b88033657b33c5b5"
+      },
+      {
+        "heading": "Feedback and Contact",
+        "content": "",
+        "_id": "6a039a70b88033657b33c5b6"
+      },
+      {
+        "heading": "Third‑Party Content",
+        "content": "Some external content may not be fully accessible; we provide alternatives upon request.",
+        "_id": "6a039a70b88033657b33c5b7"
+      },
+      {
+        "heading": "Assessment Methods",
+        "content": "We use automated tools, manual keyboard testing, and screen reader testing.",
+        "_id": "6a039a70b88033657b33c5b8"
+      },
+      {
+        "heading": "Known Limitations",
+        "content": "Some older PDF reports may lack proper tagging; we are remediating them.",
+        "_id": "6a039a70b88033657b33c5b9"
+      }
+    ],
+    "contactEmail": "accessibility@lis.org",
+    "contactPhone": "+254 700 000 000",
+    "contactAddress": "Nairobi, Kenya"
+  },
+  "metadata": {
+    "keywords": []
+  }
 };

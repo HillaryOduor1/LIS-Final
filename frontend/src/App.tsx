@@ -139,7 +139,7 @@ function AppContent() {
         <React.Suspense
           fallback={
             <div className="flex items-center justify-center min-h-screen bg-background-light dark:bg-background-dark">
-              <span className="loader" style={{ color: 'var(--accent)' }}></span>
+              <span className="loader" style={{ color: 'var(text)' }}></span>
             </div>
           }
         >

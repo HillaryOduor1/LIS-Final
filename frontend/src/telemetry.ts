@@ -1,4 +1,4 @@
-export {}; // marks module as having side effects
+/*export {}; // marks module as having side effects
 console.log('TELEMETRY FILE LOADED');
 import { WebTracerProvider } from '@opentelemetry/sdk-trace-web';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
@@ -30,4 +30,4 @@ registerInstrumentations({
     ],
 });
 
-console.log('Frontend OpenTelemetry initialized');
+console.log('Frontend OpenTelemetry initialized');*/
