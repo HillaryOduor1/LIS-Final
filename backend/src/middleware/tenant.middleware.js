@@ -36,7 +36,7 @@ export const tenantMiddleware = async (req, res, next) => {
     }
     
     // PRIORITY 2: If no tenantId from JWT, try from query param or host header
-    if (!tenantId) {
+    /*if (!tenantId) {
       const identifier = req.query.tenant || req.headers.host?.split(':')[0];
       console.log(`[Tenant] Looking up tenant by identifier: ${identifier}`);
       
@@ -60,24 +60,105 @@ export const tenantMiddleware = async (req, res, next) => {
           }
         }
       }
+    }*/
+    if (!tenantId) {
+      let identifier = req.query.tenant || req.headers.host?.split(':')[0];
+      console.log(`[Tenant] Looking up tenant by identifier: ${identifier}`);
+      
+      if (identifier) {
+        // Normalize identifier for lookup
+        const normalizedIdentifier = identifier.toLowerCase();
+        const cacheKey = `tenant:${normalizedIdentifier}`;
+        const cached = await redisClient.get(cacheKey);
+        
+        if (cached) {
+          tenant = JSON.parse(cached);
+          tenantId = tenant.dbName;
+          console.log(`[Tenant] Found tenant in cache: ${tenantId}`);
+        } else {
+          const masterConn = await getMasterConnection();
+          const Tenant = masterConn.model('Tenant', TenantModel.schema);
+          
+          // Try multiple lookup strategies
+          tenant = await Tenant.findOne({
+            $or: [
+              { dbName: { $regex: new RegExp(`^${normalizedIdentifier}$`, 'i') } },  // Case-insensitive dbName
+              { domain: normalizedIdentifier },
+              { domain: identifier },
+              { siteId: normalizedIdentifier }
+            ]
+          }).lean();
+          
+          if (tenant) {
+            tenantId = tenant.dbName;
+            await redisClient.setex(cacheKey, 300, JSON.stringify(tenant));
+            console.log(`[Tenant] Found tenant in DB: ${tenantId} (by ${tenant.dbName === identifier ? 'dbName' : 'other'})`);
+          }
+        }
+      }
     }
     
     // PRIORITY 3: Fallback to default tenant from .env if no tenant found (development)
-    if (!tenantId && config.defaultTenantDbName) {
+    /*if (!tenantId && config.defaultTenantDbName) {
       const defaultDbName = config.defaultTenantDbName;
       console.log(`[Tenant] Using default tenant: ${defaultDbName}`);
       const masterConn = await getMasterConnection();
       const Tenant = masterConn.model('Tenant', TenantModel.schema);
       tenant = await Tenant.findOne({ dbName: defaultDbName }).lean();
-      if (!tenant) {
+      /*if (!tenant) {
         tenant = await Tenant.create({
           name: defaultDbName.replace(/_/g, ' '),
           dbName: defaultDbName,
           domain: 'localhost',
         });
         console.log(`[Tenant] Created default tenant: ${defaultDbName}`);
+      }/
+     if (!tenant) {
+        // Generate a siteId from the dbName or use a default
+        const siteId = defaultDbName.replace(/_/g, '-').toLowerCase();
+        tenant = await Tenant.create({
+          name: defaultDbName.replace(/_/g, ' '),
+          dbName: defaultDbName,
+          domain: 'localhost',
+          siteId: siteId,  // Add this required field
+          contactEmail: config.smtp?.from || 'admin@example.com',  // Optional but good to have
+        });
+        console.log(`[Tenant] Created default tenant: ${defaultDbName} with siteId: ${siteId}`);
       }
       tenantId = tenant.dbName;
+    }*/
+    if (!tenantId && config.defaultTenantDbName) {
+      let defaultDbName = config.defaultTenantDbName;
+      // Normalize the default tenant name (convert to lowercase, replace spaces with underscores)
+      defaultDbName = defaultDbName.toLowerCase().replace(/\s+/g, '_');
+      console.log(`[Tenant] Looking for default tenant: ${defaultDbName}`);
+      
+      const masterConn = await getMasterConnection();
+      const Tenant = masterConn.model('Tenant', TenantModel.schema);
+      
+      // Try to find existing tenant
+      tenant = await Tenant.findOne({ 
+        $or: [
+          { dbName: defaultDbName },
+          { dbName: { $regex: new RegExp(`^${defaultDbName}$`, 'i') } }
+        ]
+      }).lean();
+      
+      if (!tenant) {
+        // Try to find by siteId pattern
+        tenant = await Tenant.findOne({ 
+          siteId: { $exists: true, $ne: null } 
+        }).lean();
+      }
+      
+      if (tenant) {
+        tenantId = tenant.dbName;
+        console.log(`[Tenant] Found existing tenant: ${tenantId}`);
+      } else {
+        // Only create if absolutely necessary
+        console.warn(`[Tenant] No tenant found, but skipping auto-creation to avoid siteId error`);
+        return res.status(404).json({ success: false, message: 'Tenant not found. Please configure tenant properly.' });
+      }
     }
 
     // If still no tenant, return error
