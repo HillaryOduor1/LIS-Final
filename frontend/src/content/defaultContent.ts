@@ -1,5 +1,5 @@
 // Auto-generated from backend API for tenant: landscapes_integrity_solutions
-// Generated at: 2026-06-02T02:28:20.913Z
+// Generated at: 2026-06-02T06:43:05.663Z
 // DO NOT EDIT MANUALLY – regenerate with `npm run generate:content`
 
 export const defaultContent = {
@@ -27,7 +27,7 @@ export const defaultContent = {
   ],
   "hero": {
     "announcementBadge": "New Report",
-    "headline": "Advancing Policy for",
+    "headline": "Advancing Policy forSustainable Landscapes",
     "subtext": "We bridge the gap between global environmental policy and local conservation practice through rigorous research, strategic advisory, and actionable intelligence.",
     "backgroundImage": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2070&auto=format"
   },
