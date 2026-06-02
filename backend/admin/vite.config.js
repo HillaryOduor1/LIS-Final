@@ -25,6 +25,7 @@ export default defineConfig({
     }
   },
 });
+
 /*last stable
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
