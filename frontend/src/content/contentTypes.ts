@@ -1,5 +1,5 @@
 // Auto-generated from backend API for tenant: landscapes_integrity_solutions
-// Generated at: 2026-06-02T06:43:05.911Z
+// Generated at: 2026-06-02T20:37:33.222Z
 // DO NOT EDIT MANUALLY – regenerate with `npm run generate:content`
 
 export interface SiteContent {
