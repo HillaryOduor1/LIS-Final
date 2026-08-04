@@ -1,5 +1,5 @@
 // Auto-generated from backend API for tenant: landscapes_integrity_solutions
-// Generated at: 2026-07-10T09:31:21.525Z
+// Generated at: 2026-08-03T21:29:56.365Z
 // DO NOT EDIT MANUALLY – regenerate with `npm run generate:content`
 
 export interface SiteContent {
@@ -7,12 +7,44 @@ export interface SiteContent {
     name: string;
     href: string;
     icon: string;
+    theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
   }>;
   hero: {
     announcementBadge: string;
     headline: string;
     subtext: string;
     backgroundImage: string;
+    theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
   };
   about: {
     badge: string;
@@ -22,19 +54,83 @@ export interface SiteContent {
     stats: Array<{
       number: string;
       label: string;
+      theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
     }>;
     features: Array<{
       icon: string;
       title: string;
       description: string;
+      theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
     }>;
     image: string;
+    theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
   };
   areas: Array<{
     icon: string;
     title: string;
     description: string;
     link: string;
+    theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
   }>;
   partners: {
     badge: string;
@@ -45,7 +141,39 @@ export interface SiteContent {
       icon: string;
       name: string;
       logo: string;
+      theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
     }>;
+    theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
   };
   research: Array<{
     category: string;
@@ -55,11 +183,43 @@ export interface SiteContent {
     image: string;
     isFeatured: boolean;
     link: string;
+    theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
   }>;
   advisory: Array<{
     icon: string;
     title: string;
     description: string;
+    theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
   }>;
   pricing: any[];
   testimonials: Array<{
@@ -68,12 +228,44 @@ export interface SiteContent {
     handle: string;
     date: string;
     quote: string;
+    theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
   }>;
   contact: {
     sectionTitle: {
       text1: string;
       text2: string;
       text3: string;
+      theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
     };
     form: {
       nameLabel: string;
@@ -83,17 +275,81 @@ export interface SiteContent {
       messageLabel: string;
       messagePlaceholder: string;
       submitText: string;
+      theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
     };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
+    };
+    theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
   };
   cta: {
     title: string;
     description: string;
     primaryButtonText: string;
     secondaryButtonText: string;
+    theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
   };
   footer: {
     description: string;
     copyright: string;
+    theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
   };
   privacyPolicy: {
     title: string;
@@ -101,10 +357,42 @@ export interface SiteContent {
     sections: Array<{
       heading: string;
       content: string;
+      theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
     }>;
     contactEmail: string;
     contactPhone: string;
     contactAddress: string;
+    theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
   };
   termsOfUse: {
     title: string;
@@ -112,8 +400,40 @@ export interface SiteContent {
     sections: Array<{
       heading: string;
       content: string;
+      theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
     }>;
     contactEmail: string;
+    theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
   };
   accessibility: {
     title: string;
@@ -121,12 +441,76 @@ export interface SiteContent {
     sections: Array<{
       heading: string;
       content: string;
+      theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
     }>;
     contactEmail: string;
     contactPhone: string;
     contactAddress: string;
+    theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
   };
   metadata: {
     keywords: any[];
+    theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
+  };
+  };
+  theme?: {
+    light?: Record<string, string>;
+    dark?: Record<string, string>;
+    typography?: {
+      fontFamily?: string;
+      headingWeight?: string;
+      bodyWeight?: string;
+      textScale?: number;
+      textAlign?: string;
+    };
+    spacing?: {
+      spacingUnit?: string;
+      radius?: string;
+      shadowIntensity?: string;
+    };
   };
 }

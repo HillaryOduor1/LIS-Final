@@ -7,19 +7,6 @@ export default function MasterDashboard() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  /*const fetchTenants = async () => {
-    setLoading(true);
-    try {
-      const res = await fetch('/api/v1/master/tenants', { credentials: 'include' });
-      if (!res.ok) throw new Error();
-      const data = await res.json();
-      setTenants(data);
-    } catch (err) {
-      console.error('Failed to fetch tenants', err);
-    } finally {
-      setLoading(false);
-    }
-  };*/
   const fetchTenants = async () => {
     setLoading(true);
     try {

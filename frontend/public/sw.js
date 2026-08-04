@@ -22,3 +22,27 @@ self.addEventListener('fetch', (event) => {
     );
   }
 });
+// sw.js - Add these event listeners
+self.addEventListener('message', function(event) {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});
+
+self.addEventListener('activate', function(event) {
+  event.waitUntil(
+    caches.keys().then(function(cacheNames) {
+      return Promise.all(
+        cacheNames.map(function(cacheName) {
+          // Delete old caches
+          if (cacheName.startsWith('lis-') && cacheName !== 'lis-v1') {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    }).then(function() {
+      // Claim clients
+      return self.clients.claim();
+    })
+  );
+});

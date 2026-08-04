@@ -8,11 +8,7 @@ const roleHierarchy = {
   viewer: ['viewer'],
 };
 
-/**
- * Middleware factory to check if current user has required role.
- * @param {...string} allowedRoles - List of roles allowed to access the route.
- * @returns {Function} Express middleware
- */
+/*Middleware factory to check if current user has required role.@param {...string} allowedRoles , List of roles allowed to access the route.@returns {Function} Express middleware */
 export const authorize = (...allowedRoles) => {
   return (req, res, next) => {
     if (!req.user) {
@@ -30,10 +26,7 @@ export const authorize = (...allowedRoles) => {
   };
 };
 
-/**
- * Check if user can access a specific tenant.
- * Superadmin can access any tenant; normal users only their own.
- */
+/*Check if user can access a specific tenant.  Superadmin can access any tenant; normal users only their own.*/
 export const authorizeTenantAccess = (req, res, next) => {
   if (!req.user) {
     throw new AuthorizationError('Authentication required');
@@ -54,10 +47,7 @@ export const authorizeTenantAccess = (req, res, next) => {
   next();
 };
 
-/**
- * Check if user is the resource owner (e.g., updating own profile).
- * @param {Function} getResourceOwnerId - async function that returns owner ID from resource ID
- */
+/*Check if user is the resource owner (e.g., updating own profile).@param {Function} getResourceOwnerId ,async function that returns owner ID from resource ID  */
 export const authorizeResourceOwner = (getResourceOwnerId) => {
   return async (req, res, next) => {
     if (!req.user) {
@@ -78,18 +68,14 @@ export const authorizeResourceOwner = (getResourceOwnerId) => {
   };
 };
 
-/**
- * Simple permission check function (not middleware) for service layer.
- */
+/* Simple permission check function (not middleware) for service layer.*/
 export const hasRole = (user, allowedRoles) => {
   if (!user) return false;
   const userRole = user.role;
   return allowedRoles.some(role => roleHierarchy[userRole]?.includes(role));
 };
 
-/**
- * Ensure user belongs to tenant (service layer).
- */
+/* Ensure user belongs to tenant (service layer).*/
 export const belongsToTenant = (user, tenantId) => {
   if (user.role === 'superadmin') return true;
   return user.tenantId === tenantId;

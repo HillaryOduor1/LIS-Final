@@ -1,4 +1,3 @@
-// src/components/icons.tsx
 import * as React from "react";
 
 type IconProps = {
@@ -813,4 +812,4 @@ export function LogOutIcon(props: IconProps) {
   );
 }
 
-// Export all icons
+

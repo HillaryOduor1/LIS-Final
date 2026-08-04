@@ -21,30 +21,49 @@ interface ThemeConfig {
 export default function ThemeManager({ children }: { children: React.ReactNode }) {
   const { content } = useContent();
   const theme = (content?.theme as ThemeConfig) || {};
+  
+  // Track if component is mounted
+  const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  React.useEffect(() => {
+    // Only run after mounting to avoid hydration issues
+    if (!mounted) return;
+    
     const root = document.documentElement;
     
-    // Light mode variables
+    // Clear any existing dynamic theme styles first
+    const existingStyle = document.getElementById('dynamic-dark-theme');
+    if (existingStyle) {
+      existingStyle.remove();
+    }
+    
+    // Apply light mode variables
     if (theme.light) {
       Object.entries(theme.light).forEach(([key, value]) => {
         if (value) root.style.setProperty(`--${key}`, value);
       });
     }
     
-    // Dark mode overrides – store as a style element
-    if (theme.dark) {
-      let styleEl = document.getElementById('dynamic-dark-theme');
-      if (!styleEl) {
-        styleEl = document.createElement('style');
-        styleEl.id = 'dynamic-dark-theme';
-        document.head.appendChild(styleEl);
-      }
-      const darkStyles = Object.entries(theme.dark)
-        .filter(([_, value]) => value)
-        .map(([key, value]) => `--${key}: ${value};`)
-        .join(' ');
-      styleEl.textContent = `.dark { ${darkStyles} }`;
+    // Apply dark mode variables - using inline style instead of dynamic style tag
+    if (theme.dark && Object.keys(theme.dark).length > 0) {
+      // Create a style element for dark theme overrides
+      const styleEl = document.createElement('style');
+      styleEl.id = 'dynamic-dark-theme';
+      
+      let darkStyles = '.dark {';
+      Object.entries(theme.dark).forEach(([key, value]) => {
+        if (value) {
+          darkStyles += `--${key}: ${value} !important;`;
+        }
+      });
+      darkStyles += '}';
+      
+      styleEl.textContent = darkStyles;
+      document.head.appendChild(styleEl);
     }
     
     // Typography
@@ -62,7 +81,17 @@ export default function ThemeManager({ children }: { children: React.ReactNode }
       if (theme.spacing.radius) root.style.setProperty('--radius', theme.spacing.radius);
       if (theme.spacing.shadowIntensity) root.style.setProperty('--shadow-intensity', theme.spacing.shadowIntensity);
     }
-  }, [theme]);
+    
+    // Force visibility of theme toggle after theme changes
+    const toggleButton = document.querySelector('.theme-toggle-button') as HTMLElement;
+    if (toggleButton) {
+      toggleButton.style.visibility = 'visible';
+      toggleButton.style.opacity = '1';
+      toggleButton.style.display = 'inline-flex';
+    }
+    
+  }, [theme, mounted]);
 
   return <>{children}</>;
 }
+  

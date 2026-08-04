@@ -9,5 +9,4 @@ export class UpdateSettingsDTO {
     this.site = body.site;
   }
 
-  // No strict validation; any partial update allowed
 }

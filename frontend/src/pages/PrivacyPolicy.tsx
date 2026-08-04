@@ -25,8 +25,8 @@ const defaultPolicy: PolicyContent = {
     { heading: '8. Changes to This Privacy Policy', content: 'We may update this Privacy Policy from time to time...' },
     { heading: '9. Contact Us', content: '' }
   ],
-  contactEmail: 'privacy@lis.org',
-  contactPhone: '+254 700 000 000',
+  contactEmail: 'hillaryoduor0@gmail.com',
+  contactPhone: '+254 706 261 624',
   contactAddress: 'Nairobi, Kenya'
 };
 

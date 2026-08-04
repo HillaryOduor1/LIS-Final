@@ -5,7 +5,7 @@ import { useTheme } from "./theme-provider";
 // Define theme type if not already defined
 type Theme = "light" | "dark";
 
-// Props for icon components (adjust based on your actual icon component props)
+// Props for icon components
 interface IconProps {
   className?: string;
   color?: string;
@@ -35,7 +35,7 @@ export function ThemeToggle() {
 
   var isDark = theme === "dark";
 
-  // Get current theme color for background - matches navbar
+  // Get current theme color for background 
   const getThemeColor = () => {
     if (isDark) {
       return {
@@ -70,13 +70,11 @@ export function ThemeToggle() {
     color: themeColors.icon
   };
 
-  // Icon props - pass color as a prop if supported, otherwise use style
+  // Icon props, pass color as a prop if supported, otherwise use style
   const iconProps = {
     className: "h-5 w-5",
-    // If your icon components accept a color prop, use this:
     color: themeColors.icon,
-    // If they don't accept color prop but accept style, use this instead:
-    // style: { color: themeColors.icon } as React.CSSProperties
+    
   };
 
   return React.createElement(

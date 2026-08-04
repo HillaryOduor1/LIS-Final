@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { config } from '../src/config/env.js';
 
-const tenantDbName = config.defaultTenantDbName; // should be 'landscapes_integrity_solutions'
+const tenantDbName = config.defaultTenantDbName; 
 const uri = config.mongodbUri.split('?')[0] + tenantDbName + '?' + config.mongodbUri.split('?')[1];
 
 console.log(`Connecting to ${tenantDbName}...`);

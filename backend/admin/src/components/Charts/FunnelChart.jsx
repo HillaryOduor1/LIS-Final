@@ -14,7 +14,7 @@ export default function FunnelChart({ funnel }) {
 
   if (loading) return <div className="h-40 flex items-center justify-center text-gray-500">Loading funnel...</div>;
 
-  // Simple bar chart using flex (recharts dependency optional)
+  // Simple bar chart using flex 
   const maxCount = Math.max(...data.map(d => d.count), 1);
 
   return (

@@ -1,5 +1,5 @@
 // Auto-generated from backend API for tenant: landscapes_integrity_solutions
-// Generated at: 2026-07-10T09:31:21.343Z
+// Generated at: 2026-08-03T21:29:56.014Z
 // DO NOT EDIT MANUALLY – regenerate with `npm run generate:content`
 
 export const defaultContent = {
@@ -26,7 +26,7 @@ export const defaultContent = {
     }
   ],
   "hero": {
-    "announcementBadge": "New Report",
+    "announcementBadge": "",
     "headline": "Advancing Policy for Sustainable Landscapes",
     "subtext": "We bridge the gap between global environmental policy and local conservation practice through rigorous research, strategic advisory, and actionable intelligence.",
     "backgroundImage": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2070&auto=format"
@@ -314,8 +314,8 @@ export const defaultContent = {
         "_id": "6a039a70b88033657b33c5a9"
       }
     ],
-    "contactEmail": "privacy@lis.org",
-    "contactPhone": "+254 700 000 000",
+    "contactEmail": "info@lis.com",
+    "contactPhone": "+254 706 261 624",
     "contactAddress": "Nairobi, Kenya"
   },
   "termsOfUse": {
@@ -410,8 +410,8 @@ export const defaultContent = {
         "_id": "6a039a70b88033657b33c5b9"
       }
     ],
-    "contactEmail": "accessibility@lis.org",
-    "contactPhone": "+254 700 000 000",
+    "contactEmail": "info@lis.com",
+    "contactPhone": "+254 706 261 624",
     "contactAddress": "Nairobi, Kenya"
   },
   "metadata": {

@@ -13,7 +13,7 @@ export class StatsRepository {
     return {
       sectionCount: totalContent,
       activeUsers: totalUsers,
-      serverLoad: '24%', // simulated – replace with real metrics
+      serverLoad: '24%', // simulated – replace later with real metrics
       themeMode: 'light', // from settings or default
       recentActivity,
     };

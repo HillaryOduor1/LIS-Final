@@ -1,15 +1,12 @@
 <!doctype html>
 <html lang="en" dir="ltr">
   <head>
-    <!-- ==============================================
-         CRITICAL: THEME SCRIPT — runs synchronously
-         before any paint. Prevents white/dark flash.
-    ================================================== -->
+    <!-- CRITICAL: THEME SCRIPT — runs synchronously  before any paint. Prevents white/dark flash.-->
     <script>
       (function () {
         var KEY = 'theme';
-        var BG_DARK = '#102219';
-        var BG_LIGHT = '#f6f8f7';
+        var BG_DARK = '#0D2418';
+        var BG_LIGHT = '#F6F8F7';
         var theme, resolved;
         try {
           theme = localStorage.getItem(KEY);
@@ -22,27 +19,25 @@
               : theme;
           document.documentElement.classList.add(resolved);
           document.documentElement.setAttribute('data-theme', resolved);
+          // Set direct background color for immediate flash prevention
           document.documentElement.style.backgroundColor =
             resolved === 'dark' ? BG_DARK : BG_LIGHT;
+          document.documentElement.style.color =
+            resolved === 'dark' ? '#F6F8F7' : '#123524';
         } catch (_) {
           resolved = 'light';
           document.documentElement.classList.add('light');
           document.documentElement.setAttribute('data-theme', 'light');
           document.documentElement.style.backgroundColor = BG_LIGHT;
+          document.documentElement.style.color = '#123524';
         }
 
-        // ==============================================
-        // FAVICON FALLBACK – ES5 compatible
-        // Updates favicon links if the browser doesn't
-        // honour the `media` attribute on `<link>`.
-        // Also updates when theme changes (listener below).
-        // ==============================================
+        /* FAVICON FALLBACK – ES5 compatible,Updates favicon links if the browser doesn't honour the `media` attribute on `<link>`.Also updates when theme changes (listener below).*/
         function setFavicon(theme) {
           var basePath = theme === 'dark' ? '/dark-mode-favicon/' : '/light-mode-favicon/';
           var links = document.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]');
           for (var i = 0; i < links.length; i++) {
             var link = links[i];
-            // Only update links that have a `media` attribute (we added them below)
             if (link.hasAttribute('media')) {
               var filename = link.getAttribute('href').split('/').pop();
               link.href = basePath + filename;
@@ -50,14 +45,11 @@
           }
         }
 
-        // Set favicon immediately based on resolved theme
         setFavicon(resolved);
 
-        // Listen for system preference changes (optional)
         if (window.matchMedia) {
           var mq = window.matchMedia('(prefers-color-scheme: dark)');
           mq.addListener(function (e) {
-            // If user hasn't overridden, update favicon
             var stored = localStorage.getItem(KEY);
             if (!stored || stored === 'system') {
               var newTheme = e.matches ? 'dark' : 'light';
@@ -66,18 +58,52 @@
           });
         }
 
-        // Also listen for manual theme changes (if you have a toggle)
-        // This custom event can be dispatched from your app.
         document.addEventListener('themeChanged', function (e) {
           var newTheme = e.detail && e.detail.theme ? e.detail.theme : 'light';
           setFavicon(newTheme);
         });
+
+        /* MANIFEST THEME SWITCHING,Updates manifest link when theme changes */ 
+        function setManifest(theme) {
+          var manifestPath = theme === 'dark' 
+            ? '/dark-mode-favicon/site.webmanifest' 
+            : '/light-mode-favicon/site.webmanifest';
+          
+          var manifestLink = document.querySelector('link[rel="manifest"]');
+          if (manifestLink) {
+            manifestLink.href = manifestPath;
+          } else {
+            var link = document.createElement('link');
+            link.rel = 'manifest';
+            link.href = manifestPath;
+            document.head.appendChild(link);
+          }
+        }
+
+        // Set initial manifest
+        setManifest(resolved);
+
+        // Listen for theme changes
+        document.addEventListener('themeChanged', function (e) {
+          var newTheme = e.detail && e.detail.theme ? e.detail.theme : 'light';
+          setManifest(newTheme);
+        });
+
+        // Also listen for system preference changes
+        if (window.matchMedia) {
+          var mq = window.matchMedia('(prefers-color-scheme: dark)');
+          mq.addListener(function (e) {
+            var stored = localStorage.getItem(KEY);
+            if (!stored || stored === 'system') {
+              var newTheme = e.matches ? 'dark' : 'light';
+              setManifest(newTheme);
+            }
+          });
+        }
       })();
     </script>
 
-    <!-- ==============================================
-         ENCODING & VIEWPORT
-    ================================================== -->
+    <!--ENCODING & VIEWPORT -->
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta
@@ -85,11 +111,7 @@
       content="width=device-width, initial-scale=1.0, viewport-fit=cover, shrink-to-fit=no"
     />
 
-    <!-- ==============================================
-         PRIMARY SEO
-         Title: 50–60 chars, keyword first
-         Description: 140–160 chars, active voice
-    ================================================== -->
+    <!-- PRIMARY SEO -->
     <title>Landscapes Integrity Solutions – Advancing Policy for Sustainable Landscapes</title>
     <meta
       name="description"
@@ -106,7 +128,10 @@
     />
     <meta name="googlebot" content="index, follow" />
 
-    <!-- Canonical — prevents duplicate-content penalties -->
+    <!-- Manifest ,will be dynamically updated by the script above -->
+    <link rel="manifest" href="/light-mode-favicon/site.webmanifest" />
+
+    <!-- Canonical -->
     <link
       rel="canonical"
       href="https://landscapes-integrity-solutions.vercel.app/"
@@ -124,10 +149,7 @@
       href="https://landscapes-integrity-solutions.vercel.app/"
     />
 
-    <!-- ==============================================
-         OPEN GRAPH (Facebook, WhatsApp, LinkedIn)
-         Using your own branded assets from /assets/
-    ================================================== -->
+    <!-- OPEN GRAPH -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Landscapes Integrity Solutions" />
     <meta property="og:locale" content="en_US" />
@@ -159,10 +181,7 @@
       content="Landscapes Integrity Solutions – Advancing Policy for Sustainable Landscapes"
     />
 
-    <!-- ==============================================
-         TWITTER / X CARDS
-         Use the dedicated Twitter‑optimised asset
-    ================================================== -->
+    <!-- TWITTER / X CARDS -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@LIS_ThinkTank" />
     <meta name="twitter:creator" content="@LIS_ThinkTank" />
@@ -187,25 +206,20 @@
       content="Landscapes Integrity Solutions – Advancing Policy for Sustainable Landscapes"
     />
 
-    <!-- ==============================================
-         ANDROID / CHROME PWA
-    ================================================== -->
+    <!-- ANDROID / CHROME PWA -->
     <meta
       name="theme-color"
-      content="#f6f8f7"
+      content="#F6F8F7"
       media="(prefers-color-scheme: light)"
     />
     <meta
       name="theme-color"
-      content="#102219"
+      content="#0D2418"
       media="(prefers-color-scheme: dark)"
     />
     <meta name="mobile-web-app-capable" content="yes" />
-    <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- ==============================================
-         APPLE / iOS PWA
-    ================================================== -->
+    <!-- APPLE / iOS PWA -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta
       name="apple-mobile-web-app-title"
@@ -216,13 +230,7 @@
       content="default"
     />
 
-    <!-- ==============================================
-         FAVICON SET — Conditional light/dark mode
-         The `media` attribute tells the browser which
-         to load based on the user's system preference.
-         The fallback script above updates these dynamically
-         if the browser doesn't support `media` on favicons.
-    ================================================== -->
+    <!-- FAVICON SET-->
 
     <!-- Light mode favicon -->
     <link
@@ -304,10 +312,7 @@
       media="(prefers-color-scheme: dark)"
     />
 
-    <!-- ==============================================
-         APPLE SPLASH SCREENS
-         Generated for all iOS devices – portrait & landscape
-    ================================================== -->
+    <!--APPLE SPLASH SCREENS-->
 
     <!-- iPhones – Portrait -->
     <link
@@ -376,7 +381,7 @@
       href="/splash/iPhone_Air_portrait.png"
     />
 
-    <!-- iPhones – Landscape (swap width/height) -->
+    <!-- iPhones – Landscape -->
     <link
       rel="apple-touch-startup-image"
       media="screen and (device-width: 568px) and (device-height: 320px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
@@ -490,7 +495,7 @@
       href="/splash/13__iPad_Pro_M4_portrait.png"
     />
 
-    <!-- iPads – Landscape (swap width/height) -->
+    <!-- iPads – Landscape -->
     <link
       rel="apple-touch-startup-image"
       media="screen and (device-width: 1133px) and (device-height: 744px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
@@ -537,10 +542,7 @@
       href="/splash/13__iPad_Pro_M4_landscape.png"
     />
 
-    <!-- ==============================================
-         STRUCTURED DATA — JSON-LD
-         Organization + WebSite schemas for rich results
-    ================================================== -->
+    <!-- STRUCTURED DATA — JSON-LD -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -588,10 +590,7 @@
       }
     </script>
 
-    <!-- ==============================================
-         PERFORMANCE — FONT LOADING
-         preconnect reduces DNS + TLS handshake time.
-    ================================================== -->
+    <!--PERFORMANCE — FONT LOADING -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -605,15 +604,7 @@
       crossorigin="anonymous"
     />
 
-    <!--
-      Preload critical assets — add your hero image / above-the-fold assets here.
-      Example: <link rel="preload" as="image" href="/assets/hero.webp" fetchpriority="high" />
-    -->
-
-    <!-- ==============================================
-         ACCESSIBILITY — SKIP LINK
-         Rendered before JS so it works even if React is slow.
-    ================================================== -->
+    <!-- ACCESSIBILITY — SKIP LINK -->
     <style>
       .skip-to-content {
         position: absolute;
@@ -633,10 +624,12 @@
       }
 
       html {
-        background-color: #f6f8f7;
+        background-color: #F6F8F7;
+        color: #123524;
       }
       html.dark {
-        background-color: #102219;
+        background-color: #0D2418;
+        color: #F6F8F7;
       }
     </style>
   </head>
@@ -649,1015 +642,3 @@
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-
-<!--<!doctype html>
-<html lang="en" dir="ltr">
-  <head>
-    <-- ==============================================
-         CRITICAL: THEME SCRIPT — runs synchronously
-         before any paint. Prevents white/dark flash.
-    ================================================== ->
-    <script>
-      (function () {
-        var KEY = 'theme';
-        var BG_DARK = '#102219';
-        var BG_LIGHT = '#f6f8f7';
-        try {
-          var stored = localStorage.getItem(KEY);
-          var theme = stored === 'light' || stored === 'dark' ? stored : 'system';
-          var resolved =
-            theme === 'system'
-              ? window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-                ? 'dark'
-                : 'light'
-              : theme;
-          document.documentElement.classList.add(resolved);
-          document.documentElement.setAttribute('data-theme', resolved);
-          document.documentElement.style.backgroundColor =
-            resolved === 'dark' ? BG_DARK : BG_LIGHT;
-        } catch (_) {
-          document.documentElement.classList.add('light');
-          document.documentElement.setAttribute('data-theme', 'light');
-          document.documentElement.style.backgroundColor = BG_LIGHT;
-        }
-      })();
-    </script>
-
-    <-- ==============================================
-         ENCODING & VIEWPORT
-    ================================================== ->
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, viewport-fit=cover, shrink-to-fit=no"
-    />
-
-    <-- ==============================================
-         PRIMARY SEO
-         Title: 50–60 chars, keyword first
-         Description: 140–160 chars, active voice
-    ================================================== ->
-    <title>Landscapes Integrity Solutions – Advancing Policy for Sustainable Landscapes</title>
-    <meta
-      name="description"
-      content="Landscapes Integrity Solutions (LIS) is an independent think tank advancing policy for sustainable landscapes through rigorous research, strategic advisory, and actionable intelligence."
-    />
-    <meta
-      name="keywords"
-      content="Landscapes Integrity Solutions, LIS, sustainable landscapes, environmental policy, forest governance, water security, sustainable agriculture, carbon markets, climate policy, think tank"
-    />
-    <meta name="author" content="Landscapes Integrity Solutions" />
-    <meta
-      name="robots"
-      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
-    />
-    <meta name="googlebot" content="index, follow" />
-
-    <-- Canonical — prevents duplicate-content penalties ->
-    <link
-      rel="canonical"
-      href="https://landscapes-integrity-solutions.vercel.app/"
-    />
-
-    <-- Language alternates ->
-    <link
-      rel="alternate"
-      hreflang="en"
-      href="https://landscapes-integrity-solutions.vercel.app/"
-    />
-    <link
-      rel="alternate"
-      hreflang="x-default"
-      href="https://landscapes-integrity-solutions.vercel.app/"
-    />
-
-    <-- ==============================================
-         OPEN GRAPH (Facebook, WhatsApp, LinkedIn)
-         Using your own branded assets from /assets/
-    ================================================== ->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Landscapes Integrity Solutions" />
-    <meta property="og:locale" content="en_US" />
-    <meta
-      property="og:url"
-      content="https://landscapes-integrity-solutions.vercel.app/"
-    />
-    <meta
-      property="og:title"
-      content="Landscapes Integrity Solutions – Advancing Policy for Sustainable Landscapes"
-    />
-    <meta
-      property="og:description"
-      content="Landscapes Integrity Solutions (LIS) is an independent think tank advancing policy for sustainable landscapes through rigorous research, strategic advisory, and actionable intelligence."
-    />
-    <meta
-      property="og:image"
-      content="https://landscapes-integrity-solutions.vercel.app/assets/Linkedin-og.webp"
-    />
-    <meta
-      property="og:image:secure_url"
-      content="https://landscapes-integrity-solutions.vercel.app/assets/Linkedin-og.webp"
-    />
-    <meta property="og:image:type" content="image/webp" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="Landscapes Integrity Solutions – Advancing Policy for Sustainable Landscapes"
-    />
-
-    <-- ==============================================
-         TWITTER / X CARDS
-         Use the dedicated Twitter‑optimised asset
-    ================================================== ->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@LIS_ThinkTank" />
-    <meta name="twitter:creator" content="@LIS_ThinkTank" />
-    <meta
-      name="twitter:url"
-      content="https://landscapes-integrity-solutions.vercel.app/"
-    />
-    <meta
-      name="twitter:title"
-      content="Landscapes Integrity Solutions – Advancing Policy for Sustainable Landscapes"
-    />
-    <meta
-      name="twitter:description"
-      content="Landscapes Integrity Solutions (LIS) is an independent think tank advancing policy for sustainable landscapes through rigorous research, strategic advisory, and actionable intelligence."
-    />
-    <meta
-      name="twitter:image"
-      content="https://landscapes-integrity-solutions.vercel.app/assets/twitter-og.png"
-    />
-    <meta
-      name="twitter:image:alt"
-      content="Landscapes Integrity Solutions – Advancing Policy for Sustainable Landscapes"
-    />
-
-    <-- ==============================================
-         ANDROID / CHROME PWA
-    ================================================== ->
-    <meta
-      name="theme-color"
-      content="#f6f8f7"
-      media="(prefers-color-scheme: light)"
-    />
-    <meta
-      name="theme-color"
-      content="#102219"
-      media="(prefers-color-scheme: dark)"
-    />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <link rel="manifest" href="/site.webmanifest" />
-
-    <-- ==============================================
-         APPLE / iOS PWA
-    ================================================== ->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta
-      name="apple-mobile-web-app-title"
-      content="Landscapes Integrity"
-    />
-    <meta
-      name="apple-mobile-web-app-status-bar-style"
-      content="default"
-    />
-
-    <-- Apple touch icon ->
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-
-    <-- ==============================================
-         APPLE SPLASH SCREENS
-         Generated for all iOS devices – portrait & landscape
-    ================================================== ->
-
-    <-- iPhones – Portrait ->
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-      href="/splash/4__iPhone_SE__iPod_touch_5th_generation_and_later_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-      href="/splash/iPhone_8__iPhone_7__iPhone_6s__iPhone_6__4.7__iPhone_SE_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-      href="/splash/iPhone_8_Plus__iPhone_7_Plus__iPhone_6s_Plus__iPhone_6_Plus_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-      href="/splash/iPhone_11__iPhone_XR_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-      href="/splash/iPhone_11_Pro_Max__iPhone_XS_Max_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (min-device-width: 360px) and (max-device-width: 375px) and (min-device-height: 780px) and (max-device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-      href="/splash/iPhone_13_mini__iPhone_12_mini__iPhone_11_Pro__iPhone_XS__iPhone_X_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-      href="/splash/iPhone_14_Plus__iPhone_13_Pro_Max__iPhone_12_Pro_Max_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-      href="/splash/iPhone_16_Plus__iPhone_15_Pro_Max__iPhone_15_Plus__iPhone_14_Pro_Max_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-      href="/splash/iPhone_16__iPhone_15_Pro__iPhone_15__iPhone_14_Pro_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-      href="/splash/iPhone_17_Pro_Max__iPhone_16_Pro_Max_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-      href="/splash/iPhone_17_Pro__iPhone_17__iPhone_16_Pro_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (min-device-width: 390px) and (max-device-width: 393px) and (min-device-height: 844px) and (max-device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-      href="/splash/iPhone_17e__iPhone_16e__iPhone_14__iPhone_13_Pro__iPhone_13__iPhone_12_Pro__iPhone_12_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"
-      href="/splash/iPhone_Air_portrait.png"
-    />
-
-    <-- iPhones – Landscape (swap width/height) ->
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 568px) and (device-height: 320px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-      href="/splash/4__iPhone_SE__iPod_touch_5th_generation_and_later_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 667px) and (device-height: 375px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-      href="/splash/iPhone_8__iPhone_7__iPhone_6s__iPhone_6__4.7__iPhone_SE_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 736px) and (device-height: 414px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-      href="/splash/iPhone_8_Plus__iPhone_7_Plus__iPhone_6s_Plus__iPhone_6_Plus_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 896px) and (device-height: 414px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-      href="/splash/iPhone_11__iPhone_XR_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 896px) and (device-height: 414px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-      href="/splash/iPhone_11_Pro_Max__iPhone_XS_Max_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (min-device-width: 780px) and (max-device-width: 812px) and (min-device-height: 360px) and (max-device-height: 375px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-      href="/splash/iPhone_13_mini__iPhone_12_mini__iPhone_11_Pro__iPhone_XS__iPhone_X_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 932px) and (device-height: 430px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-      href="/splash/iPhone_14_Plus__iPhone_13_Pro_Max__iPhone_12_Pro_Max_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 932px) and (device-height: 430px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-      href="/splash/iPhone_16_Plus__iPhone_15_Pro_Max__iPhone_15_Plus__iPhone_14_Pro_Max_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 852px) and (device-height: 393px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-      href="/splash/iPhone_16__iPhone_15_Pro__iPhone_15__iPhone_14_Pro_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 932px) and (device-height: 430px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-      href="/splash/iPhone_17_Pro_Max__iPhone_16_Pro_Max_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 852px) and (device-height: 393px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-      href="/splash/iPhone_17_Pro__iPhone_17__iPhone_16_Pro_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (min-device-width: 844px) and (max-device-width: 852px) and (min-device-height: 390px) and (max-device-height: 393px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-      href="/splash/iPhone_17e__iPhone_16e__iPhone_14__iPhone_13_Pro__iPhone_13__iPhone_12_Pro__iPhone_12_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 852px) and (device-height: 393px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)"
-      href="/splash/iPhone_Air_landscape.png"
-    />
-
-    <-- iPads – Portrait ->
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-      href="/splash/8.3__iPad_Mini_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-      href="/splash/9.7__iPad_Pro__7.9__iPad_mini__9.7__iPad_Air__9.7__iPad_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-      href="/splash/10.2__iPad_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-      href="/splash/10.5__iPad_Air_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-      href="/splash/10.9__iPad_Air_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-      href="/splash/11__iPad_Pro_M4_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (min-device-width: 834px) and (max-device-width: 834px) and (min-device-height: 1112px) and (max-device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-      href="/splash/11__iPad_Pro__10.5__iPad_Pro_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-      href="/splash/12.9__iPad_Pro_portrait.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"
-      href="/splash/13__iPad_Pro_M4_portrait.png"
-    />
-
-    <-- iPads – Landscape (swap width/height) ->
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 1133px) and (device-height: 744px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-      href="/splash/8.3__iPad_Mini_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 1024px) and (device-height: 768px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-      href="/splash/9.7__iPad_Pro__7.9__iPad_mini__9.7__iPad_Air__9.7__iPad_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 1080px) and (device-height: 810px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-      href="/splash/10.2__iPad_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 1112px) and (device-height: 834px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-      href="/splash/10.5__iPad_Air_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 1180px) and (device-height: 820px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-      href="/splash/10.9__iPad_Air_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 1194px) and (device-height: 834px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-      href="/splash/11__iPad_Pro_M4_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (min-device-width: 1112px) and (max-device-width: 1194px) and (min-device-height: 834px) and (max-device-height: 834px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-      href="/splash/11__iPad_Pro__10.5__iPad_Pro_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 1366px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-      href="/splash/12.9__iPad_Pro_landscape.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 1366px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)"
-      href="/splash/13__iPad_Pro_M4_landscape.png"
-    />
-
-    <-- ==============================================
-         FAVICON SET — using the files in the root of public/
-    ================================================== ->
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/favicon-16x16.png"
-    />
-    <link rel="shortcut icon" href="/favicon.ico" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="192x192"
-      href="/android-chrome-192x192.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="512x512"
-      href="/android-chrome-512x512.png"
-    />
-
-    <-- ==============================================
-         STRUCTURED DATA — JSON-LD
-         Organization + WebSite schemas for rich results
-    ================================================== ->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Landscapes Integrity Solutions",
-        "alternateName": "LIS",
-        "url": "https://landscapes-integrity-solutions.vercel.app/",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://landscapes-integrity-solutions.vercel.app/assets/logo.svg",
-          "width": 300,
-          "height": 60
-        },
-        "description": "Landscapes Integrity Solutions (LIS) is an independent think tank advancing policy for sustainable landscapes through rigorous research, strategic advisory, and actionable intelligence.",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Nairobi",
-          "addressCountry": "KE"
-        },
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "contactType": "General Inquiries",
-          "availableLanguage": ["English"]
-        },
-        "sameAs": [
-          "https://twitter.com/LIS_ThinkTank",
-          "https://www.linkedin.com/company/landscapes-integrity-solutions"
-        ]
-      }
-    </script>
-
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "url": "https://landscapes-integrity-solutions.vercel.app/",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": {
-            "@type": "EntryPoint",
-            "urlTemplate": "https://landscapes-integrity-solutions.vercel.app/search?q={search_term_string}"
-          },
-          "query-input": "required name=search_term_string"
-        }
-      }
-    </script>
-
-    <-- ==============================================
-         PERFORMANCE — FONT LOADING
-         preconnect reduces DNS + TLS handshake time.
-    ================================================== ->
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-      crossorigin="anonymous"
-    />
-
-    <--
-      Preload critical assets — add your hero image / above-the-fold assets here.
-      Example: <link rel="preload" as="image" href="/assets/hero.webp" fetchpriority="high" />
-    ->
-
-    <-- ==============================================
-         ACCESSIBILITY — SKIP LINK
-         Rendered before JS so it works even if React is slow.
-    ================================================== ->
-    <style>
-      .skip-to-content {
-        position: absolute;
-        top: -100%;
-        left: 1rem;
-        padding: 0.5rem 1rem;
-        background: #11d473;
-        color: #0d1b14;
-        font-weight: 700;
-        border-radius: 0 0 6px 6px;
-        text-decoration: none;
-        z-index: 9999;
-        transition: top 0.2s ease;
-      }
-      .skip-to-content:focus {
-        top: 0;
-      }
-
-      html {
-        background-color: #f6f8f7;
-      }
-      html.dark {
-        background-color: #102219;
-      }
-    </style>
-  </head>
-
-  <body>
-    <a href="#main-content" class="skip-to-content">Skip to main content</a>
-
-    <div id="root"></div>
-
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>-->
-
-
-
-<!--<!doctype html>
-<html lang="en" dir="ltr">
-  <head>
-    <-- ==============================================
-         CRITICAL: THEME SCRIPT — runs synchronously
-         before any paint. Prevents white/dark flash.
-    ================================================== ->
-    <script>
-      (function () {
-        var KEY = 'theme';
-        var BG_DARK = '#102219';
-        var BG_LIGHT = '#f6f8f7';
-        try {
-          var stored = localStorage.getItem(KEY);
-          var theme = stored === 'light' || stored === 'dark' ? stored : 'system';
-          var resolved =
-            theme === 'system'
-              ? window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
-                ? 'dark'
-                : 'light'
-              : theme;
-          document.documentElement.classList.add(resolved);
-          document.documentElement.setAttribute('data-theme', resolved);
-          document.documentElement.style.backgroundColor =
-            resolved === 'dark' ? BG_DARK : BG_LIGHT;
-        } catch (_) {
-          document.documentElement.classList.add('light');
-          document.documentElement.setAttribute('data-theme', 'light');
-          document.documentElement.style.backgroundColor = BG_LIGHT;
-        }
-      })();
-    </script>
-
-    <-- ==============================================
-         ENCODING & VIEWPORT
-    ================================================== ->
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, viewport-fit=cover, shrink-to-fit=no"
-    />
-
-    <-- ==============================================
-         PRIMARY SEO
-         Title: 50–60 chars, keyword first
-         Description: 140–160 chars, active voice
-    ================================================== ->
-    <title>Landscapes Integrity Solutions – Advancing Policy for Sustainable Landscapes</title>
-    <meta
-      name="description"
-      content="Landscapes Integrity Solutions (LIS) is an independent think tank advancing policy for sustainable landscapes through rigorous research, strategic advisory, and actionable intelligence."
-    />
-    <meta
-      name="keywords"
-      content="Landscapes Integrity Solutions, LIS, sustainable landscapes, environmental policy, forest governance, water security, sustainable agriculture, carbon markets, climate policy, think tank"
-    />
-    <meta name="author" content="Landscapes Integrity Solutions" />
-    <meta
-      name="robots"
-      content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"
-    />
-    <meta name="googlebot" content="index, follow" />
-
-    <-- Canonical — prevents duplicate-content penalties ->
-    <link
-      rel="canonical"
-      href="https://landscapes-integrity-solutions.vercel.app/"
-    />
-
-    <-- Language alternates ->
-    <link
-      rel="alternate"
-      hreflang="en"
-      href="https://landscapes-integrity-solutions.vercel.app/"
-    />
-    <link
-      rel="alternate"
-      hreflang="x-default"
-      href="https://landscapes-integrity-solutions.vercel.app/"
-    />
-
-    <-- ==============================================
-         OPEN GRAPH (Facebook, WhatsApp, LinkedIn)
-         og:image should be 1200×630px, < 1MB
-    ================================================== ->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Landscapes Integrity Solutions" />
-    <meta property="og:locale" content="en_US" />
-    <meta
-      property="og:url"
-      content="https://landscapes-integrity-solutions.vercel.app/"
-    />
-    <meta
-      property="og:title"
-      content="Landscapes Integrity Solutions – Advancing Policy for Sustainable Landscapes"
-    />
-    <meta
-      property="og:description"
-      content="Landscapes Integrity Solutions (LIS) is an independent think tank advancing policy for sustainable landscapes through rigorous research, strategic advisory, and actionable intelligence."
-    />
-    <--
-      OG Image: using the hero background image from the site.
-      For best results, replace with a custom 1200×630 JPG/PNG
-      that includes your logo and a clear visual identity.
-    ->
-    <meta
-      property="og:image"
-      content="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1200&h=630&fit=crop&crop=center&auto=format"
-    />
-    <meta
-      property="og:image:secure_url"
-      content="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1200&h=630&fit=crop&crop=center&auto=format"
-    />
-    <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta
-      property="og:image:alt"
-      content="Landscapes Integrity Solutions – Advancing Policy for Sustainable Landscapes"
-    />
-
-    <-- ==============================================
-         TWITTER / X CARDS
-    ================================================== ->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@LIS_ThinkTank" />
-    <meta name="twitter:creator" content="@LIS_ThinkTank" />
-    <meta
-      name="twitter:url"
-      content="https://landscapes-integrity-solutions.vercel.app/"
-    />
-    <meta
-      name="twitter:title"
-      content="Landscapes Integrity Solutions – Advancing Policy for Sustainable Landscapes"
-    />
-    <meta
-      name="twitter:description"
-      content="Landscapes Integrity Solutions (LIS) is an independent think tank advancing policy for sustainable landscapes through rigorous research, strategic advisory, and actionable intelligence."
-    />
-    <meta
-      name="twitter:image"
-      content="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=1200&h=630&fit=crop&crop=center&auto=format"
-    />
-    <meta
-      name="twitter:image:alt"
-      content="Landscapes Integrity Solutions – Advancing Policy for Sustainable Landscapes"
-    />
-
-    <-- ==============================================
-         ANDROID / CHROME PWA
-         theme-color controls browser/status-bar chrome
-    ================================================== ->
-    <meta
-      name="theme-color"
-      content="#f6f8f7"
-      media="(prefers-color-scheme: light)"
-    />
-    <meta
-      name="theme-color"
-      content="#102219"
-      media="(prefers-color-scheme: dark)"
-    />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <link rel="manifest" href="/manifest.json" />
-
-    <-- ==============================================
-         APPLE / iOS PWA
-         apple-mobile-web-app-capable → full-screen mode
-         status-bar-style: default | black | black-translucent
-    ================================================== ->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta
-      name="apple-mobile-web-app-title"
-      content="Landscapes Integrity"
-    />
-    <meta
-      name="apple-mobile-web-app-status-bar-style"
-      content="default"
-    />
-
-    <-- Apple touch icons — Safari uses these for home screen bookmark ->
-    <link
-      rel="apple-touch-icon"
-      href="/icons/apple-touch-icon-180.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="152x152"
-      href="/icons/apple-touch-icon-152.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="167x167"
-      href="/icons/apple-touch-icon-167.png"
-    />
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/icons/apple-touch-icon-180.png"
-    />
-
-    <--
-      Apple splash screens — iOS requires one per screen resolution.
-      Generate all sizes at: https://progressier.com/pwa-icons-and-ios-splash-screen-generator
-      then host under /splash/ and add each <link>.
-      Below are the most common sizes; add more as needed.
-    ->
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3)"
-      href="/splash/apple-splash-1290-2796.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3)"
-      href="/splash/apple-splash-1179-2556.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)"
-      href="/splash/apple-splash-1170-2532.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)"
-      href="/splash/apple-splash-1125-2436.png"
-    />
-    <link
-      rel="apple-touch-startup-image"
-      media="screen and (device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)"
-      href="/splash/apple-splash-828-1792.png"
-    />
-
-    <-- ==============================================
-         FAVICON SET
-    ================================================== ->
-    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/icons/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/icons/favicon-16x16.png"
-    />
-    <link rel="shortcut icon" href="/icons/favicon.ico" />
-
-    <-- ==============================================
-         STRUCTURED DATA — JSON-LD
-         Organization + WebSite schemas for rich results
-    ================================================== ->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Landscapes Integrity Solutions",
-        "alternateName": "LIS",
-        "url": "https://landscapes-integrity-solutions.vercel.app/",
-        "logo": {
-          "@type": "ImageObject",
-          "url": "https://landscapes-integrity-solutions.vercel.app/icons/logo.png",
-          "width": 300,
-          "height": 60
-        },
-        "description": "Landscapes Integrity Solutions (LIS) is an independent think tank advancing policy for sustainable landscapes through rigorous research, strategic advisory, and actionable intelligence.",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Nairobi",
-          "addressCountry": "KE"
-        },
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "contactType": "General Inquiries",
-          "availableLanguage": ["English"]
-        },
-        "sameAs": [
-          "https://twitter.com/LIS_ThinkTank",
-          "https://www.linkedin.com/company/landscapes-integrity-solutions"
-        ]
-      }
-    </script>
-
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "WebSite",
-        "url": "https://landscapes-integrity-solutions.vercel.app/",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": {
-            "@type": "EntryPoint",
-            "urlTemplate": "https://landscapes-integrity-solutions.vercel.app/search?q={search_term_string}"
-          },
-          "query-input": "required name=search_term_string"
-        }
-      }
-    </script>
-
-    <-- ==============================================
-         PERFORMANCE — FONT LOADING
-         preconnect reduces DNS + TLS handshake time.
-    ================================================== ->
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-      crossorigin="anonymous"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-      crossorigin="anonymous"
-    />
-
-    <--
-      Preload critical assets — add your hero image / above-the-fold assets here.
-      <link rel="preload" as="image" href="/assets/hero.webp" fetchpriority="high" />
-    ->
-
-    <-- ==============================================
-         ACCESSIBILITY — SKIP LINK
-         Rendered before JS so it works even if React is slow.
-    ================================================== ->
-    <style>
-      /* Skip-to-content link — visually hidden until focused */
-      .skip-to-content {
-        position: absolute;
-        top: -100%;
-        left: 1rem;
-        padding: 0.5rem 1rem;
-        background: #11d473;
-        color: #0d1b14;
-        font-weight: 700;
-        border-radius: 0 0 6px 6px;
-        text-decoration: none;
-        z-index: 9999;
-        transition: top 0.2s ease;
-      }
-      .skip-to-content:focus {
-        top: 0;
-      }
-
-      /*
-        Pre-paint body background matching the theme script above.
-        Overridden by Tailwind once CSS loads — covers the ~16ms gap
-        between HTML parse and CSS evaluation.
-      */
-      html {
-        background-color: #f6f8f7;
-      }
-      html.dark {
-        background-color: #102219;
-      }
-    </style>
-  </head>
-
-  <body>
-    <-- Accessibility: skip repetitive navigation on every page load ->
-    <a href="#main-content" class="skip-to-content">Skip to main content</a>
-
-    <-- React mounts here->
-    <div id="root"></div>
-
-    <-- Entry point — Vite injects the correct hashed filename in production ->
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html> -->
-
-
-
-
-<!--<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Landscapes Integrity Solutions</title>
-    <-- Primary Meta Tags ->
-
-<meta name="title" content="Your App Name – Tagline" />
-<meta name="description" content="A concise description of your app (150–160 chars)." />
-
-<-- Open Graph / Facebook ->
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://yourdomain.com/" />
-<meta property="og:title" content="Your App Name – Tagline" />
-<meta property="og:description" content="A concise description of your app." />
-<meta property="og:image" content="https://yourdomain.com/assets/og-image.jpg" />
-
-<-- Twitter --
-<meta property="twitter:card" content="summary_large_image" />
-<meta property="twitter:url" content="https://yourdomain.com/" />
-<meta property="twitter:title" content="Your App Name – Tagline" />
-<meta property="twitter:description" content="A concise description of your app." />
-<meta property="twitter:image" content="https://yourdomain.com/assets/og-image.jpg" />
-
-<-- Optional: theme color, canonical URL ->
-<link rel="canonical" href="https://yourdomain.com/" />
-<meta name="theme-color" content="#yourcolor" />
-    <-- Preconnect for performance ->
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" crossorigin="anonymous" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" crossorigin="anonymous" />
-    
-    <-- Theme script to prevent flash of incorrect theme ->
-    <script>
-      (function() {
-        try {
-          var storedTheme = localStorage.getItem('theme');
-          var theme = storedTheme;
-          if (theme !== 'light' && theme !== 'dark') {
-            theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-          }
-          document.documentElement.classList.add(theme);
-          if (theme === 'dark') {
-            document.documentElement.style.backgroundColor = '#102219';
-            document.documentElement.style.color = '#ffffff';
-          } else {
-            document.documentElement.style.backgroundColor = '#f6f8f7';
-            document.documentElement.style.color = '#0d1b14';
-          }
-        } catch(e) {}
-      })();
-    </script>
-    
-    <-- Accessibility: skip link ->
-    <style>
-      .skip-to-content {
-        position: absolute;
-        top: -40px;
-        left: 0;
-        background: #11d473;
-        color: #0d1b14;
-        padding: 8px;
-        z-index: 9999;
-        text-decoration: none;
-        font-weight: bold;
-      }
-      .skip-to-content:focus {
-        top: 0;
-      }
-    </style>
-  </head>
-  <body>
-    <a href="#main-content" class="skip-to-content">Skip to main content</a>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
-</html>-->

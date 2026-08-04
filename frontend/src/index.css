@@ -3,9 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* =========================================================
-   THEME TOKENS & DYNAMIC VARIABLES
-========================================================= */
+/* THEME TOKENS & DYNAMIC VARIABLES ALL BROWSER SUPPORT — ES5, ES6, desktop, mobile */
 :root {
   /* Brand – Deep Forest (Primary) */
   --primary: #123524;
@@ -17,15 +15,15 @@
   --accent-rgb: 46, 125, 175;
   --accent-gold: #8B6A3F;     /* Earth Bronze */
 
-  /* Neutrals */
+  /* Neutrals — Light Mode */
   --secondary: #374151;       /* Slate Graphite */
-  --bg: #F6F7F4;              /* Warm White */
+  --bg: #F6F8F7;              /* Warm White */
   --surface: #ffffff;
   --border: #D9DDD8;
   --text: #123524;
   --muted: #374151;
 
-  /* Design tokens – kept from original */
+  /* Design tokens */
   --radius: 0.75rem;
   --shadow-intensity: 1;
   --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
@@ -39,12 +37,23 @@
   --text-scale: 1.0;
 }
 
+/* ES5 Fallback ,Direct styles for older browsers */
+html {
+  background-color: #F6F8F7;
+  color: #123524;
+}
+
+html.dark {
+  background-color: #0D2418;
+  color: #F6F8F7;
+}
+
 .dark {
-  /* Dark mode – Deep Forest interface */
+  /* Dark mode, Deep Forest interface */
   --bg: #0D2418;              /* Rich Forest */
-  --surface: #123524;         /* Deep Forest (same as primary) */
+  --surface: #123524;         /* Deep Forest */
   --border: #2B4A3C;          /* Slate */
-  --text: #F6F7F4;            /* Soft White */
+  --text: #F6F8F7;            /* Soft White */
   --muted: #D7DED8;           /* Secondary text */
   --secondary: #D7DED8;       /* Align with dark secondary */
 
@@ -57,9 +66,7 @@
   --accent-gold: #8B6A3F;
 }
 
-/* =========================================================
-   BASE STYLES
-========================================================= */
+/* BASE STYLES ,Works in all browsers */
 @layer base {
   * {
     border-color: var(--border);
@@ -71,8 +78,8 @@
   }
 
   body {
-    background-color: var(--bg);
-    color: var(--text);
+    background-color: var(--bg, #F6F8F7);
+    color: var(--text, #123524);
     font-family: var(--font-family);
     font-weight: var(--weight-body);
     text-align: var(--text-align);
@@ -80,6 +87,16 @@
     -webkit-font-smoothing: antialiased;
     transition: background-color 0.3s ease, color 0.3s ease, font-size 0.2s ease;
     overflow-x: hidden;
+  }
+
+  /* ES5 fallback for body */
+  .dark body {
+    background-color: #0D2418;
+    color: #F6F8F7;
+  }
+  .light body {
+    background-color: #F6F8F7;
+    color: #123524;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -101,18 +118,21 @@
   }
 }
 
-/* =========================================================
-   COMPONENTS
-========================================================= */
+/* COMPONENTS — All browser compatible */
 @layer components {
   /* Surface / Cards */
   .surface {
-    background-color: var(--surface);
-    border: 1px solid var(--border);
+    background-color: var(--surface, #ffffff);
+    border: 1px solid var(--border, #D9DDD8);
     border-radius: var(--radius);
     padding: 1.5rem;
     transition: all 0.2s var(--ease-out-soft);
     box-shadow: 0 calc(4px * var(--shadow-intensity)) calc(10px * var(--shadow-intensity)) rgba(0, 0, 0, 0.05);
+  }
+
+  .dark .surface {
+    background-color: var(--surface, #123524);
+    border-color: var(--border, #2B4A3C);
   }
 
   .surface-hover:hover {
@@ -136,7 +156,7 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     background-color: rgba(255, 255, 255, 0.9);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid var(--border, #D9DDD8);
   }
 
   .dark .navbar-backdrop {
@@ -145,17 +165,21 @@
 
   .nav-link {
     @apply text-sm font-semibold transition-colors;
-    color: var(--text);
+    color: var(--text, #123524);
+  }
+
+  .dark .nav-link {
+    color: var(--text, #F6F8F7);
   }
 
   .nav-link:hover {
     color: var(--accent);
   }
 
-  /* Section Titles – using accent color */
+  /* Section Titles */
   .section-title-p {
     @apply text-center font-bold tracking-wider uppercase text-[10px] py-1.5 px-4 rounded-full w-max mx-auto;
-    color: var(--accent);
+    color: var(--accent, #2E7DAF);
     background-color: rgba(var(--accent-rgb), 0.1);
     border: 1px solid rgba(var(--accent-rgb), 0.2);
     margin-top: 6rem;
@@ -163,12 +187,20 @@
 
   .section-title-h3 {
     @apply text-3xl md:text-5xl font-extrabold text-center mt-4 tracking-tighter;
-    color: var(--text);
+    color: var(--text, #123524);
+  }
+
+  .dark .section-title-h3 {
+    color: var(--text, #F6F8F7);
   }
 
   .section-title-sub {
     @apply text-center mt-4 max-w-2xl mx-auto text-base opacity-70 leading-relaxed;
-    color: var(--text);
+    color: var(--text, #123524);
+  }
+
+  .dark .section-title-sub {
+    color: var(--text, #F6F8F7);
   }
 
   /* Form Inputs */
@@ -186,9 +218,7 @@
   }
 }
 
-/* =========================================================
-   UTILITIES
-========================================================= */
+/* UTILITIES ,All browser compatible */
 @layer utilities {
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
@@ -216,7 +246,7 @@ section {
   scroll-margin-top: 5rem;
 }
 
-/* Neurodivergent mode – low motion, increased spacing, simplified palette */
+/* Neurodivergent mode */
 .neurodivergent-mode {
   --shadow-intensity: 0;
   --spacing-unit: 0.75rem;
@@ -231,355 +261,75 @@ section {
   transform: none;
 }
 
-/* Glassmorphism fallback for ES5 browsers */
+/* ES5 FALLBACKS — Solid colors for older browsers,These ensure consistent colors across all browsers */
 .no-backdrop {
   background-color: rgba(255, 255, 255, 0.95) !important;
-}
-.bg-solid-fallback {
-  background-color: #123524; /* solid fallback for older browsers */
 }
 .dark .no-backdrop {
   background-color: rgba(13, 36, 24, 0.95) !important;
 }
-.navbar-es5-fallback {
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-  background-color: #ffffffcc;
-}
-.dark .navbar-es5-fallback {
-  background-color: #0d2418cc;
-}
-.navbar-fallback {
-  background-color: #ffffffcc;
-}
-.dark .navbar-fallback {
-  background-color: #0d2418cc;
-}
-@media (max-width: 768px) {
-  .navbar-fallback {
-    background-color: #ffffff;
-  }
-  .dark .navbar-fallback {
-    background-color: #0a1510;
-  }
-}
-.sidebar-solid-fallback {
-  background-color: #ffffff;
-}
-.dark .sidebar-solid-fallback {
-  background-color: #123524;
-}
-.research-filters-fallback {
-  background-color: #ffffff;
-}
-.dark .research-filters-fallback {
-  background-color: #123524;
-}
 
-/* Custom loader for lazy-loaded components */
-.loader {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  display: block;
-  margin: 15px auto;
-  position: relative;
-  color: #FFF;
-  box-sizing: border-box;
-  animation: animloader 2s linear infinite;
-}
-
-@keyframes animloader {
-  0% {
-    box-shadow: 14px 0 0 -2px,  38px 0 0 -2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
-  }
-  25% {
-    box-shadow: 14px 0 0 -2px,  38px 0 0 -2px,  -14px 0 0 -2px,  -38px 0 0 2px;
-  }
-  50% {
-    box-shadow: 14px 0 0 -2px,  38px 0 0 -2px,  -14px 0 0 2px,  -38px 0 0 -2px;
-  }
-  75% {
-    box-shadow: 14px 0 0 2px,  38px 0 0 -2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
-  }
-  100% {
-    box-shadow: 14px 0 0 -2px,  38px 0 0 2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
-  }
-}
-/* index.css /
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* =========================================================
-   THEME TOKENS & DYNAMIC VARIABLES
-========================================================= /
-:root {
-  /* Brand - New Green Theme /
-  --primary: #11d473;
-  --primary-rgb: 17, 212, 115;
-  --background-light: #f6f8f7;
-  --background-dark: #102219;
-  --text-dark: #0d1b14;
-  
-  /* Legacy Pink Theme (keeping for backward compatibility) /
-  --pink-50: #fdf2f8;
-  --pink-100: #fce7f3;
-  --pink-500: #ec4899;
-  --pink-600: #db2777;
-  --pink-700: #be185d;
-
-  /* Theme: Light (Default) /
-  --bg: #f6f8f7;
-  --surface: #FFFFFF;
-  --border: #e7f3ed;
-  --text: #0d1b14;
-  --muted: #4a5a52;
-  --accent: var(--primary);
-  --accent-rgb: var(--primary-rgb);
-  --primary-foreground: #0d1b14;
-
-  --radius: 0.75rem;
-  --shadow-intensity: 1;
-  --ease-out-soft: cubic-bezier(0.16, 1, 0.3, 1);
-
-  /* Typography /
-  --font-family: 'Public Sans', sans-serif;
-  --weight-body: 400;
-  --weight-heading: 700;
-  --text-align: left;
-  --spacing-unit: 0.5rem;
-  --text-scale: 1.0;
-}
-
-.dark {
-  /* Theme: Dark /
-  --bg: #102219;
-  --surface: #1a2e22;
-  --border: #2a3f32;
-  --text: #FFFFFF;
-  --muted: #9fb0a5;
-  --accent: var(--primary);
-}
-
-/* =========================================================
-   BASE STYLES
-========================================================= /
-@layer base {
-  * {
-    border-color: var(--border);
-  }
-
-  html {
-    scroll-behavior: smooth;
-    scroll-margin-top: 5rem;
-  }
-
-  body {
-    background-color: var(--bg);
-    color: var(--text);
-    font-family: var(--font-family);
-    font-weight: var(--weight-body);
-    text-align: var(--text-align);
-    font-size: calc(0.875rem * var(--text-scale));
-    -webkit-font-smoothing: antialiased;
-    transition: background-color 0.3s ease, color 0.3s ease, font-size 0.2s ease;
-    overflow-x: hidden;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-weight: var(--weight-heading);
-  }
-
-  .dyslexia-friendly {
-    --font-family: "OpenDyslexic", "Comic Sans MS", cursive !important;
-  }
-
-  ::selection {
-    background-color: var(--accent);
-    color: var(--text-dark);
-  }
-
-  /* Material Symbols /
-  .material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-  }
-}
-
-/* =========================================================
-   COMPONENTS
-========================================================= /
-@layer components {
-  /* Surface / Cards /
-  .surface {
-    background-color: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    transition: all 0.2s var(--ease-out-soft);
-    box-shadow: 0 calc(4px * var(--shadow-intensity)) calc(10px * var(--shadow-intensity)) rgba(0, 0, 0, 0.05);
-  }
-
-  .surface-hover:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 calc(10px * var(--shadow-intensity)) calc(30px * var(--shadow-intensity)) rgba(0, 0, 0, 0.1);
-    border-color: var(--accent);
-  }
-
-  /* Buttons - Using Tailwind classes instead of custom /
-  .btn-primary {
-    @apply bg-primary text-[#0d1b14] hover:bg-primary/90 px-6 py-2 rounded-lg font-bold text-sm transition-all shadow-sm inline-flex items-center justify-center;
-  }
-
-  .btn-outline {
-    @apply border border-white/30 text-white hover:bg-white/10 backdrop-blur-sm px-6 py-2 rounded-lg font-bold text-sm transition-all inline-flex items-center justify-center;
-  }
-
-  /* Navigation /
-  .navbar-backdrop {
-    @apply fixed inset-x-0 top-0 z-50 transition-all duration-300;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    background-color: rgba(255, 255, 255, 0.9);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .dark .navbar-backdrop {
-    background-color: rgba(16, 34, 25, 0.9);
-  }
-
-  .nav-link {
-    @apply text-sm font-semibold transition-colors;
-    color: var(--text);
-  }
-
-  .nav-link:hover {
-    color: var(--accent);
-  }
-
-  /* Section Titles /
-  .section-title-p {
-    @apply text-center font-bold tracking-wider uppercase text-[10px] py-1.5 px-4 rounded-full w-max mx-auto;
-    color: var(--accent);
-    background-color: rgba(17, 212, 115, 0.1);
-    border: 1px solid rgba(17, 212, 115, 0.2);
-    margin-top: 6rem;
-  }
-
-  .section-title-h3 {
-    @apply text-3xl md:text-5xl font-extrabold text-center mt-4 tracking-tighter;
-    color: var(--text);
-  }
-
-  .section-title-sub {
-    @apply text-center mt-4 max-w-2xl mx-auto text-base opacity-70 leading-relaxed;
-    color: var(--text);
-  }
-
-  /* Form Inputs /
-  .form-input {
-    @apply w-full py-3.5 px-4 bg-[var(--surface)] border border-[var(--border)] rounded-xl outline-none transition-all;
-  }
-
-  .form-input:focus {
-    @apply border-[var(--accent)] ring-1 ring-[var(--accent)]/20;
-  }
-
-  /* Animations /
-  .animate-fade-in {
-    animation: fadeIn 0.5s ease-in-out;
-  }
-}
-
-/* =========================================================
-   UTILITIES
-========================================================= /
-@layer utilities {
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-}
-
-/* Scroll Adjustment /
-section {
-  scroll-margin-top: 5rem;
-}
-/* Neurodivergent mode – low motion, increased spacing, simplified palette /
-.neurodivergent-mode {
-  --shadow-intensity: 0;
-  --spacing-unit: 0.75rem;
-  --text-scale: 1.1;
-  scroll-behavior: auto !important;
-}
-.neurodivergent-mode * {
-  animation-duration: 0.001s !important;
-  transition-duration: 0.001s !important;
-}
-.neurodivergent-mode .surface-hover:hover {
-  transform: none;
-}
-
-/* Glassmorphism fallback for ES5 browsers /
-.no-backdrop {
-  background-color: rgba(255, 255, 255, 0.95) !important;
-}
 .bg-solid-fallback {
-  background-color: #11d473; /* solid fallback for older browsers /
+  background-color: #123524 !important; /* Deep Forest */
 }
-.dark .no-backdrop {
-  background-color: rgba(16, 34, 25, 0.95) !important;
+.dark .bg-solid-fallback {
+  background-color: #0D2418 !important;
 }
+
 .navbar-es5-fallback {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  background-color: #ffffffcc;
+  background-color: #ffffffcc !important;
 }
 .dark .navbar-es5-fallback {
-  background-color: #102219cc;
+  background-color: #0D2418cc !important;
 }
+
 .navbar-fallback {
-  background-color: #ffffffcc;
+  background-color: #ffffffcc !important;
 }
 .dark .navbar-fallback {
-  background-color: #102219cc;
+  background-color: #0D2418cc !important;
 }
+
 @media (max-width: 768px) {
   .navbar-fallback {
-    background-color: #ffffff;
+    background-color: #ffffff !important;
   }
   .dark .navbar-fallback {
-    background-color: #0a1510;
+    background-color: #0D2418 !important;
   }
 }
+
 .sidebar-solid-fallback {
-  background-color: #ffffff;
+  background-color: #ffffff !important;
 }
 .dark .sidebar-solid-fallback {
-  background-color: #102219;
+  background-color: #123524 !important;
 }
+
 .research-filters-fallback {
-  background-color: #ffffff;
+  background-color: #ffffff !important;
 }
 .dark .research-filters-fallback {
-  background-color: #1a2e22;
+  background-color: #123524 !important;
 }
-/* Custom loader for lazy-loaded components /
+
+/* ES5 direct background classes */
+.bg-light-fallback {
+  background-color: #F6F8F7 !important;
+}
+.bg-dark-fallback {
+  background-color: #0D2418 !important;
+}
+.text-light-fallback {
+  color: #F6F8F7 !important;
+}
+.text-dark-fallback {
+  color: #123524 !important;
+}
+
+/* Custom loader */
 .loader {
   width: 12px;
   height: 12px;
@@ -608,4 +358,80 @@ section {
   100% {
     box-shadow: 14px 0 0 -2px,  38px 0 0 2px,  -14px 0 0 -2px,  -38px 0 0 -2px;
   }
-}*/
+}
+
+/* THEME TOGGLE - VISIBILITY FIX */
+
+/* Ensure theme toggle is always visible */
+.theme-toggle-button {
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 100 !important;
+  min-width: 2.5rem !important;
+  min-height: 2.5rem !important;
+  flex-shrink: 0 !important;
+  pointer-events: auto !important;
+}
+
+/* Prevent any parent from hiding the toggle */
+.theme-toggle-button-container,
+.theme-toggle-wrapper,
+.navbar-actions {
+  display: flex !important;
+  align-items: center !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  overflow: visible !important;
+}
+
+/* Fix for any potential display issues in dark mode */
+.dark .theme-toggle-button {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.light .theme-toggle-button {
+  background-color: rgba(15, 23, 42, 0.06) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Ensure icons inside toggle are visible */
+.theme-toggle-button svg,
+.theme-toggle-button .material-symbols-outlined {
+  display: block !important;
+  width: 20px !important;
+  height: 20px !important;
+  flex-shrink: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Hover state for better UX */
+.theme-toggle-button:hover {
+  transform: scale(1.05) !important;
+  box-shadow: 0 2px 8px rgba(242, 13, 13, 0.15) !important;
+}
+
+.theme-toggle-button:active {
+  transform: scale(0.95) !important;
+}
+
+/* Mobile touch target size */
+@media (max-width: 768px) {
+  .theme-toggle-button {
+    min-width: 44px !important;
+    min-height: 44px !important;
+  }
+}
+
+/* Fix for any parent with overflow:hidden */
+.overflow-hidden {
+  overflow: visible !important; /* Temporarily override for toggle container */
+}
+
+/* Specific fix if toggle is in a navbar */
+.navbar .theme-toggle-button {
+  display: inline-flex !important;
+  visibility: visible !important;
+}

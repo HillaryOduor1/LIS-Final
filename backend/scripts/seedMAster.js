@@ -25,8 +25,8 @@ const seedMaster = async () => {
       process.exit(0);
     }
 
-    // Create master user – Google OAuth will link by email on first login
-    // We only need the email; name and googleId will be added during OAuth.
+    // Create master user, Google OAuth will link by email on first login
+    // i only need the email; name and googleId will be added during OAuth.
     await MasterUser.create({
       email: masterEmail,
       name: 'Super Admin',

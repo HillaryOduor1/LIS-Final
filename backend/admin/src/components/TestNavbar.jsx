@@ -10,7 +10,7 @@ export default function TestNavbar({ activeTab, setActiveTab }) {
             top: 0,
             zIndex: 1000
         }}>
-            <h2>🔴 TEST NAVBAR - If you see this, the changes are working! 🔴</h2>
+            <h2>TEST NAVBAR - If you see this, the changes are working!</h2>
             <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
                 {['overview', 'content', 'settings', 'users', 'activity'].map(tab => (
                     <button

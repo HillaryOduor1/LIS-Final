@@ -38,4 +38,4 @@ export const auditLogCleanupJob = async () => {
   }
 };
 
-// Schedule: run daily at 2 AM
+// Schedule: run daily at specific time

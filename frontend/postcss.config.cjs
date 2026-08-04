@@ -4,11 +4,3 @@ module.exports = {
     require('autoprefixer')
   ]
 }
-
-/*module.exports = {
-  plugins: {
-    //"@tailwindcss/postcss": {},
-    tailwindcss: {},
-    autoprefixer: {},
-  },
-};*/
