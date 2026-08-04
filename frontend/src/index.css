@@ -435,3 +435,92 @@ section {
   display: inline-flex !important;
   visibility: visible !important;
 }
+
+/* Add these to your index.css for better ES5 sidebar support */
+
+/* Sidebar ES5 Fallbacks */
+.sidebar-solid-fallback {
+  background-color: #ffffff !important;
+}
+.dark .sidebar-solid-fallback {
+  background-color: #123524 !important;
+}
+
+/* Ensure sidebar content is visible */
+.sidebar-solid-fallback * {
+  color: inherit !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Force sidebar items to be visible in all browsers */
+.sidebar-link {
+  display: flex !important;
+  align-items: center !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: #0d1b14 !important;
+}
+
+.dark .sidebar-link {
+  color: #ffffff !important;
+}
+
+/* Ensure theme toggle is always visible - Enhanced */
+.theme-toggle-button {
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 100 !important;
+  min-width: 2.75rem !important;
+  min-height: 2.75rem !important;
+  flex-shrink: 0 !important;
+  pointer-events: auto !important;
+  cursor: pointer !important;
+}
+
+.theme-toggle-button svg {
+  display: block !important;
+  width: 20px !important;
+  height: 20px !important;
+  flex-shrink: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Mobile touch target */
+@media (max-width: 768px) {
+  .theme-toggle-button {
+    min-width: 44px !important;
+    min-height: 44px !important;
+  }
+}
+
+/* ES5 direct visibility classes */
+.block-visible {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.flex-visible {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.inline-flex-visible {
+  display: inline-flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Footer mobile improvements */
+@media (max-width: 640px) {
+  .footer-social-links {
+    justify-content: center !important;
+  }
+  .footer-contact-item {
+    justify-content: center !important;
+  }
+}

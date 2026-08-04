@@ -4,12 +4,116 @@ import { useTheme } from "./theme-provider";
 
 type Theme = "light" | "dark";
 
+export function ThemeToggle() {
+  var themeContext = useTheme();
+  var theme = themeContext.theme as Theme;
+  var setTheme = themeContext.setTheme as (theme: Theme) => void;
+  
+  var [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(function() {
+    setMounted(true);
+  }, []);
+
+  function handleThemeToggle() {
+    var newTheme: Theme = theme === "light" ? "dark" : "light";
+    
+    try {
+      setTheme(newTheme);
+      localStorage.setItem("theme", newTheme);
+      
+      var root = document.documentElement;
+      root.classList.remove("light", "dark");
+      root.classList.add(newTheme);
+      root.setAttribute("data-theme", newTheme);
+      
+    } catch (e) {
+      document.documentElement.className = newTheme;
+    }
+  }
+
+  var isDark = theme === "dark";
+
+  var buttonStyle: React.CSSProperties = {
+    width: "2.75rem",
+    height: "2.75rem",
+    padding: 0,
+    borderRadius: "9999px",
+    border: isDark ? "1px solid rgba(255, 255, 255, 0.15)" : "1px solid rgba(0, 0, 0, 0.1)",
+    cursor: "pointer",
+    display: "inline-flex",
+    alignItems: "center",
+    justifyContent: "center",
+    transition: "all 0.2s ease",
+    backgroundColor: isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(15, 23, 42, 0.06)",
+    color: isDark ? "#e5e7eb" : "#0f172a",
+    visibility: "visible",
+    opacity: 1,
+    position: "relative",
+    zIndex: 50,
+    flexShrink: 0,
+    flexGrow: 0,
+    overflow: "visible",
+    boxShadow: isDark ? "0 2px 8px rgba(0,0,0,0.2)" : "0 2px 8px rgba(0,0,0,0.06)"
+  };
+
+  var iconProps = {
+    className: "h-5 w-5",
+    color: isDark ? "#e5e7eb" : "#0f172a",
+    style: { 
+      color: isDark ? "#e5e7eb" : "#0f172a",
+      width: "20px",
+      height: "20px",
+      display: "block"
+    }
+  };
+
+  if (!mounted) {
+    return null;
+  }
+
+  return React.createElement(
+    "button",
+    {
+      onClick: handleThemeToggle,
+      className: "theme-toggle-button",
+      style: buttonStyle,
+      title: "Switch to " + (isDark ? "light" : "dark") + " mode",
+      "aria-label": "Switch to " + (isDark ? "light" : "dark") + " mode",
+      onMouseEnter: function(e: React.MouseEvent<HTMLButtonElement>) {
+        e.currentTarget.style.backgroundColor = isDark ? "rgba(255, 255, 255, 0.15)" : "rgba(15, 23, 42, 0.12)";
+        e.currentTarget.style.transform = "scale(1.05)";
+        e.currentTarget.style.boxShadow = isDark ? "0 4px 12px rgba(0,0,0,0.3)" : "0 4px 12px rgba(0,0,0,0.1)";
+      },
+      onMouseLeave: function(e: React.MouseEvent<HTMLButtonElement>) {
+        e.currentTarget.style.backgroundColor = isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(15, 23, 42, 0.06)";
+        e.currentTarget.style.transform = "scale(1)";
+        e.currentTarget.style.boxShadow = isDark ? "0 2px 8px rgba(0,0,0,0.2)" : "0 2px 8px rgba(0,0,0,0.06)";
+      },
+      onMouseDown: function(e: React.MouseEvent<HTMLButtonElement>) {
+        e.currentTarget.style.transform = "scale(0.95)";
+      },
+      onMouseUp: function(e: React.MouseEvent<HTMLButtonElement>) {
+        e.currentTarget.style.transform = "scale(1)";
+      }
+    },
+    isDark
+      ? React.createElement(Sun, iconProps)
+      : React.createElement(Moon, iconProps)
+  );
+}
+/*import * as React from "react";
+import { Moon, Sun } from "./icons";
+import { useTheme } from "./theme-provider";
+
+type Theme = "light" | "dark";
+
 /*interface IconProps {
   className?: string;
   color?: string;
   width?: number;
   height?: number;
-}*/
+}/
 
 export function ThemeToggle() {
   const themeContext = useTheme();
@@ -140,4 +244,4 @@ export function ThemeToggle() {
       ? React.createElement(Sun, iconProps)
       : React.createElement(Moon, iconProps)
   );
-}
+}*/
